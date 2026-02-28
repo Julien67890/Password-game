@@ -64,10 +64,12 @@
       <!-- Durée de la manche -->
       <div class="setup-section setup-row">
         <label class="setup-label">Durée de la manche</label>
-        <div class="timer-options">
+        <div class="timer-options" style="flex-wrap:wrap;gap:.3rem;">
           <button class="timer-btn active" data-duration="30">30s</button>
           <button class="timer-btn" data-duration="60">1 min</button>
           <button class="timer-btn" data-duration="120">2 min</button>
+          <button class="timer-btn" data-duration="180">3 min</button>
+          <button class="timer-btn" data-duration="300">5 min</button>
         </div>
       </div>
 
@@ -133,17 +135,16 @@
 
     <!-- ─── MODE GUESSER : l'IA donne l'indice, je devine ─── -->
     <div class="input-zone" id="zone-guesser">
-      <!-- Bulle indice IA -->
       <div class="ia-bubble" id="ia-clue-display">
         <span class="ia-avatar">🤖</span>
         <span id="ia-clue-text">En attente d'indice…</span>
       </div>
-      <!-- Saisie réponse -->
       <div class="input-row">
         <input type="text" id="input-guess" class="game-input" placeholder="Ta réponse…" autocomplete="off" spellcheck="false" />
-        <button class="btn-submit" id="btn-guess">✓</button>
-        <button class="btn-mic hidden" id="btn-mic-guess" title="Parle !">🎙️</button>
+        <button class="btn-submit" id="btn-guess" title="Valider">✓</button>
       </div>
+      <!-- Indicateur vocal discret sous l'input -->
+      <div class="voice-status-bar hidden" id="voice-bar-guess">🎙️ Écoute en cours…</div>
       <div class="action-row">
         <button class="btn-secondary" id="btn-next-clue">Indice suivant 🔮</button>
         <button class="btn-pass" id="btn-pass-guesser">Passer ⏭</button>
@@ -153,7 +154,6 @@
     <!-- ─── MODE HINTER : je donne l'indice, l'IA devine ─── -->
     <div class="input-zone hidden" id="zone-hinter">
       <p class="zone-instruction">Donne un <strong>seul mot-indice</strong> à l'IA !</p>
-      <!-- IA guess display -->
       <div class="ia-guess-panel" id="ia-guess-panel">
         <div class="ia-guess-label">🤖 L'IA propose :</div>
         <div class="ia-guess-word" id="ia-guess-word">—</div>
@@ -161,9 +161,9 @@
       </div>
       <div class="input-row">
         <input type="text" id="input-hint" class="game-input" placeholder="Ton indice (1 mot)…" autocomplete="off" spellcheck="false" />
-        <button class="btn-submit" id="btn-hint">→</button>
-        <button class="btn-mic hidden" id="btn-mic-hint" title="Parle !">🎙️</button>
+        <button class="btn-submit" id="btn-hint" title="Envoyer">→</button>
       </div>
+      <div class="voice-status-bar hidden" id="voice-bar-hint">🎙️ Écoute en cours…</div>
       <div class="action-row">
         <button class="btn-pass" id="btn-pass-hinter">Passer ⏭</button>
       </div>

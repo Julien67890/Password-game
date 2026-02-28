@@ -602,7 +602,7 @@ const zoneGuesserEl  = $('zone-guesser');
 const iaClueTextEl   = $('ia-clue-text');
 const inputGuessEl   = $('input-guess');
 const btnGuessEl     = $('btn-guess');
-const btnMicGuessEl  = $('btn-mic-guess');
+const voiceBarGuess  = $('voice-bar-guess');
 const btnNextClueEl  = $('btn-next-clue');
 const btnPassGuesserEl=$('btn-pass-guesser');
 
@@ -613,7 +613,7 @@ const iaGuessWordEl  = $('ia-guess-word');
 const iaGuessTempEl  = $('ia-guess-temp');
 const inputHintEl    = $('input-hint');
 const btnHintEl      = $('btn-hint');
-const btnMicHintEl   = $('btn-mic-hint');
+const voiceBarHint   = $('voice-bar-hint');
 const btnPassHinterEl= $('btn-pass-hinter');
 
 // Result
@@ -764,7 +764,8 @@ function buildThemeGrid() {
 }
 
 function selectTheme(key, btn) {
-  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+  // Cibler uniquement les boutons dans le thème-grid
+  themeGridEl.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   STATE.themeKey = key;
 }
@@ -797,8 +798,12 @@ function bindEvents() {
 
   voiceToggle.addEventListener('change', () => {
     STATE.voiceEnabled = voiceToggle.checked;
-    STATE.autoListen = voiceToggle.checked;
-    [btnMicGuessEl, btnMicHintEl].forEach(b => b.classList.toggle('hidden', !STATE.voiceEnabled));
+    STATE.autoListen   = voiceToggle.checked;
+    // Indiquer visuellement que le vocal est actif sur les boutons submit
+    btnGuessEl.classList.toggle('voice-active', STATE.voiceEnabled);
+    btnHintEl.classList.toggle('voice-active', STATE.voiceEnabled);
+    btnGuessEl.textContent = STATE.voiceEnabled ? '🎙️' : '✓';
+    btnHintEl.textContent  = STATE.voiceEnabled ? '🎙️' : '→';
   });
 
   btnStartEl.addEventListener('click', startGame);
@@ -812,17 +817,11 @@ function bindEvents() {
   inputGuessEl.addEventListener('keydown', e => e.key==='Enter' && handleGuess());
   btnNextClueEl.addEventListener('click', giveNextClue);
   btnPassGuesserEl.addEventListener('click', passWord);
-  btnMicGuessEl.addEventListener('click', () => startVoiceRecognition(word => {
-    inputGuessEl.value = word; handleGuess();
-  }));
 
   // Hinter
   btnHintEl.addEventListener('click', handleHint);
   inputHintEl.addEventListener('keydown', e => e.key==='Enter' && handleHint());
   btnPassHinterEl.addEventListener('click', passWord);
-  btnMicHintEl.addEventListener('click', () => startVoiceRecognition(word => {
-    inputHintEl.value = word; handleHint();
-  }));
 
   // Voice overlay
   btnStopVoice.addEventListener('click', hideVoiceOverlay);
@@ -1024,9 +1023,11 @@ function giveNextClue() {
 
   // Mode vocal : relancer l'écoute automatiquement
   if (STATE.voiceEnabled && STATE.autoListen) {
+    if (voiceBarGuess) voiceBarGuess.classList.remove('hidden');
     setTimeout(() => startVoiceRecognition(word => {
+      if (voiceBarGuess) voiceBarGuess.classList.add('hidden');
       inputGuessEl.value = word; handleGuess();
-    }), 400);
+    }), 500);
   }
 }
 
@@ -1098,7 +1099,11 @@ function handleHint() {
       iaGuessTempEl.textContent = `🌡️ ${temp} — ${msg}`;
       // Mode vocal : relancer l'écoute automatiquement pour l'indice suivant
       if (STATE.voiceEnabled && STATE.autoListen) {
-        setTimeout(() => startVoiceRecognition(word => { inputHintEl.value = word; handleHint(); }), 900);
+        if (voiceBarHint) voiceBarHint.classList.remove('hidden');
+        setTimeout(() => startVoiceRecognition(word => {
+          if (voiceBarHint) voiceBarHint.classList.add('hidden');
+          inputHintEl.value = word; handleHint();
+        }), 900);
       }
     }
   }, 600);
