@@ -633,11 +633,7 @@ const btnHomeResultEl= $('btn-home-result');
 const btnHomeEl      = $('btn-home');
 const btnSwapEl      = $('btn-swap');
 
-// Voice overlay
-const voiceOverlay   = $('voice-overlay');
-const voiceStatus    = $('voice-status');
-const voiceInterim   = $('voice-interim');
-const btnStopVoice   = $('btn-stop-voice');
+// Voice overlay supprimé — indicateur dans le bouton mic uniquement
 
 // Toast
 const toastEl        = $('toast');
@@ -876,8 +872,7 @@ function bindEvents() {
     listenOnce(word => { handleHintWord(word); });
   });
 
-  // Voice overlay
-  btnStopVoice.addEventListener('click', hideVoiceOverlay);
+  // Voice overlay supprimé
 }
 
 function selectRole(role) {
