@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mot de Passe — Défie l'IA !</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════ ÉCRAN ACCUEIL ══ -->
+<div id="screen-home" class="screen active">
+  <div class="home-bg"></div>
+  <div class="home-content">
+
+    <div class="logo-wrap">
+      <div class="logo-badge">🔐</div>
+      <h1 class="logo-title">MOT DE PASSE</h1>
+      <p class="logo-sub">Le jeu des indices · IA édition</p>
+    </div>
+
+    <div class="setup-card">
+
+      <!-- Scores persistants -->
+      <div class="score-banner">
+        <span>🏆 Record : <strong id="best-score">0</strong></span>
+        <span>🎯 Parties : <strong id="total-games">0</strong></span>
+      </div>
+
+      <!-- Rôle -->
+      <div class="setup-section">
+        <label class="setup-label">Ton rôle dans la manche</label>
+        <div class="role-toggle">
+          <button class="role-btn active" data-role="guesser" id="btn-guesser">
+            <span class="role-icon">🧠</span>
+            <span class="role-name">Je devine</span>
+            <span class="role-desc">L'IA me donne des indices</span>
+          </button>
+          <button class="role-btn" data-role="hinter" id="btn-hinter">
+            <span class="role-icon">💡</span>
+            <span class="role-name">Je fais deviner</span>
+            <span class="role-desc">Je donne des indices à l'IA</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Thème -->
+      <div class="setup-section">
+        <label class="setup-label">Thème</label>
+        <div class="theme-grid" id="theme-grid"></div>
+      </div>
+
+      <!-- Mots par manche -->
+      <div class="setup-section setup-row">
+        <label class="setup-label">Mots par manche</label>
+        <div class="timer-options">
+          <button class="timer-btn" data-words="3">3</button>
+          <button class="timer-btn active" data-words="5">5</button>
+          <button class="timer-btn" data-words="7">7</button>
+        </div>
+      </div>
+
+      <!-- Durée de la manche -->
+      <div class="setup-section setup-row">
+        <label class="setup-label">Durée de la manche</label>
+        <div class="timer-options" style="flex-wrap:wrap;gap:.3rem;">
+          <button class="timer-btn active" data-duration="30">30s</button>
+          <button class="timer-btn" data-duration="60">1 min</button>
+          <button class="timer-btn" data-duration="120">2 min</button>
+          <button class="timer-btn" data-duration="180">3 min</button>
+          <button class="timer-btn" data-duration="300">5 min</button>
+        </div>
+      </div>
+
+      <!-- Mode vocal -->
+      <div class="setup-section setup-row">
+        <label class="setup-label">Mode vocal 🎙️ <span class="voice-badge" id="voice-support-badge"></span></label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="voice-toggle" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <button class="btn-start" id="btn-start">C'est parti ! 🚀</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ ÉCRAN JEU ══ -->
+<div id="screen-game" class="screen">
+
+  <!-- Header -->
+  <header class="game-header">
+    <button class="btn-icon" id="btn-home" title="Accueil">🏠</button>
+    <div class="header-center">
+      <div class="header-theme" id="header-theme"></div>
+      <div class="header-score">
+        <span id="manche-label">Manche 1</span> ·
+        Score : <strong id="live-score">0</strong>
+        <span class="streak" id="streak-badge"></span>
+      </div>
+    </div>
+    <button class="btn-icon" id="btn-swap" title="Inverser les rôles">🔄</button>
+  </header>
+
+  <!-- Barre de progression des mots -->
+  <div class="word-progress" id="word-progress">
+    <!-- pastilles générées par JS -->
+  </div>
+
+  <!-- Chrono MANCHE (30s fixe) -->
+  <div class="timer-bar-wrap" id="timer-bar-wrap">
+    <div class="timer-bar" id="timer-bar"></div>
+    <span class="timer-text" id="timer-text">30</span>
+  </div>
+
+  <!-- Zone principale -->
+  <main class="game-main">
+
+    <!-- Mot secret courant -->
+    <div class="secret-card" id="secret-card">
+      <div class="secret-meta" id="secret-meta"></div>
+      <div class="secret-word" id="secret-word">???</div>
+      <div class="secret-hint" id="secret-role-hint"></div>
+    </div>
+
+    <!-- File d'attente : mots restants / passés -->
+    <div class="queue-bar" id="queue-bar"></div>
+
+    <!-- Historique indices du MOT COURANT -->
+    <div class="history-wrap">
+      <div class="history" id="history"></div>
+    </div>
+
+    <!-- ─── MODE GUESSER : l'IA donne l'indice, je devine ─── -->
+    <div class="input-zone" id="zone-guesser">
+      <div class="ia-bubble" id="ia-clue-display">
+        <span class="ia-avatar">🤖</span>
+        <span id="ia-clue-text">En attente d'indice…</span>
+      </div>
+      <div class="input-row">
+        <input type="text" id="input-guess" class="game-input" placeholder="Ta réponse…" autocomplete="off" spellcheck="false" />
+        <button class="btn-submit" id="btn-guess" title="Valider">✓</button>
+      </div>
+      <!-- Indicateur vocal discret sous l'input -->
+      <div class="voice-status-bar hidden" id="voice-bar-guess">🎙️ Écoute en cours…</div>
+      <div class="action-row">
+        <button class="btn-secondary" id="btn-next-clue">Indice suivant 🔮</button>
+        <button class="btn-pass" id="btn-pass-guesser">Passer ⏭</button>
+      </div>
+    </div>
+
+    <!-- ─── MODE HINTER : je donne l'indice, l'IA devine ─── -->
+    <div class="input-zone hidden" id="zone-hinter">
+      <p class="zone-instruction">Donne un <strong>seul mot-indice</strong> à l'IA !</p>
+      <div class="ia-guess-panel" id="ia-guess-panel">
+        <div class="ia-guess-label">🤖 L'IA propose :</div>
+        <div class="ia-guess-word" id="ia-guess-word">—</div>
+        <div class="ia-guess-temp" id="ia-guess-temp"></div>
+      </div>
+      <div class="input-row">
+        <input type="text" id="input-hint" class="game-input" placeholder="Ton indice (1 mot)…" autocomplete="off" spellcheck="false" />
+        <button class="btn-submit" id="btn-hint" title="Envoyer">→</button>
+      </div>
+      <div class="voice-status-bar hidden" id="voice-bar-hint">🎙️ Écoute en cours…</div>
+      <div class="action-row">
+        <button class="btn-pass" id="btn-pass-hinter">Passer ⏭</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══════════════════════════════════ ÉCRAN FIN DE MANCHE ══ -->
+<div id="screen-result" class="screen">
+  <div class="result-content">
+    <div class="result-emoji" id="result-emoji">🎉</div>
+    <h2 class="result-title" id="result-title">Manche terminée !</h2>
+    <p class="result-subtitle" id="result-subtitle"></p>
+
+    <!-- Récap mots -->
+    <div class="result-words" id="result-words"></div>
+
+    <div class="result-stats">
+      <div class="stat-pill">Score total <strong id="res-score">0</strong></div>
+      <div class="stat-pill">Trouvés <strong id="res-found">0</strong>/5</div>
+      <div class="stat-pill">Série <strong id="res-streak">0</strong> 🔥</div>
+    </div>
+    <div class="result-actions">
+      <button class="btn-primary" id="btn-next-manche">Manche suivante ▶</button>
+      <button class="btn-ghost" id="btn-home-result">Menu 🏠</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast global -->
+<div id="toast"></div>
+
+<!-- Overlay micro -->
+<div id="voice-overlay" class="hidden">
+  <div class="voice-modal">
+    <div class="voice-wave">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <p id="voice-status">Parle maintenant…</p>
+    <p id="voice-interim" class="voice-interim"></p>
+    <button id="btn-stop-voice" class="btn-ghost">Annuler</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
