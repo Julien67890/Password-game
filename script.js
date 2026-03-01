@@ -176,35 +176,36 @@ Quel mot satisfait le mieux TOUS ces indices combinés ?`;
 
 // Mode GUESSER : l'IA génère un indice pour faire deviner
 async function groqGiveClue(secretWord, themeKey, givenClues, wrongGuesses) {
-  const sys = `Tu joues au jeu "Mot de Passe". Tu dois faire deviner un mot secret en donnant des indices UN PAR UN.
+  const sys = `Tu es expert du jeu "Mot de Passe". Tu dois faire deviner un mot en donnant des indices précis et utiles.
 
-PRINCIPE CLEF : chaque indice seul ne doit pas suffire à trouver le mot. C'est l'accumulation des indices qui converge vers la réponse.
-- Indice 1 : large, évoque une caractéristique générale du mot
-- Indice 2 : croisé avec l'indice 1, réduit les possibilités
-- Indice 3 : croisé avec les précédents, pointe encore plus précisément
+PRINCIPE : les indices doivent se cumuler pour converger vers le mot. Chaque indice réduit les possibilités.
+Exemple CIGOGNE : "oiseau" → "migration" → "bébé" → "alsace" → "long-bec"
+Exemple PARIS : "capitale" → "france" → "seine" → "tour-eiffel"
+Exemple CHOCOLAT : "cacao" → "sucre" → "fondre" → "tablette"
 
-Exemple pour PARIS : indice 1 = "capitale", indice 2 = "France", indice 3 = "Seine"
-Exemple pour LION : indice 1 = "savane", indice 2 = "crinière", indice 3 = "rugir"
+RÈGLES ABSOLUES :
+- Réponds avec UN SEUL MOT en minuscules (jamais deux mots, jamais une phrase)
+- INTERDIT : le mot secret lui-même ou un dérivé (ex: pour CIGOGNE → interdit "cigognes")
+- INTERDIT : un synonyme exact
+- Préfère des indices spécifiques et caractéristiques plutôt que génériques
+- Évite les mots vagues comme "animal", "objet", "forme", "usage", "couleur", "chose"
+- Chaque indice doit être DIFFÉRENT des précédents`;
 
-RÈGLES STRICTES :
-- UN SEUL mot en minuscules
-- Jamais le mot secret lui-même ni un mot de la même famille
-- Jamais un synonyme direct
-- Différent des indices déjà donnés
-- Si le joueur s'est trompé, donne un indice qui écarte clairement ses erreurs`;
+  const prev  = givenClues.length
+    ? `Indices déjà donnés (${givenClues.length}) : ${givenClues.map(h=>`"${h}"`).join(', ')}.`
+    : 'Premier indice — commence par le plus évocateur.';
+  const wrong = wrongGuesses.length
+    ? `Le joueur a répondu à tort : ${wrongGuesses.slice(-3).map(w=>`"${w}"`).join(', ')}. Donne un indice qui écarte ces erreurs.`
+    : '';
 
-  const prev  = givenClues.length ? `Indices déjà donnés : ${givenClues.map((h,i)=>`"${h}"`).join(', ')}.` : 'Aucun indice donné encore.';
-  const wrong = wrongGuesses.length ? `Le joueur a proposé à tort : ${wrongGuesses.slice(-3).map(w=>`"${w}"`).join(', ')}. Donne un indice qui écarte ces erreurs.` : '';
-  const num   = givenClues.length + 1;
-
-  const usr = `Mot secret : "${secretWord}" (thème : ${themeKey}).
+  const usr = `Mot secret à faire deviner : "${secretWord}" (thème : ${themeKey}).
 ${prev}
 ${wrong}
-Donne l'indice n°${num} (un seul mot) :`;
+Indice n°${givenClues.length + 1} (un seul mot concret et spécifique) :`;
 
   const ans = await groqAsk(sys, usr, 15);
   if (!ans) return null;
-  return ans.toLowerCase().trim().split(/[\s,\.!?]+/)[0];
+  return ans.toLowerCase().trim().split(/[\s,\.!?\"]+/)[0];
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -297,10 +298,10 @@ const headerThemeEl=$('header-theme'), liveScoreEl=$('live-score');
 const mancheLabelEl=$('manche-label'), streakBadgeEl=$('streak-badge');
 const wordProgressEl=$('word-progress'), timerBarEl=$('timer-bar');
 const timerTextEl=$('timer-text'), timerWrap=$('timer-bar-wrap');
-const secretWordEl=$('secret-word'), secretMetaEl=$('secret-meta');
+const secretWordEl=$('secret-word'), secretMetaEl=$('secret-meta'), secretThemeEl=$('secret-theme');
 const historyEl=$('history'), queueBarEl=$('queue-bar');
 const zoneGuesserEl=$('zone-guesser');
-const iaClueThemeEl=$('ia-clue-theme'), iaClueTextEl=$('ia-clue-text');
+const iaClueTextEl=$('ia-clue-text');
 const inputGuessEl=$('input-guess'), btnGuessEl=$('btn-guess');
 const btnMicGuessEl=$('btn-mic-guess'), btnNextClueEl=$('btn-next-clue');
 const btnPassGuesserEl=$('btn-pass-guesser');
@@ -481,7 +482,7 @@ function loadCurrentWord(){
   STATE.iaGuesses=[];STATE.hinterHints=[];STATE.guesserWrongGuesses=[];STATE.givenClues=[];
   STATE.gameOver=false;STATE.iaThinking=false;
   historyEl.innerHTML='';
-  if(iaClueThemeEl) iaClueThemeEl.textContent=STATE.resolvedTheme;
+  if(secretThemeEl) secretThemeEl.textContent=STATE.resolvedTheme;
   iaClueTextEl.textContent='L\'IA prépare un indice…';
   iaGuessWordEl.textContent='—';iaGuessWordEl.classList.remove('found');iaGuessTempEl.textContent='';
   inputGuessEl.value='';inputHintEl.value='';
@@ -516,9 +517,19 @@ async function giveNextClue(){
   );
   STATE.iaThinking=false;btnNextClueEl.disabled=false;
 
-  const finalClue=(!clue||isClueInvalid(clue,STATE.currentWordName))
-    ?['nature','forme','usage','couleur','taille','matière'][STATE.clueIndex%6]
-    :clue;
+  let finalClue = clue;
+  if (!clue || isClueInvalid(clue, STATE.currentWordName)) {
+    // Retry avec prompt ultra-simple
+    const retry = await groqAsk(
+      `Donne UN seul mot-indice pour faire deviner "${STATE.currentWordName}". Un mot précis, pas le mot lui-même. Réponds uniquement avec ce mot en minuscules.`,
+      `Indice pour "${STATE.currentWordName}" (thème ${STATE.resolvedTheme}) :`,
+      10
+    );
+    finalClue = (retry && !isClueInvalid(retry.trim().split(/\s+/)[0], STATE.currentWordName))
+      ? retry.trim().split(/\s+/)[0].toLowerCase()
+      : null;
+  }
+  if (!finalClue) { showToast('⚠️ Groq indisponible, réessaie', 2000); STATE.iaThinking=false; btnNextClueEl.disabled=false; return; }
 
   STATE.clueIndex++;STATE.wordClueCount++;STATE.givenClues.push(finalClue);
   iaClueTextEl.innerHTML=`<span class="ia-clue-theme">${STATE.resolvedTheme}</span>Indice n°${STATE.clueIndex} : <span class="ia-clue-word">${finalClue.toUpperCase()}</span>`;

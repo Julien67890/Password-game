@@ -121,6 +121,7 @@
     <!-- Mot secret courant -->
     <div class="secret-card" id="secret-card">
       <div class="secret-meta" id="secret-meta"></div>
+      <div class="secret-theme" id="secret-theme"></div>
       <div class="secret-word" id="secret-word">???</div>
       <div class="secret-hint" id="secret-role-hint"></div>
     </div>
@@ -137,10 +138,7 @@
     <div class="input-zone" id="zone-guesser">
       <div class="ia-bubble" id="ia-clue-display">
         <span class="ia-avatar">🤖</span>
-        <div style="display:flex;flex-direction:column;gap:.2rem;flex:1">
-          <span id="ia-clue-theme" style="font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase"></span>
-          <span id="ia-clue-text">En attente d'indice…</span>
-        </div>
+        <span id="ia-clue-text">En attente d'indice…</span>
       </div>
       <div class="input-row">
         <input type="text" id="input-guess" class="game-input" placeholder="Ta réponse…" autocomplete="off" spellcheck="false" />
