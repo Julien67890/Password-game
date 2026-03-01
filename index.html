@@ -4,6 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mot de Passe — Défie l'IA !</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="Jeu d'association d'idées avec IA locale. 100% offline !" />
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Mot de Passe" />
+  
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="manifest.json" />
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
@@ -199,5 +215,16 @@
 <!-- Pas d'overlay vocal -->
 
 <script src="script.js"></script>
+
+<!-- Service Worker pour PWA (mode offline) -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('✅ Service Worker enregistré, scope:', reg.scope))
+      .catch(err => console.log('❌ Service Worker échoué:', err));
+  });
+}
+</script>
 </body>
 </html>

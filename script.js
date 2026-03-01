@@ -1,10 +1,18 @@
 /* ═══════════════════════════════════════════════════════════════
-   MOT DE PASSE v2 — Script principal
-   Nouvelles fonctionnalités :
+   MOT DE PASSE v3 — Version LOCALE AMÉLIORÉE (SANS API)
+   
+   ⚠️ IMPORTANT : Ce jeu fonctionne 100% LOCALEMENT
+   ✅ Aucune connexion internet requise
+   ✅ Aucune API externe (pas de Groq, pas d'OpenAI)
+   ✅ Système de scoring intelligent intégré
+   
+   Nouvelles fonctionnalités v3 :
+   • 12 associations par mot (vs 6 avant) pour plus de précision
+   • Système de scoring amélioré (échelle 0-20)
+   • Mode vocal activé par défaut
    • Manches de 30s avec 5 mots, règle "passe et reviens"
-   • 10 thèmes × ~100 mots (stockés en petits objets légers)
-   • Mode vocal (Web Speech API)
-   • Affichage du mot proposé par l'IA en mode hinter
+   • 10 thèmes × ~100 mots (stockés en objets légers)
+   • Tout fonctionne offline !
    ═══════════════════════════════════════════════════════════════ */
 
 // ══════════════════════════════════════════════════════════════════
@@ -1250,8 +1258,17 @@ function wordFound() {
 function passWord() {
   if (STATE.gameOver || STATE.mancheOver) return;
   STATE.gameOver = true;
+  stopListening();
+  
   const wordName = STATE.currentWordName;
   showToast(rand('PASSED'), 1500);
+  
+  // ✅ CORRECTION v4: Marquer explicitement comme NON trouvé
+  STATE.mancheResults.push({ 
+    word: wordName, 
+    found: false,  // ← Important pour le comptage final !
+    clues: STATE.wordClueCount 
+  });
 
   // Déplacer de mancheQueue vers passedQueue
   const idx = STATE.mancheQueue.indexOf(wordName);
