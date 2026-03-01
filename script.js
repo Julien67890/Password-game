@@ -147,15 +147,27 @@ const ALL_THEME_KEYS = Object.keys(THEME_WORDS);
 async function groqGuessWord(hints, secretWord, themeKey, previousGuesses) {
   const candidates = THEME_WORDS[themeKey]
     .filter(w => !previousGuesses.includes(normalize(w)))
-    .slice(0, 35).join(', ');
+    .slice(0, 40).join(', ');
 
-  const sys = `Tu joues au jeu "Mot de Passe". Le joueur donne des indices un par un et tu dois deviner le mot secret.
-Thème : ${themeKey}.
-Réponds UNIQUEMENT avec le mot exact (majuscules, sans explication, sans ponctuation).`;
+  const sys = `Tu joues au jeu "Mot de Passe". Tu dois deviner un mot secret à partir d'indices donnés un par un.
 
-  const usr = `Indices reçus : ${hints.join(', ')}.
-Mots possibles dans ce thème : ${candidates}.
-Quel est le mot secret ?`;
+RÈGLE FONDAMENTALE : chaque indice pris SEUL ne suffit pas à trouver le mot. C'est l'INTERSECTION de TOUS les indices ensemble qui pointe vers le mot secret.
+
+Exemple : indices = ["capitale", "France"] → le seul mot qui est À LA FOIS une capitale ET en France = PARIS.
+Exemple : indices = ["savane", "crinière", "rugir"] → le seul animal qui cumule ces 3 caractéristiques = LION.
+
+Méthode :
+1. Pour chaque mot candidat, vérifie s'il correspond à TOUS les indices simultanément
+2. Le bon mot est celui qui satisfait le plus grand nombre d'indices
+3. Réponds UNIQUEMENT avec le mot exact, en majuscules, sans explication
+
+Thème : ${themeKey}`;
+
+  const usr = `Indices reçus (à croiser ensemble) : ${hints.map((h,i)=>`${i+1}. "${h}"`).join(', ')}
+
+Mots candidats dans ce thème : ${candidates}
+
+Quel mot satisfait le mieux TOUS ces indices combinés ?`;
 
   const ans = await groqAsk(sys, usr, 20);
   if (!ans) return null;
@@ -164,20 +176,31 @@ Quel est le mot secret ?`;
 
 // Mode GUESSER : l'IA génère un indice pour faire deviner
 async function groqGiveClue(secretWord, themeKey, givenClues, wrongGuesses) {
-  const sys = `Tu joues au jeu "Mot de Passe". Tu dois faire deviner un mot en donnant UN seul mot-indice.
-Règles STRICTES :
-- Réponds avec UN SEUL MOT en minuscules
-- Interdit : le mot secret lui-même, un mot de la même famille, un synonyme direct
-- Chaque indice doit être différent des précédents
-- Si le joueur s'est trompé, donne un indice qui écarte ses erreurs`;
+  const sys = `Tu joues au jeu "Mot de Passe". Tu dois faire deviner un mot secret en donnant des indices UN PAR UN.
 
-  const wrong = wrongGuesses.length ? `Le joueur a proposé à tort : ${wrongGuesses.slice(-3).join(', ')}.` : '';
-  const prev  = givenClues.length   ? `Indices déjà donnés : ${givenClues.join(', ')}.` : '';
+PRINCIPE CLEF : chaque indice seul ne doit pas suffire à trouver le mot. C'est l'accumulation des indices qui converge vers la réponse.
+- Indice 1 : large, évoque une caractéristique générale du mot
+- Indice 2 : croisé avec l'indice 1, réduit les possibilités
+- Indice 3 : croisé avec les précédents, pointe encore plus précisément
+
+Exemple pour PARIS : indice 1 = "capitale", indice 2 = "France", indice 3 = "Seine"
+Exemple pour LION : indice 1 = "savane", indice 2 = "crinière", indice 3 = "rugir"
+
+RÈGLES STRICTES :
+- UN SEUL mot en minuscules
+- Jamais le mot secret lui-même ni un mot de la même famille
+- Jamais un synonyme direct
+- Différent des indices déjà donnés
+- Si le joueur s'est trompé, donne un indice qui écarte clairement ses erreurs`;
+
+  const prev  = givenClues.length ? `Indices déjà donnés : ${givenClues.map((h,i)=>`"${h}"`).join(', ')}.` : 'Aucun indice donné encore.';
+  const wrong = wrongGuesses.length ? `Le joueur a proposé à tort : ${wrongGuesses.slice(-3).map(w=>`"${w}"`).join(', ')}. Donne un indice qui écarte ces erreurs.` : '';
+  const num   = givenClues.length + 1;
 
   const usr = `Mot secret : "${secretWord}" (thème : ${themeKey}).
 ${prev}
 ${wrong}
-Donne un nouveau mot-indice :`;
+Donne l'indice n°${num} (un seul mot) :`;
 
   const ans = await groqAsk(sys, usr, 15);
   if (!ans) return null;
