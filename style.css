@@ -255,8 +255,7 @@ body {
   background: radial-gradient(circle at 50% 0%, rgba(247,201,72,.08), transparent 70%);
   pointer-events: none;
 }
-.secret-meta { font-size: .65rem; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin-bottom: .2rem; }
-.secret-theme { font-size: .8rem; font-weight: 700; color: var(--accent2); letter-spacing: .08em; margin-bottom: .35rem; }
+.secret-meta { font-size: .65rem; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin-bottom: .4rem; }
 .secret-word {
   font-family: var(--font-title);
   font-size: clamp(2rem, 7vw, 3.2rem); letter-spacing: .06em;
@@ -320,12 +319,6 @@ body {
 .ia-avatar { font-size: 1.3rem; flex-shrink: 0; }
 #ia-clue-text { flex: 1; line-height: 1.5; }
 .ia-clue-word { color: var(--accent); font-weight: 700; font-size: 1.3em; }
-.ia-clue-theme {
-  display: block;
-  font-size: .7rem; font-weight: 600; letter-spacing: .08em;
-  color: var(--muted); text-transform: uppercase;
-  margin-bottom: .3rem;
-}
 
 /* IA guess panel (mode hinter) */
 .ia-guess-panel {
