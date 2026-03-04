@@ -667,6 +667,29 @@ W('sport,juge,sifflet,règle,match,football,décision,carton,impartial,officiel,
     W('sport,basketball,confiture,bloquer,basket,basketball,jam,block,basket,dunk,slam,stuff,powerful,rim,throw','M'), // JAM
   ],
 };
+// ══════════════════════════════════════════════════════════════════
+// 2. EXTRACTION DES NOMS DE THÈMES ET MOTS
+// ══════════════════════════════════════════════════════════════════
+
+const ALL_THEME_KEYS = Object.keys(THEMES_DATA);
+console.log('✅ Thèmes chargés:', ALL_THEME_KEYS);
+
+const THEME_WORDS = {};
+for (const theme of ALL_THEME_KEYS) {
+  THEME_WORDS[theme] = [];
+  const wordsArray = THEMES_DATA[theme];
+  
+  // Parser le code source pour extraire les noms depuis les commentaires // MOT
+  const sourceStr = wordsArray.toString();
+  const matches = sourceStr.matchAll(/\/\/\s*([A-ZÀÂÄÇÈÉÊËÎÏÔÙÛÜ-]+)\s*$/gm);
+  
+  for (const match of matches) {
+    THEME_WORDS[theme].push(match[1]);
+  }
+  
+  console.log(`✅ ${theme}: ${THEME_WORDS[theme].length} mots`);
+}
+
 
 
 // Récupère les données d'un mot
@@ -1149,6 +1172,7 @@ function buildThemeGrid() {
   themeGridEl.appendChild(allBtn);
   STATE.themeKey = '🎲 Aléatoire';
 
+  // Afficher tous les thèmes disponibles
   ALL_THEME_KEYS.forEach(key => {
     const btn = document.createElement('button');
     btn.className = 'theme-btn';
@@ -1242,23 +1266,34 @@ function selectRole(role) {
 // 9. DÉMARRAGE & MANCHE
 // ══════════════════════════════════════════════════════════════════
 
+
+function resolveTheme() {
+  let resolvedTheme = STATE.themeKey;
+  
+  // ✅ Si Aléatoire, choisir un thème au hasard parmi les 6 disponibles
+  if (resolvedTheme === '🎲 Aléatoire') {
+    const availableThemes = Object.keys(THEMES_DATA);
+    resolvedTheme = availableThemes[Math.floor(Math.random() * availableThemes.length)];
+    console.log('🎲 Thème aléatoire choisi:', resolvedTheme);
+  }
+  
+  STATE.resolvedTheme = resolvedTheme;
+  console.log('✅ Thème résolu:', STATE.resolvedTheme);
+}
+
 function startGame() {
   STATE.score   = 0;
   STATE.streak  = 0;
   STATE.mancheNum = 0;
 
-  // Résoudre le thème
-  let resolvedTheme = STATE.themeKey;
-  if (resolvedTheme === '🎲 Aléatoire') {
-    resolvedTheme = ALL_THEME_KEYS[Math.floor(Math.random() * ALL_THEME_KEYS.length)];
-  }
-  STATE.resolvedTheme = resolvedTheme;
+  // ✅ Résoudre le thème (gère l'aléatoire)
+  resolveTheme();
 
-  // Créer le pool de mots mélangés
-  STATE.wordPool = shuffle([...THEME_WORDS[resolvedTheme]]);
+  // ✅ Créer le pool de mots mélangés
+  STATE.wordPool = shuffle([...THEME_WORDS[STATE.resolvedTheme]]);
 
   showScreen('game');
-  headerThemeEl.textContent = resolvedTheme;
+  headerThemeEl.textContent = STATE.resolvedTheme;
   updateScoreUI();
   startNewManche();
 }
