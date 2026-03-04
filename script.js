@@ -1,21 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════
    MOT DE PASSE v5.0 — VERSION FINALE COMPLÈTE
-   
-   ✅ 6 thèmes × ~100 mots = 648 mots
-   ✅ 15 associations par mot = 9,720 associations
-   ✅ 100% LOCAL (aucune API)
-   ✅ Mode vocal activé par défaut
-   ✅ Randomisation complète
-   ✅ Bug comptage corrigé
-   ✅ PWA compatible
+   ✅ 6 thèmes + Aléatoire
+   ✅ 648 mots × 15 associations = 9,720 associations
+   ✅ 100% LOCAL - Mode vocal - PWA
    ═══════════════════════════════════════════════════════════════ */
 
-// Helper pour créer un mot avec 15 associations
 const W = (assocs, genre) => ({ assocs: assocs.split(','), genre });
-
-// ══════════════════════════════════════════════════════════════════
-// 1. DICTIONNAIRE COMPLET - 6 THÈMES
-// ══════════════════════════════════════════════════════════════════
 
 const THEMES_DATA = {
 
@@ -667,32 +657,7 @@ W('sport,juge,sifflet,règle,match,football,décision,carton,impartial,officiel,
     W('sport,basketball,confiture,bloquer,basket,basketball,jam,block,basket,dunk,slam,stuff,powerful,rim,throw','M'), // JAM
   ],
 };
-// ══════════════════════════════════════════════════════════════════
-// 2. EXTRACTION DES NOMS DE THÈMES ET MOTS
-// ══════════════════════════════════════════════════════════════════
 
-const ALL_THEME_KEYS = Object.keys(THEMES_DATA);
-console.log('✅ Thèmes chargés:', ALL_THEME_KEYS);
-
-const THEME_WORDS = {};
-for (const theme of ALL_THEME_KEYS) {
-  THEME_WORDS[theme] = [];
-  const wordsArray = THEMES_DATA[theme];
-  
-  // Parser le code source pour extraire les noms depuis les commentaires // MOT
-  const sourceStr = wordsArray.toString();
-  const matches = sourceStr.matchAll(/\/\/\s*([A-ZÀÂÄÇÈÉÊËÎÏÔÙÛÜ-]+)\s*$/gm);
-  
-  for (const match of matches) {
-    THEME_WORDS[theme].push(match[1]);
-  }
-  
-  console.log(`✅ ${theme}: ${THEME_WORDS[theme].length} mots`);
-}
-
-
-
-// Récupère les données d'un mot
 function getWordData(themeKey, wordName) {
   const idx = THEME_WORDS[themeKey].indexOf(wordName);
   if (idx === -1) return null;
@@ -1172,7 +1137,6 @@ function buildThemeGrid() {
   themeGridEl.appendChild(allBtn);
   STATE.themeKey = '🎲 Aléatoire';
 
-  // Afficher tous les thèmes disponibles
   ALL_THEME_KEYS.forEach(key => {
     const btn = document.createElement('button');
     btn.className = 'theme-btn';
@@ -1268,17 +1232,15 @@ function selectRole(role) {
 
 
 function resolveTheme() {
-  let resolvedTheme = STATE.themeKey;
+  let theme = STATE.themeKey;
   
-  // ✅ Si Aléatoire, choisir un thème au hasard parmi les 6 disponibles
-  if (resolvedTheme === '🎲 Aléatoire') {
-    const availableThemes = Object.keys(THEMES_DATA);
-    resolvedTheme = availableThemes[Math.floor(Math.random() * availableThemes.length)];
-    console.log('🎲 Thème aléatoire choisi:', resolvedTheme);
+  if (theme === '🎲 Aléatoire') {
+    const themes = Object.keys(THEMES_DATA);
+    theme = themes[Math.floor(Math.random() * themes.length)];
+    console.log('🎲 Thème aléatoire:', theme);
   }
   
-  STATE.resolvedTheme = resolvedTheme;
-  console.log('✅ Thème résolu:', STATE.resolvedTheme);
+  STATE.resolvedTheme = theme;
 }
 
 function startGame() {
@@ -1286,14 +1248,18 @@ function startGame() {
   STATE.streak  = 0;
   STATE.mancheNum = 0;
 
-  // ✅ Résoudre le thème (gère l'aléatoire)
-  resolveTheme();
+  // Résoudre le thème
+  let resolvedTheme = STATE.themeKey;
+  if (resolvedTheme === '🎲 Aléatoire') {
+    resolvedTheme = ALL_THEME_KEYS[Math.floor(Math.random() * ALL_THEME_KEYS.length)];
+  }
+  STATE.resolvedTheme = resolvedTheme;
 
-  // ✅ Créer le pool de mots mélangés
-  STATE.wordPool = shuffle([...THEME_WORDS[STATE.resolvedTheme]]);
+  // Créer le pool de mots mélangés
+  STATE.wordPool = shuffle([...THEME_WORDS[resolvedTheme]]);
 
   showScreen('game');
-  headerThemeEl.textContent = STATE.resolvedTheme;
+  headerThemeEl.textContent = resolvedTheme;
   updateScoreUI();
   startNewManche();
 }
@@ -1316,7 +1282,6 @@ function startNewManche() {
   if (STATE.wordPool.length < STATE.wordsPerManche) {
     STATE.wordPool = shuffle([...THEME_WORDS[STATE.resolvedTheme]]);
   }
-  // ✅ RANDOMISATION v5: Mélanger avant de prendre
   STATE.wordPool = shuffle(STATE.wordPool);
   STATE.mancheQueue = STATE.wordPool.splice(0, STATE.wordsPerManche);
 
@@ -1596,7 +1561,6 @@ function passWord() {
   const wordName = STATE.currentWordName;
   showToast(rand('PASSED'), 1500);
   
-  // ✅ BUG FIX v5: Marquer explicitement comme NON trouvé
   STATE.mancheResults.push({ 
     word: wordName, 
     found: false,
