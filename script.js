@@ -539,241 +539,124 @@ W('chimie,ph,corrosif,liquide,base,citrique,solution,sulfurique,laboratoire,brû
     W('géographie,région,climat,tempéré,tropique,geography,region,climate,temperate,tropical,区域,area,belt,地带,latitude','F'), // ZONE
   ],
 
-  '⚽ Sports & Loisirs': [
 
-W('autorité,terrain,décision,impartialité,sanction,carton,sifflet,litige,règle,officiel,contrôle,justice,discipline,match,gestion','M'), // ARBITRE
-
-W('piste,sprint,endurance,lancer,saut,olympique,chrono,record,médaille,stade,haies,décathlon,perche,marathon,athlète','M'), // ATHLÉTISME
-
-W('volant,filet,smash,rapide,raquette,asie,double,service,plume,court,échange,réflexe,indoor,tournoi,précision','M'), // BADMINTON
-
-W('rebond,sphère,gonflé,cuir,passe,tirer,marquer,équipe,jeu,terrain,air,contrôle,dribble,match,score','M'), // BALLON
-
-W('batte,base,diamond,lancer,homerun,gant,manche,mlb,strike,receveur,casque,américain,inning,stadium,ligue','M'), // BASEBALL
-
-W('dribble,panier,rebond,dunk,parquet,nba,shoot,raquette,équipe,chrono,américain,5 joueurs,faute,finale,arceau','M'), // BASKET
-
-W('queue,8 noire,poche,table verte,craie,carambole,bandes,snooker,boule,triangle,feutrine,viser,blanche,angle,point','M'), // BILLARD
-
-W('quilles,strike,spare,piste huilée,lancer,boule lourde,chaussures spéciales,frame,score,10,alignement,gouttière,club,loisir,impact','M'), // BOWLING
-
-W('ring,gants,round,uppercut,ko,coin,arbitre,catégorie,punch,combat,poids,lourd,esquive,cordes,direct','F'), // BOXE
-
-W('marquer,filet,score,objectif,point décisif,frappe,équipe,attaque,réussite,célébration,stadium,adversaire,action,victoire,avantage','M'), // BUT
-
-W('rivière,pagaie,eau vive,embarcation,rapide,biplace,descente,parcours,course,courant,équilibre,amont,slalom,exploration,barque','M'), // CANOË
-
-W('spectacle,lutte,ring,masqué,show,wwe,projection,scénarisé,prise,public,ceinture,choc,acrobatique,combat,divertissement','M'), // CATCH
-
-W('premier,titre,podium,gagnant,trophée,meilleur,victoire,or,finale,compétition,élite,succès,leader,exploit,consécration','M'), // CHAMPION
-
-W('mesure,temps,seconde,précision,course,arrivée,départ,compteur,tour,record,digital,pression,performance,intervalle,réaction','M'), // CHRONOMÈTRE
-
-W('pédale,selle,étape,col,maillot jaune,peloton,route,sprint,grimpeur,braquet,échappée,casque,roue,ascension,tour','M'), // CYCLISME
-
-W('plateau,diagonale,pions,prise forcée,stratégie,noir et blanc,alignement,blocage,jeu,damier,adversaire,avancer,obligatoire,tactique,fin','F'), // DAME
-
-W('hippodrome,cheval,jockey,paris,galope,course prestigieuse,printemps,coupe,ville rivale,ligne droite,turf,enjeu,galop,épreuve,public','M'), // DERBY
-
-W('rotation,lancer,cercle,athlète,engin,jet,distance,concours,olympique,champ,force,trajectoire,performance,poids,aire','M'), // DISQUE
-
-W('contrôle,feinte,balle,crochet,main,terrain,manœuvre,attaquer,progresser,adversaire,technique,maîtrise,rapide,coordination,espace','M'), // DRIBBLE
-
-W('saut,puissance,anneau,smash,panier,explosif,contre-attaque,public,highlight,nba,énergie,verticalité,force,contact,acrobatie','M'), // DUNK
-
-W('roi,mat,ouverture,cavalier,tour,stratégie,échiquier,noir et blanc,prise,réflexion,tactique,grand maître,pièce,attaque,jeu','M'), // ÉCHECS
-
-W('piste,masque,sabre,touche,duel,fleuret,priorité,attaque,parade,estoc,blanc,électrique,main,arme,combat','F'), // ESCRIME
-
-W('ovale,en-but,aplati,5 points,mêlée,transformation,ligne,attaque,avancer,contact,ruck,essai collectif,arbitre,stade,action','M'), // ESSAI
-
-W('entraînement,salle,musculation,cardio,forme,santé,abdos,coaching,renforcement,programme,transpiration,effort,corps,exercice,discipline','M'), // FITNESS
-
-W('cible,bullseye,lancer,précision,pub,tableau,main stable,score,fléchette,viser,jeu mural,concentration,loisir,point,compétition','F'), // FLÉCHETTES
-
-W('pelouse,11 joueurs,corner,penalty,ligue,attaquant,mi-temps,dribble,coupe du monde,stade,arbitre,filet,équipe,goal,ballon','M'), // FOOTBALL
-
-W('contact irrégulier,sanction,sifflet,pénalité,jeu arrêté,avertissement,anti-sportif,règle,arbitre,carton,excès,interdiction,action,discipline,erreur','M'), // FOUL
-
-W('green,trou,par,club,birdie,putt,fairway,caddy,drive,18,balle blanche,terrain vallonné,précision,élégance,practice','M'), // GOLF
-
-W('poutre,sol,barres,anneaux,souplesse,acrobatie,agrès,notation,équilibre,rotation,salto,artistique,performance,compétition,maîtrise','F'), // GYMNASTIQUE
-
-W('barre,arraché,épaulé-jeté,charge,lourd,force,plateforme,disques,compétition,record,puissance,prise,explosif,haltère,performance','F'), // HALTÉROPHILIE
-
-W('7 joueurs,petit terrain,jet à 7,gardien,zone,rapide,contre-attaque,dribble à la main,filet,faute,engagement,championnat européen,tir,équipe,but','M'), // HANDBALL
-
-W('glace,patins,palet,crosse,nhl,mise au jeu,charge,slapshot,goalie,patinoire,contact,vitesse,équipe,filet,match','M'), // HOCKEY
-
-W('kimono,ceinture,couleur,projection,tatami,ippon,clé,discipline,japonais,chute,immobilisation,combat,dojo,respect,prise','M'), // JUDO
-
-W('kata,coup de pied,dojo,ceinture noire,frappe,japon,blocage,cri,combat codifié,discipline,maître,technique,attaque,esquive,grade','M'), // KARATÉ
-
-W('mono-place,eau vive,pagaie eskimo,descente,rapide,slalom,courant,équilibre,embarcation étroite,casque,compétition,rivière,manche,parcours,porte','M'), // KAYAK
-
-W('victoire expéditive,combat,compte jusqu’à 10,ring,frappe,décisif,fin immédiate,arbitre,boxe,puissance,chute,impact,adversaire,round,knockout','M'), // KO
-
-W('engin,jet,distance,concours,aire circulaire,rotation,force,performance,athlète,mesure,championnat,explosif,technique,terrain,record','M'), // LANCER
-
-W('42 kilomètres,endurance,départ massif,ravitaillement,temps officiel,arrivée,record,ville,course longue,stamina,préparation,effort,compétition,dossard,ligne finale','M'), // MARATHON
-
-W('rencontre,adversaire,score,mi-temps,terrain,compétition,arbitre,équipe,duel,calendrier,affrontement,public,résultat,retour,aller','M'), // MATCH
-
-W('podium,or,argent,bronze,cérémonie,récompense,athlète,compétition,distinction,honneur,trophée,performance,olympique,classement,remise','F'), // MÉDAILLE
-
-W('piscine,crawl,brasse,papillon,longueur,bassin,plongeon,virage,chrono,ligne d’eau,maillot,lunettes,compétition,épreuve,record','F'), // NATATION
-
-W('ligue américaine,finals,playoffs,franchise,superstar,parquet,draft,conférence,match,panier,championnat,basket professionnel,équipe,titre,show','F'), // NBA
-
-W('cinq anneaux,flamme,jeux mondiaux,athlète,cérémonie,drapeau,compétition internationale,podium,médaille,esprit d’unité,village,épreuve,discipline,été,hiver','M'), // OLYMPIQUE
-
-W('faute dans la surface,point blanc,tir arrêté,gardien,pression,un contre un,réussite,filet,arbitre,stade,décisif,football,match,score,sanction','M'), // PENALTY
-
-W('boules métalliques,cochonnet,terrain sablonneux,provence,pointage,tir,extérieur,loisir estival,mesure,club,compétition locale,précision,équipe,distance,jeu','F'), // PÉTANQUE
-
-W('table,filet,palette,service,échange rapide,spin,balle légère,réflexe,smash,loisir indoor,tournoi,raquette,point,jeu,rebond','M'), // PING-PONG
-
-W('cartes,mise,bluff,jetons,main,river,flop,all-in,croupier,stratégie,casino,pari,combinaison,gain,table','M'), // POKER
-
-W('cheval,maillet,terrain long,équipe équestre,balle blanche,galop,aristocratique,casque,club,but,engagement,extérieur,match,score,équitation','M'), // POLO
-
-W('eau vive,raft collectif,rapide,sensation forte,rivière,équipe,courant,casque,aventure,descente,pagaie,adrénaline,obstacle,plein air,parcours','M'), // RAFTING
-
-W('voiture spéciale,épreuve chronométrée,route fermée,copilote,notes,virage,adhérence,championnat,équipe mécanique,asphalte,terre,spéciale,vitesse,pilote,compétition','M'), // RALLYE
-
-W('cordage,manche,grip,frappe,service,cadre,tension,balle,court,échange,sport de raquette,prise,équipement,contrôle,outil','F'), // RAQUETTE
-
-W('meilleure performance,temps officiel,exploit,limite mondiale,chronométrage,athlète,historique,certifié,progression,statistique,dépassement,compétition,référence,objectif,performance ultime','M'), // RECORD
-
-W('ballon ovale,mêlée,plaquage,essai,transformation,ruck,ligne arrière,stade,contact,équipe,avancée,arbitre,match,territoire,combat','M'), // RUGBY
-
-W('hauteur,longueur,triple,perche,impulsion,réception,sable,barre,performance,élan,concours,record,athlète,mesure,explosivité','M'), // SAUT
-
-W('neige,slalom,descente,piste,montagne,remontée mécanique,carres,bâtons,virage,station,vitesse,compétition,glisse,hiver,discipline','M'), // SKI
-
-W('planche,neige,half-pipe,trick,freestyle,pente,rotation,glisse,saut,montagne,rampe,figure,hiver,ride,compétition','M'), // SNOWBOARD
-
-W('terrain rectangulaire,11 contre 11,ligue mondiale,attaquant,mi-temps,filet,coupe internationale,dribble,arbitre,penalty,stade,équipe,score,goal,football','M'), // SOCCER
-
-W('court fermé,mur,raquette,balle rapide,échange court,fitness indoor,service,rebond,jeu intense,compétition,espace réduit,point,match,effort,club','M'), // SQUASH
-
-W('vague,planche,océan,glisse,barrel,plage,pagaie allongée,combinaison,swell,équilibre,spot,hawaï,ride,compétition,figure','M'), // SURF
-
-W('discipline coréenne,coup de pied,ceinture,kick,combat,forme codifiée,dojo,attaque,esquive,arbitre,olympique,grade,puissance,protection,maître','M'), // TAEKWONDO
-
-W('court,service,échange,grand chelem,raquette,filet,volée,smash,ligne de fond,tournoi,terre battue,gazon,arbitre,point,match','M'), // TENNIS
-
-W('cible,arc,carabine,précision,visée,centre,lancer,concentration,score,impact,discipline,arme,compétition,projectile,adresse','M'), // TIR
-
-W('tableau éliminatoire,coupe,quart,demi,finale,affrontement,bracket,trophée,équipe,compétition,phase,qualification,match,titre,vainqueur','M'), // TOURNOI
-
-W('toile tendue,rebond,saut vertical,acrobatie,rotation,impulsion,équilibre,figure,performance,gymnaste,air,réception,discipline,compétition,explosivité','M'), // TRAMPOLINE
-
-W('natation,cyclisme,course à pied,transition,endurance,épreuve combinée,ironman,dossard,effort,compétition,temps total,discipline multiple,athlète,stamina,arrivée','M'), // TRIATHLON
-
-W('cheval attelé,sulky,hippodrome,allure spécifique,driver,piste,course hippique,ligne droite,compétition,public,enjeu,paris,épreuve,discipline,arrivée','M'), // TROT
-
-W('filet,équipe,rotation,réception,smash,service,plongeon,set,point,court intérieur,échange,bloc,attaque,match,6 joueurs','M'), // VOLLEY
-
-W('tournoi sur gazon,tradition anglaise,grand chelem,court central,tennis,été,titre prestigieux,service,échange,favori,blanc intégral,raquette,match,finale,londres','M'), // WIMBLEDON
-
-W('respiration,posture,zen,souplesse,asana,méditation,relaxation,équilibre intérieur,tapis,étirement,discipline douce,concentration,bien-être,paix,flexibilité','M'), // YOGA
-
-W('service gagnant,tennis,point direct,power,retour impossible,ligne,match,score,avantage,échange court,efficacité,engagement,raquette,terrain,performance','M'), // ACE
-
-W('flanc,largeur,attaque,position excentrée,centre,football,ailier,course rapide,ligne de touche,offensive,passe,équipe,jeu,zone latérale,débordement','F'), // AILE
-
-W('match aller,retour,domicile,extérieur,score cumulé,qualification,phase éliminatoire,duel,tour suivant,rencontre,compétition,équipes,résultat,calendrier,affrontement','M'), // ALLER-RETOUR
-
-W('haute montagne,corde,sommet,ascension,crampons,glacier,altitude,paroi,guide,expédition,rocher,neige,effort,alpiniste,pic','M'), // ALPINISME
-
-W('décision officielle,litige,impartialité,gestion du match,autorité,sanction,règle,terrain,sifflet,discipline,contrôle,justice,compétition,gestionnaire,fonction','M'), // ARBITRAGE
-
-W('gardien,sauvetage,blocage,filet,réflexe,plongeon,défense,protection,équipe,main ferme,action décisive,match,intervention,arrêt décisif,performance','M'), // ARRÊT
-
-W('offensive,pression,assaut,marquer,avancer,équipe,action,territoire,adversaire,initiative,jeu,puissance,phase active,stratégie,mouvement','F'), // ATTAQUE
-
-W('pointe,avant-centre,position offensive,buteur,attaque,équipe,football,zone centrale,marquer,match,ligne d’attaque,jeu,terrain,score,action','M'), // AVANT
-
-W('saut arrière,rotation,acrobatie,impulsion,réception,figure aérienne,gymnaste,trick,équilibre,discipline,performance,air,sol,maîtrise,explosivité','M'), // BACKFLIP
-
-W('score sous le par,golf,un coup d’avance,trou réussi,green,club,balle,parcours,performance,élégance,précision,jeu,compétition,putt,réussite','M'), // BIRDIE
-
-W('escalade sans corde,bloc court,prise,mur,adhérence,problème,force des doigts,salle,extérieur,hauteur limitée,paroi,grimpeur,technique,équilibre,performance','M'), // BLOC
-
-W('interruption stratégique,tennis,jeu décisif,service perdu,échange court,pause psychologique,set,score,retour,match,terrain,point clé,avantage,rythme,action','M'), // BREAK
-
-W('attaquant prolifique,marque régulièrement,filet,football,score,équipe,position offensive,match,réussite,action décisive,terrain,frappe,compétition,avant,goal','M'), // BUTEUR
-
-W('milieu du terrain,distribution,passe,équilibre,jeu collectif,transition,football,position centrale,équipe,création,contrôle,match,organisation,stratégie,zone médiane','M'), // CENTRE
-
-W('piste fermée,tour chronométré,virage,compétition automobile,boucle,asphalte,ligne droite,course,moteur,championnat,pilote,adhérence,vitesse,garage,performance','M'), // CIRCUIT
-
-W('ordre des équipes,points cumulés,rang,tableau,championnat,hiérarchie,saison,statistique,place,évolution,compétition,score,total,position officielle,performance','M'), // CLASSEMENT
-
-W('entraîneur,gestion tactique,équipe,consignes,stratégie,vestiaire,motivation,remplacement,plan de jeu,match,leader,formation,analyse,préparation,direction','M'), // COACH
-
-W('angle du terrain,drapeau,centre aérien,football,zone offensive,coup arrêté,filet,attaquant,stade,arbitre,frappe,action,équipe,match,ballon','M'), // CORNER
-
-W('impact,frappe,tir,contact puissant,action offensive,jeu,technique,adversaire,puissance,exécution,match,discipline,réalisation,engagement,force','M'), // COUP
-
-W('vitesse,endurance,ligne de départ,arrivée,chronométrage,dossard,parcours,compétition,effort,athlète,record,terrain,piste,classement,performance','F'), // COURSE
-
-W('protection,repli,blocage,marquage,équipe,zone arrière,anticipation,contre,organisation,tactique,terrain,match,adversaire,solidité,stratégie','F'), // DÉFENSE
-
-W('pente raide,chronométrée,neige,vitesse maximale,skieur,virage,montagne,compétition,hiver,discipline,glisse,casque,performance,arrivée,record','F'), // DESCENTE
-
-W('paire,équipe de deux,terrain partagé,coordination,match,service,jeu collectif,tennis,partenaire,échange,compétition,score,rotation,stratégie,coopération','M'), // DOUBLE
-
-W('frappe longue,golf,élan puissant,tee,fairway,balle blanche,club long,distance,green,performance,parcours,précision,compétition,jeu,impact','M'), // DRIVE
-
-W('résistance,effort prolongé,stamina,marathon,discipline,préparation,mental,compétition,capacité physique,performance,longue durée,force intérieure,athlète,objectif,exploit','F'), // ENDURANCE
-
-W('collectif,joueurs,maillot,cohésion,stratégie,match,club,formation,compétition,solidarité,terrain,remplaçants,score,objectif,victoire','F'), // ÉQUIPE
-
-W('entraînement répétitif,routine,effort ciblé,progression,préparation physique,salle,coaching,discipline,forme,activité,technique,match,performance,programme,objectif','M'), // EXERCICE
-
-W('étirement,muscle,amplitude,souplesse,échauffement,allongement,préparation,corps,flexibilité,discipline,performance,mouvement,progression,contrôle,respiration','F'), // EXTENSION
-
-W('mise en jeu centrale,palet,hockey,arbitre,engagement,patinoire,équipe,confrontation,départ du jeu,cercle,contact,match,discipline,action,compétition','M'), // FACE-OFF
-
-W('infraction,pénalité,sanction,arbitre,règle enfreinte,jeu arrêté,carton,discipline,contact irrégulier,match,équipe,terrain,compétition,avertissement,erreur','F'), // FAUTE
-
-W('barrière centrale,maillage,division du terrain,tennis,volley,hauteur réglementaire,service,échange,match,structure,cordage,point,discipline,jeu,obstacle','M'), // FILET
-
-W('dernier match,titre en jeu,apogée,stade comble,pression,compétition,équipe,score décisif,coupe,climax,rencontre ultime,performance,public,championnat,victoire','F'), // FINALE
-
-W('tir puissant,contact franc,technique offensive,jeu,précision,discipline,équipe,match,impact,force,réalisation,action décisive,terrain,performance,attaque','F'), // FRAPPE
-
-W('style libre,créativité,figure improvisée,discipline urbaine,rampe,rotation,glisse,compétition,trick,expression personnelle,énergie,performance,public,notation,liberté','M'), // FREESTYLE
-
-W('profit,victoire,récompense,bonus,score positif,avantage,compétition,match,équipe,performance,réussite,objectif atteint,bénéfice,triomphe,acquisition','M'), // GAIN
-
-W('dernier rempart,filet,plongeon,sauvetage,réflexe,équipe,poste clé,match,protection,défense,main ferme,action décisive,football,arrêt,performance','M'), // GARDIEN
-
-W('but marqué,filet,réussite,score,objectif atteint,football,hockey,basket,équipe,match,terrain,frappe,action décisive,point,avantage','M'), // GOAL
-
-W('ascension,prise rocheuse,paroi,progression verticale,force des doigts,hauteur,équilibre,grimpeur,mur,discipline,performance,corde,extérieur,salle,technique','F'), // GRIMPE
-
-W('prise ferme,adhérence,raquette,club,main,contrôle,équipement,tennis,golf,outil sportif,serrage,stabilité,manche,performance,contact','M'), // GRIP
-
-W('terrain naturel,herbe,baseball,zone de jeu,extérieur,équipe,match,ligne,discipline,performance,surface,compétition,aire,action,espace','M'), // GROUND
-
-W('trois buts consécutifs,exploit rare,football,hockey,attaquant,match,performance,public,stade,score,triple réussite,équipe,action,compétition,célébration','M'), // HAT-TRICK
-
-W('talon,pied arrière,frappe surprenante,football,contact inversé,action technique,match,terrain,attaque,équipe,improvisation,performance,contrôle,équilibre,jeu','M'), // HEEL
-
-W('frappe hors du stade,baseball,circuit complet,quatre points,balle au-delà de la clôture,battes,match,score,exploit,public,équipe,performance,ligue,terrain,action','M'), // HOME-RUN
-
-W('position interdite,ligne défensive,anticipation,arbitre,drapeau levé,football,attaque trop avancée,règle,match,terrain,sanction,équipe,action,compétition,faute','M'), // HORS-JEU
-
-W('passe coupée,défense,football américain,anticipation,lecture du jeu,retour offensif,équipe,match,terrain,action décisive,compétition,ballon capté,performance,contre-attaque,point clé','F'), // INTERCEPTION
-
-W('dunk puissant,basket,frappe dans le cercle,action spectaculaire,match,parquet,équipe,public,performance,attaque,contre-attaque,énergie,score,highlight,panier','M'), // JAM
-
-
-    
-  ],
+   '⚽ Sports & Loisirs': [
+W('terrain,match,sifflet,règle,juge,décision,impartial,carton,noir,officiel,faute,justice,autorité,contrôle,sifflet','M'), // ARBITRE
+W('stade,course,piste,saut,lancer,olympique,javelot,sprint,marathon,record,médaille,haies,performance,stade,saut','M'), // ATHLÉTISME
+W('raquette,filet,volant,plume,smash,court,intérieur,service,set,revers,amorti,simple,double,vitesse,échange','M'), // BADMINTON
+W('rond,gonflable,cuir,football,basket,volley,but,air,dribble,frappe,jeu,cour,équipe,jongle,rebond','M'), // BALLON
+W('américain,batte,balle,gant,base,batteur,lanceur,homerun,terrain,diamant,casquette,manche,strike,ligue,gant','M'), // BASEBALL
+W('orange,panier,dribble,rebond,dunk,NBA,cinq,terrain,parquet,shoot,pivot,meneur,équipe,salle,saut','M'), // BASKET
+W('table,tapis,vert,queue,boules,trous,canne,craie,bleu,billes,snooker,empocher,triangle,carambole,choc','M'), // BILLARD
+W('quilles,piste,boule,trous,strike,spare,chaussures,bois,dix,score,lancer,salon,frisson,rigole,strike','M'), // BOWLING
+W('combat,gants,ring,punch,KO,round,esquive,uppercut,crochet,direct,cordes,pugiliste,Tyson,arbitre,combat','F'), // BOXE
+W('football,marquer,cage,filet,gardien,poteau,ligne,score,célébration,victoire,tir,attaquant,délivrance,lucarne,filet','M'), // BUT
+W('eau,bateau,pagaie,rivière,kayak,descente,embarcation,courant,gilet,lac,navigation,slalom,pagaie,rivière,canotage','M'), // CANOË
+W('spectacle,combat,ring,masque,prise,saut,cordes,voltige,scénario,divertissement,costumé,champion,lutte,scène,force','M'), // CATCH
+W('vainqueur,premier,podium,médaille,or,coupe,titre,victoire,succès,trophée,meilleur,performance,gloire,invaincu,lauréat','M'), // CHAMPION
+W('temps,mesure,montre,seconde,départ,arrêt,précis,record,entraîneur,tour,millième,bouton,cadran,affiche,vitesse','M'), // CHRONOMÈTRE
+W('vélo,pédale,course,route,peloton,casque,bicyclette,selle,guidon,montagne,sprint,grimpeur,étape,roue,boyau','M'), // CYCLISME
+W('jeu,plateau,damier,jetons,noir,blanc,pions,diagonale,capture,souffler,roi,prise,bois,stratégie,réflexion','F'), // DAME
+W('course,chevaux,hippodrome,galop,jockey,pari,compétition,rivalité,local,match,ville,prestige,parier,hippique,choc','M'), // DERBY
+W('athlétisme,lancer,rond,plat,plateau,anneau,force,rotation,cage,olympique,bras,trajectoire,distance,métal,poids','M'), // DISQUE
+W('basket,football,ballon,main,pied,feinte,avancer,contrôle,technique,franchissement,balle,éliminer,progression,maniement,slalom','M'), // DRIBBLE
+W('basket,panier,saut,anneau,spectaculaire,écraser,accrocher,Jordan,envolée,puissance,smash,hauteur,acrobatique,cercle,arceau','M'), // DUNK
+W('jeu,plateau,cases,roi,reine,mat,cavalier,fou,pion,tour,échec,stratégie,réflexion,Kasparov,pendule','M'), // ÉCHECS
+W('épée,fleuret,sabre,masque,touche,piste,duel,garde,fente,blanc,lame,arbitre,assaut,olympique,fer','F'), // ESCRIME
+W('rugby,ballon,ovale,marquer,aplatir,ligne,équipe,rugbyman,poteaux,mêlée,placage,cadrage,débordement,herbe,terrain','M'), // ESSAI
+W('salle,gym,musculation,forme,cardio,santé,exercices,tapis,poids,entraînement,gainage,coach,silhouette,corps,souplesse','M'), // FITNESS
+W('jeu,cible,pointe,lancer,bar,centre,triple,double,score,précision,plume,mur,adresse,flèche,volage','F'), // FLÉCHETTES
+W('ballon,onze,pied,terrain,pelouse,but,gardien,équipe,match,stade,arbitre,penalty,maillot,crampons,sifflet','M'), // FOOTBALL
+W('anglais,basket,faute,violation,règle,arbitre,contact,personnel,technique,sifflet,pénalité,exclusion,jeu,erreur,sanction','M'), // FOUL
+W('club,balle,trou,green,parcours,swing,caddy,putter,gazon,voiturette,drapeau,sable,herbe,bois,fer','M'), // GOLF
+W('souplesse,acrobatie,agrès,poutre,sol,barres,saut,justaucorps,équilibre,rythme,artistique,enchaînement,force,agilité,grâce','F'), // GYMNASTIQUE
+W('poids,barre,force,muscles,lever,fonte,disques,ceinture,olympique,puissance,athlète,lourd,bras,fonte,soulevé','F'), // HALTÉROPHILIE
+W('équipe,main,ballon,but,zone,sept,gardien,jet,saut,dribble,colle,intérieur,pivot,contact,gardienne','M'), // HANDBALL
+W('glace,patins,crosse,palet,but,prison,patinoire,glisse,équipe,équipement,casque,hiver,canne,crosse,gardien','M'), // HOCKEY
+W('martial,japonais,kimono,ceinture,tatami,prise,chute,combat,ippon,noir,blanc,dojo,souplesse,prise,combat','M'), // JUDO
+W('martial,japonais,frappe,pied,poing,kimono,ceinture,combat,dojo,kata,karatéka,salut,autodéfense,noir,blanc','M'), // KARATÉ
+W('eau,pagaie,rivière,canoë,bateau,assise,double,esquimautage,rapide,mer,embarcation,jupe,navigation,canotage,pagaie','M'), // KAYAK
+W('boxe,combat,chute,tapis,compte,dix,arbitre,inconscient,victoire,ring,coup,puissant,arrêt,sommeil,punch','M'), // KO
+W('athlétisme,poids,disque,javelot,marteau,force,bras,élan,distance,performance,olympique,champ,jet,projection,bras','M'), // LANCER
+W('course,route,endurance,fatigue,ville,coureur,bitume,ravitaillement,jambes,souffle,distance,épreuve,bitume,sueur,médaille','M'), // MARATHON
+W('rencontre,jeu,équipe,adversaire,compétition,stade,durée,score,sifflet,début,fin,direct,nul,victoire,partie','M'), // MATCH
+W('récompense,métal,cou,podium,or,argent,bronze,gagnant,olympique,décoration,gravure,ruban,victoire,prix,métal','F'), // MÉDAILLE
+W('eau,piscine,maillot,lunettes,bonnet,brasse,crawl,papillon,dos,bassin,nageur,plongée,lignes,chlore,eau','F'), // NATATION
+W('américain,basket,ligue,professionnel,étoiles,playoffs,championnat,franchise,Jordan,LeBron,logo,panier,dribble,parquet,saut','F'), // NBA
+W('jeux,monde,flamme,anneaux,cinq,médaille,athlète,village,cérémonie,été,hiver,marathon,stade,compétition,athènes','M'), // OLYMPIQUE
+W('football,faute,surface,point,réparation,tir,gardien,but,sifflet,sanction,arrêt,sentence,faute,but,gardien','M'), // PENALTY
+W('boules,métal,cochonnet,sable,terrain,pointe,tire,Marseille,Provence,triplette,loisir,extérieur,pointeur,carreau,boules','F'), // PÉTANQUE
+W('jeu,table,raquette,balle,filet,service,set,rebond,rapide,intérieur,échanges,smash,raquette,bois,balle','M'), // PING-PONG
+W('jeu,cartes,jetons,mise,bluff,main,tapis,paire,quinte,flush,casino,as,donneur,table,stratégie','M'), // POKER
+W('cheval,maillet,balle,terrain,équipe,équestre,but,cavalier,gazon,aristocratique,chukka,galop,monture,équipe,équipe','M'), // POLO
+W('eau,rivière,rapide,gonflable,canot,pagaie,équipe,descente,gilet,casque,sensations,remous,navigation,rapides,vitesse','M'), // RAFTING
+W('automobile,voiture,course,copilote,route,terre,chrono,spéciale,pilote,moteur,vitesse,Dakar,dérapage,virage,auto','M'), // RALLYE
+W('cordage,manche,tamis,frappe,balle,badminton,squash,ping-pong,cadre,outil,filet,grip,tension,cadre,frappe','F'), // RAQUETTE
+W('meilleur,performance,temps,monde,battre,chiffre,histoire,athlète,mondial,homologué,dépassement,exploit,chrono,référence,sommet','M'), // RECORD
+W('ballon,ovale,essai,plaquage,mêlée,équipe,terrain,poteaux,All-Blacks,passes,arrière,drop,transformation,ovale,ballon','M'), // RUGBY
+W('athlétisme,hauteur,longueur,perche,élan,appel,air,impulsion,fosse,barre,envol,franchissement,pieds,réception,envol','M'), // SAUT
+W('neige,montagne,glisse,bâtons,piste,chaussures,hiver,descente,station,slalom,fartage,spatules,blanc,poudreuse,luge','M'), // SKI
+W('neige,planche,pieds,fixations,glisse,freestyle,piste,montagne,poudreuse,tricks,rider,boots,planche,neige,hiver','M'), // SNOWBOARD
+W('américain,football,nom,ballon,terrain,ligue,mot,européen,équipe,match,terminologie,ballon,équipe,match,nom','M'), // SOCCER
+W('raquette,mur,balle,caoutchouc,petite,court,intérieur,rapide,rebond,filet,sueur,cardio,échanges,enfermé,salle','M'), // SQUASH
+W('mer,vagues,planche,océan,eau,glisse,plage,rouleau,wax,combinaison,Hawaii,équilibre,ride,Brice,tube','M'), // SURF
+W('martial,coréen,pied,combat,coups,protection,plastron,ceinture,dojang,olympique,agile,souplesse,frappe,Corée,pied','M'), // TAEKWONDO
+W('raquette,balle,jaune,filet,terre,gazon,service,set,match,court,revers,raquette,balle,match,set','M'), // TENNIS
+W('arme,carabine,pistolet,cible,précision,oeil,calme,gâchette,balle,stand,arc,flèche,plomb,olympique,précision','M'), // TIR
+W('compétition,élimination,finale,match,tableau,coupe,vainqueur,série,rencontres,poules,participation,événement,tableau,finale,vainqueur','M'), // TOURNOI
+W('toile,ressorts,rebond,saut,acrobatie,gymnastique,jardin,filet,hauteur,souplesse,bond,cadre,rebond,saut,envol','M'), // TRAMPOLINE
+W('trois,enchaînement,natation,cyclisme,course,endurance,effort,transition,ironman,complet,épreuve,athlète,vélo,nage,course','M'), // TRIATHLON
+W('cheval,allure,course,sulky,hippodrome,driver,attelé,vitesse,sabot,régulier,hippique,rythme,foulée,hippisme,allure','M'), // TROT
+W('équipe,filet,ballon,mains,passe,manchette,smash,contre,terrain,six,rotation,plage,service,set,ballon','M'), // VOLLEY
+W('tennis,anglais,Londres,gazon,blanc,herbe,fraises,tournoi,prestigieux,court,raquette,pique-nique,herbe,gazon,blanc','M'), // WIMBLEDON
+W('zen,relaxation,posture,respiration,souplesse,tapis,méditation,calme,étirement,esprit,équilibre,harmonie,asana,calme,zen','M'), // YOGA
+W('tennis,service,point,gagnant,direct,balle,puissante,intouchable,engagement,volley,raquette,premier,score,réussite,direct','M'), // ACE
+W('football,côté,terrain,attaquant,débordement,centre,latéral,couloir,ailier,vitesse,ligne,excentré,gauche,droite,côté','F'), // AILE
+W('match,deux,rencontres,voyage,domicile,extérieur,qualification,double,manche,coupe,football,score,cumulé,trajet,match','M'), // ALLER-RETOUR
+W('montagne,sommet,escalade,neige,glace,haute,ascension,guide,corde,piolet,crampons,altitude,roche,expédition,pic','M'), // ALPINISME
+W('décision,juge,règle,match,autorité,contrôle,sifflet,vidéo,officiel,terrain,contestation,impartialité,faute,direction,sifflet','M'), // ARBITRAGE
+W('gardien,football,main,parade,ballon,sauver,défense,bloquer,réflexe,tir,poteau,gants,but,détourner,parade','M'), // ARRÊT
+W('offensive,marquer,but,avant,équipe,pression,football,action,devant,buteur,menace,stratégie,monter,offensive,but','F'), // ATTAQUE
+W('position,équipe,football,rugby,marquer,attaquant,devant,ligne,buteur,pointe,centre,mêlée,offensif,position,devant','M'), // AVANT
+W('acrobatie,arrière,saut,rotation,gymnastique,tête,trampoline,salto,figure,cascade,retournement,envol,gym,acrobatie,saut','M'), // BACKFLIP
+W('golf,trou,un,sous,par,score,coup,réussi,oiseau,parcours,green,performance,drapeau,score,coup','M'), // BIRDIE
+W('volley,contre,filet,défense,mur,escalade,rocher,sauter,mains,bloquer,smash,obstacle,pierre,grimper,mur','M'), // BLOC
+W('tennis,service,prendre,jeu,adversaire,avance,set,avantage,gagner,score,court,raquette,tournant,opportunité,tennis','M'), // BREAK
+W('football,marquer,but,attaquant,efficace,finition,numéro,filet,ballon,pied,tête,score,star,renard,filet','M'), // BUTEUR
+W('football,côté,milieu,surface,passe,tête,ballon,ailier,débordement,zone,réception,retrait,transversale,envoi,passe','M'), // CENTRE
+W('course,automobile,piste,tour,bitume,virage,tracé,vitesse,asphalte,paddock,ligne,départ,boucle,piste,tour','M'), // CIRCUIT
+W('rang,position,liste,points,tableau,leader,championnat,premier,score,compétition,ordre,niveau,mondial,palmarès,rang','M'), // CLASSEMENT
+W('entraîneur,équipe,banc,conseils,tactique,motivation,manager,technique,sifflet,direction,leader,préparation,sportif,survêtement,banc','M'), // COACH
+W('football,coin,drapeau,pied,centre,angle,tête,surface,gardien,défense,attaque,dégagement,rentrant,coin,pied','M'), // CORNER
+W('frappe,action,main,pied,raquette,direct,impact,force,mouvement,jeu,franc,sifflet,tactique,porter,frappe','M'), // COUP
+W('vitesse,jambes,courir,piste,marathon,chrono,sprint,endurance,athlète,départ,arrivée,peloton,compétition,effort,vitesse','F'), // COURSE
+W('protéger,but,équipe,arrière,bloquer,arrêter,mur,gardien,défenseur,zone,tacle,opposition,verrou,tactique,mur','F'), // DÉFENSE
+W('ski,montagne,pente,vitesse,piste,chrono,olympique,neige,glisse,forte,slalom,chute,dévaler,pente,vitesse','F'), // DESCENTE
+W('tennis,deux,binôme,paire,équipe,quatre,court,couloir,mixte,partenaire,raquette,volant,badminton,tennis,deux','M'), // DOUBLE
+W('golf,club,premier,coup,long,bois,départ,puissance,distance,balle,fairway,swing,frappe,portée,long','M'), // DRIVE
+W('long,effort,fatigue,résistance,marathon,cardio,souffle,stamina,durée,muscles,persévérance,capacité,fond,physique,long','F'), // ENDURANCE
+W('groupe,collectif,joueurs,ensemble,maillot,club,vestiaire,match,solidaire,effectif,partenaire,coéquipier,capitaine,onze,groupe','F'), // ÉQUIPE
+W('entraînement,mouvement,répétition,série,gym,fitness,pratique,muscle,routine,santé,physique,séance,effort,activité,routine','M'), // EXERCICE
+W('muscle,étirer,bras,jambe,souplesse,allonger,tension,gymnastique,échauffement,yoga,mouvement,amplitude,grandir,déplier,étirer','F'), // EXTENSION
+W('hockey,engagement,glace,palet,centre,crosse,arbitre,duel,début,équipe,cercle,confrontation,reprise,engagement,duel','M'), // FACE-OFF
+W('règle,interdit,arbitre,sanction,carton,penalty,sifflet,erreur,jeu,main,sifflement,pénalité,faute,règle,interdit','F'), // FAUTE
+W('tennis,volley,milieu,raquette,ballon,corde,séparer,toucher,maille,badminton,basket,but,obstacle,limite,corde','M'), // FILET
+W('match,dernier,vainqueur,coupe,titre,trophée,champion,ultime,compétition,suspense,stade,sommet,apothéose,dernier,titre','F'), // FINALE
+W('tir,ballon,pied,force,impact,but,football,puissance,coup,gardien,cadré,lucarne,dégagement,trajectoire,tir','F'), // FRAPPE
+W('libre,style,figure,acrobatie,créativité,glisse,ski,danse,skateboard,artistique,improvisation,tricks,expression,liberté,style','M'), // FREESTYLE
+W('victoire,point,avantage,gagner,set,match,bénéfice,remporter,succès,score,progression,réussite,emporter,résultat,victoire','M'), // GAIN
+W('but,gants,arrêter,cage,main,football,handball,hockey,dernier,défenseur,plongeon,filet,portier,vigile,arrêter','M'), // GARDIEN
+W('but,filet,marquer,football,gardien,score,cage,poteau,point,victoire,célébration,terrain,attaquant,cri,but','M'), // GOAL
+W('escalade,mur,montagne,mains,pieds,hauteur,corde,prise,varappe,ascension,roche,falaise,baudrier,sommet,escalade','F'), // GRIMPE
+W('main,prise,raquette,manche,adhérence,tenir,glisse,tennis,golf,badminton,matériel,ruban,contrôle,serrer,manche','M'), // GRIP
+W('terrain,sol,terre,surface,herbe,gazon,espace,aire,pelouse,piste,dehors,stade,fief,sol,terre','M'), // GROUND
+W('football,trois,buts,match,exploit,triple,attaquant,performance,ballon,consécutif,chapeau,réussite,buteur,score,triple','M'), // HAT-TRICK
+W('pied,talon,football,arrière,chaussure,coup,talonnade,feinte,geste,technique,appui,jambe,membre,pied,talon','M'), // HEEL
+W('baseball,batte,circuit,bases,frappe,puissance,stade,spectaculaire,score,point,clôture,coup,exploit,baseball,batte','M'), // HOME-RUN
+W('football,règle,arbitre,ligne,défense,attaquant,drapeau,sifflet,sanction,position,illicite,vidéo,jeu,règle,ligne','M'), // HORS-JEU
+W('défense,ballon,voler,passe,couper,main,football,basket,rugby,trajectoire,récupération,vol,adversaire,action,défense','F'), // INTERCEPTION
+W('basket,dunk,écraser,panier,force,sauter,cercle,spectaculaire,smash,puissant,envol,arceau,bloquer,dunk,panier','M'), // JAM
+],
 };
 
 const ALL_THEME_KEYS = Object.keys(THEMES_DATA);
