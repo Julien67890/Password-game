@@ -10,10 +10,11 @@
    automatiquement sur le moteur heuristique de script.js.
    ═══════════════════════════════════════════════════════════════ */
 
-let AI_ENGINE  = null;
-let AI_LOADING = false;
-let AI_READY   = false;
-let AI_ENABLED = false;
+let AI_ENGINE     = null;
+let AI_LOADING    = false;
+let AI_READY      = false;
+let AI_ENABLED    = false;
+let AI_LAST_ERROR = '';
 
 const GAME_CONTEXT = `Tu es l'IA du jeu "Mot de Passe" en français.
 
@@ -68,8 +69,25 @@ async function initLlamaAI(onProgress) {
     return AI_READY;
   }
 
+  // Les modules ES (import de la librairie WebLLM) sont bloqués par les
+  // navigateurs quand la page est ouverte en double-clic (protocole
+  // file://) : c'est une restriction du navigateur, pas un bug du jeu.
+  // → il faut servir le dossier via un petit serveur local (http://…)
+  if (location.protocol === 'file:') {
+    AI_LAST_ERROR = "Llama nécessite d'ouvrir le jeu via un serveur local (http://…) — le double-clic (file://) bloque le chargement du module WebLLM.";
+    console.error('❌', AI_LAST_ERROR);
+    return false;
+  }
+
   if (typeof window.CreateMLCEngine !== 'function') {
-    console.error('❌ WebLLM non chargé (CreateMLCEngine manquant)');
+    AI_LAST_ERROR = "Le module WebLLM n'a pas pu être chargé (connexion internet indisponible, ou script bloqué). Vérifie ta connexion et recharge la page.";
+    console.error('❌', AI_LAST_ERROR);
+    return false;
+  }
+
+  if (!navigator.gpu) {
+    AI_LAST_ERROR = 'WebGPU indisponible sur ce navigateur. Utilise Chrome ou Edge 113+.';
+    console.error('❌', AI_LAST_ERROR);
     return false;
   }
 
@@ -95,9 +113,11 @@ async function initLlamaAI(onProgress) {
 
     AI_READY = true;
     AI_ENABLED = true;
+    AI_LAST_ERROR = '';
     console.log('✅ Llama 3.2 prêt !');
     return true;
   } catch (error) {
+    AI_LAST_ERROR = (error && error.message) ? error.message : String(error);
     console.error('❌ Erreur Llama:', error);
     AI_READY = false;
     AI_ENABLED = false;
@@ -319,8 +339,11 @@ function initAIToggle() {
         modal.close();
         aiStatus.textContent = '✗ Erreur';
         aiStatus.style.color = 'var(--pass)';
+        aiStatus.title = AI_LAST_ERROR || "Erreur d'initialisation inconnue.";
         aiToggle.checked = false;
-        if (typeof showToast === 'function') showToast("❌ Erreur d'initialisation Llama", 3000);
+        const detail = AI_LAST_ERROR || "Erreur d'initialisation Llama (voir la console F12 pour le détail).";
+        if (typeof showToast === 'function') showToast('❌ ' + detail, 4500);
+        console.error('❌ Llama désactivée :', detail);
       }
     } else {
       AI_ENABLED = false;
@@ -329,6 +352,17 @@ function initAIToggle() {
       if (typeof showToast === 'function') showToast('Mode heuristique (sans IA générative)', 2000);
     }
   });
+
+  if (location.protocol === 'file:') {
+    // Ouvert en double-clic : les modules ES (donc WebLLM) ne peuvent
+    // pas se charger. On le signale tout de suite, avant même d'essayer.
+    aiToggle.disabled = true;
+    aiStatus.textContent = '✗ Nécessite un serveur local';
+    aiStatus.style.color = 'var(--muted)';
+    aiStatus.title = "Ouvre le jeu via http://localhost (ex: python3 -m http.server) plutôt qu'en double-cliquant sur index.html — le double-clic bloque le chargement de l'IA.";
+    console.warn('⚠️ Page ouverte en file:// — Llama indisponible (voir le title du badge IA)');
+    return;
+  }
 
   if (!navigator.gpu) {
     aiToggle.disabled = true;
@@ -339,4 +373,4 @@ function initAIToggle() {
   }
 }
 
-console.log('✅ Script Llama v5.1 chargé (branché sur giveNextClue / handleHint)');
+console.log('✅ Script Llama v5.2 chargé (branché sur giveNextClue / handleHint)');

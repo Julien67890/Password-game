@@ -1,16 +1,19 @@
 // Service Worker pour Mot de Passe v4.0
 // Permet le fonctionnement 100% offline
 
-const CACHE_NAME = 'motdepasse-v5-cache';
+const CACHE_NAME = 'motdepasse-v6-cache';
+// Chemins relatifs (résolus par rapport à l'URL de sw.js) : fonctionne
+// que le jeu soit servi depuis la racine d'un domaine ou un sous-dossier
+// (ex. GitHub Pages, https://user.github.io/Password-game/).
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/script_llama.js',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/manifest.json'
+  './',
+  './index.html',
+  './style.css',
+  './script.js',
+  './script_llama.js',
+  './icon-192.png',
+  './icon-512.png',
+  './manifest.json'
 ];
 
 // Installation du Service Worker
