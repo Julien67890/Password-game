@@ -1571,17 +1571,11 @@ function passWord() {
   const wordName = STATE.currentWordName;
   showToast(rand('PASSED'), 1500);
   
-  STATE.mancheResults.push({ 
-    word: wordName, 
-    found: false,
-    clues: STATE.wordClueCount 
-  });
-  
-  // ✅ CORRECTION v4: Marquer explicitement comme NON trouvé
-  STATE.mancheResults.push({ 
-    word: wordName, 
+  // Marquer explicitement comme NON trouvé (un seul enregistrement par mot)
+  STATE.mancheResults.push({
+    word: wordName,
     found: false,  // ← Important pour le comptage final !
-    clues: STATE.wordClueCount 
+    clues: STATE.wordClueCount
   });
 
   // Déplacer de mancheQueue vers passedQueue
