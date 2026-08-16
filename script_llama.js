@@ -321,6 +321,11 @@ function initAIToggle() {
 
   aiToggle.addEventListener('change', async () => {
     if (aiToggle.checked) {
+      // Important : on décoche IMMÉDIATEMENT le switch (donc il reste
+      // gris, pas vert) tant que Llama n'est pas RÉELLEMENT prête.
+      // Le vert (état "checked") ne doit apparaître que quand l'IA
+      // fonctionne vraiment — jamais juste parce qu'on a cliqué.
+      aiToggle.checked = false;
       aiStatus.textContent = 'Initialisation...';
       aiStatus.style.color = '';
       const modal = showAILoadingModal();
@@ -332,15 +337,16 @@ function initAIToggle() {
       if (success) {
         setTimeout(() => {
           modal.close();
+          aiToggle.checked = true; // ← ne devient vert qu'ici, IA confirmée active
           aiStatus.textContent = '✓ Actif';
           if (typeof showToast === 'function') showToast('🧠 Llama 3.2 activé !', 2000);
         }, 400);
       } else {
         modal.close();
+        aiToggle.checked = false; // reste gris/éteint : l'IA ne fonctionne pas
         aiStatus.textContent = '✗ Erreur';
         aiStatus.style.color = 'var(--pass)';
         aiStatus.title = AI_LAST_ERROR || "Erreur d'initialisation inconnue.";
-        aiToggle.checked = false;
         const detail = AI_LAST_ERROR || "Erreur d'initialisation Llama (voir la console F12 pour le détail).";
         if (typeof showToast === 'function') showToast('❌ ' + detail, 4500);
         console.error('❌ Llama désactivée :', detail);
