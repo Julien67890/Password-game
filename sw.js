@@ -1,12 +1,13 @@
 // Service Worker pour Mot de Passe v4.0
 // Permet le fonctionnement 100% offline
 
-const CACHE_NAME = 'motdepasse-v4-cache';
+const CACHE_NAME = 'motdepasse-v5-cache';
 const urlsToCache = [
   '/',
   '/index.html',
   '/style.css',
   '/script.js',
+  '/script_llama.js',
   '/icon-192.png',
   '/icon-512.png',
   '/manifest.json'

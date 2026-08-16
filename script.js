@@ -826,7 +826,7 @@ function iaGuessWord(hint, wordData, secretWord, previousGuesses) {
 
   // L'IA a trouvé si le mot secret est en tête ET avec un score significatif
   if (wordScores[0]?.w === secretWord && secretScore >= 10) {
-    return { guess: secretWord, temp: 'GAGNE' };
+    return { guess: secretWord, temp: 'GAGNE', ranked: wordScores };
   }
 
   // Sinon proposer le meilleur candidat non encore proposé
@@ -842,7 +842,10 @@ function iaGuessWord(hint, wordData, secretWord, previousGuesses) {
 
   return {
     guess: candidate ? candidate.w : (wordScores[1]?.w || '???'),
-    temp
+    temp,
+    // Classement complet, réutilisé par Llama (script_llama.js) pour
+    // affiner le choix parmi les meilleurs candidats heuristiques.
+    ranked: wordScores
   };
 }
 
@@ -1107,7 +1110,7 @@ function init() {
   buildThemeGrid();
   bindEvents();
   initVoice();
-  
+
   // Activer le mode vocal par défaut si supporté
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (SR) {
@@ -1117,7 +1120,10 @@ function init() {
     btnMicGuessEl.style.display = 'flex';
     btnMicHintEl.style.display = 'flex';
   }
-  
+
+  // Toggle IA Llama 3.2 (défini dans script_llama.js, optionnel)
+  if (typeof initAIToggle === 'function') initAIToggle();
+
   showScreen('home');
 }
 
@@ -1380,10 +1386,43 @@ function isClueInvalid(clue, secretWord) {
   return false;
 }
 
-function giveNextClue() {
+async function giveNextClue() {
   if (STATE.gameOver || STATE.mancheOver) return;
-  const assocs = STATE.currentWordData.assocs;
   const wrongGuesses = STATE.guesserWrongGuesses || [];
+
+  // ── IA Llama 3.2 (si activée) : indice généré et adapté aux erreurs ──
+  if (typeof AI_ENABLED !== 'undefined' && AI_ENABLED && AI_READY) {
+    iaClueTextEl.innerHTML = `<em style="color:var(--muted)">🤖 L'IA réfléchit…</em>`;
+    try {
+      const llamaClue = await getLlamaClue(
+        STATE.currentWordName,
+        STATE.clueIndex + 1,
+        STATE.resolvedTheme,
+        STATE.givenClues,
+        wrongGuesses
+      );
+      if (llamaClue) {
+        STATE.givenClues.push(normalize(llamaClue));
+        STATE.clueIndex++;
+        STATE.wordClueCount++;
+
+        const clueDisplay = llamaClue.toUpperCase();
+        iaClueTextEl.innerHTML = `Indice n°${STATE.clueIndex} : <span class="ia-clue-word">${clueDisplay}</span>`;
+        addHistory('IA', clueDisplay, '', `Indice ${STATE.clueIndex}`);
+
+        if (STATE.voiceEnabled && STATE.autoListen) {
+          setTimeout(() => listenOnce(word => handleGuessWord(word)), 600);
+        }
+        return;
+      }
+      // llamaClue est null (échec/anti-leak) → on continue vers le repli heuristique
+    } catch (e) {
+      console.error('❌ Llama indisponible, repli heuristique:', e);
+    }
+  }
+
+  // ── Repli heuristique (IA désactivée, ou Llama a échoué) ──────────
+  const assocs = STATE.currentWordData.assocs;
 
   // Filtrer les indices déjà donnés et invalides
   const remaining = assocs.filter(a =>
@@ -1482,7 +1521,7 @@ function handleGuess() {
 // 11. MODE HINTER
 // ══════════════════════════════════════════════════════════════════
 
-function handleHint() {
+async function handleHint() {
   if (STATE.gameOver || STATE.mancheOver) return;
   const hint = inputHintEl.value.trim();
   if (!hint) return;
@@ -1501,9 +1540,12 @@ function handleHint() {
   inputHintEl.value = '';
   STATE.wordClueCount++;
 
-  // IA évalue et propose un mot
-  const { guess, temp } = iaGuessWord(hint, STATE.currentWordData, STATE.currentWordName, STATE.iaGuesses);
-  STATE.iaGuesses.push(normalize(guess));
+  // Le moteur heuristique évalue toujours en premier : il fournit la
+  // "température" (indépendante de l'IA générative) et un classement
+  // complet des mots du thème selon tous les indices cumulés.
+  const heuristic = iaGuessWord(hint, STATE.currentWordData, STATE.currentWordName, STATE.iaGuesses);
+  const temp = heuristic.temp;
+  let guess = heuristic.guess;
 
   const msg = rand(temp);
   addHistory('TOI', hint.toUpperCase(), temp, msg);
@@ -1511,6 +1553,25 @@ function handleHint() {
   // Animer la proposition IA
   iaGuessWordEl.textContent = '…';
   iaGuessTempEl.textContent = '';
+
+  // Si l'heuristique n'est pas déjà certaine (GAGNE) et que Llama est actif,
+  // on lui demande d'affiner le choix parmi les meilleurs candidats
+  // heuristiques (désambiguïsation sémantique, ex. pays vs ville).
+  if (temp !== 'GAGNE' && typeof AI_ENABLED !== 'undefined' && AI_ENABLED && AI_READY && heuristic.ranked) {
+    const topCandidates = heuristic.ranked
+      .filter(ws => ws.total > 0)
+      .slice(0, 8)
+      .map(ws => ws.w);
+    try {
+      const llamaResult = await getLlamaGuess(STATE.hinterHints, STATE.resolvedTheme, topCandidates, STATE.iaGuesses);
+      if (llamaResult && llamaResult.guess) guess = llamaResult.guess;
+    } catch (e) {
+      console.error('❌ Llama indisponible pour la déduction, repli heuristique:', e);
+    }
+  }
+
+  STATE.iaGuesses.push(normalize(guess));
+
   setTimeout(() => {
     if (normalize(guess) === normalize(STATE.currentWordName)) {
       iaGuessWordEl.textContent = STATE.currentWordName;
