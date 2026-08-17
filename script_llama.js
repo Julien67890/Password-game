@@ -339,6 +339,7 @@ function initAIToggle() {
           modal.close();
           aiToggle.checked = true; // ← ne devient vert qu'ici, IA confirmée active
           aiStatus.textContent = '✓ Actif';
+          aiStatus.style.color = 'var(--success)';
           if (typeof showToast === 'function') showToast('🧠 Llama 3.2 activé !', 2000);
         }, 400);
       } else {

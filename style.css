@@ -105,6 +105,9 @@ body {
   text-transform: uppercase; color: var(--muted); margin-bottom: .55rem; font-weight: 600;
 }
 .voice-badge { font-size: .7rem; color: var(--success); }
+/* Neutre par défaut : ne devient vert que quand JS confirme l'IA active
+   (voir script_llama.js) — évite d'afficher "Désactivé" en vert. */
+.ai-badge { font-size: .7rem; color: var(--muted); }
 
 /* Role toggle */
 .role-toggle { display: flex; gap: .6rem; flex-wrap: wrap; }

@@ -1,5 +1,6 @@
-// Service Worker pour Mot de Passe v4.0
-// Permet le fonctionnement 100% offline
+// Service Worker pour Mot de Passe v6.1
+// Permet le fonctionnement 100% offline, tout en se mettant à jour
+// immédiatement dès qu'une nouvelle version est déployée.
 
 const CACHE_NAME = 'motdepasse-v6-cache';
 // Chemins relatifs (résolus par rapport à l'URL de sw.js) : fonctionne
@@ -24,6 +25,12 @@ self.addEventListener('install', event => {
         console.log('📦 Cache ouvert');
         return cache.addAll(urlsToCache);
       })
+      // ⚠️ skipWaiting() : sans ça, une nouvelle version poussée sur
+      // GitHub reste "en attente" et ne prend jamais le relais tant que
+      // TOUS les onglets du jeu ne sont pas complètement fermés (pas
+      // juste rechargés) — ce qui donnait l'impression que rien ne se
+      // mettait à jour après un déploiement.
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -39,21 +46,25 @@ self.addEventListener('activate', event => {
           }
         })
       );
-    })
+    // clients.claim() : prend le contrôle des onglets déjà ouverts tout
+    // de suite, sans attendre un rechargement supplémentaire.
+    }).then(() => self.clients.claim())
   );
 });
 
-// Stratégie: Cache First (offline-first)
+// Stratégie : réseau en priorité, cache en secours (offline uniquement).
+// Contrairement à "cache d'abord", ça garantit qu'on charge toujours la
+// dernière version déployée quand une connexion est disponible — le
+// cache ne sert que de filet de sécurité hors-ligne.
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(event.request)
+    fetch(event.request)
       .then(response => {
-        // Retourner depuis le cache si disponible
-        if (response) {
-          return response;
-        }
-        // Sinon fetch depuis le réseau
-        return fetch(event.request);
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        return response;
       })
+      .catch(() => caches.match(event.request))
   );
 });
