@@ -16,18 +16,43 @@ let AI_READY      = false;
 let AI_ENABLED    = false;
 let AI_LAST_ERROR = '';
 
-const GAME_CONTEXT = `Tu es l'IA du jeu "Mot de Passe" en français.
+// ── Deux system prompts SÉPARÉS ──────────────────────────────────
+// Avant : un seul GAME_CONTEXT mélangeait les règles des deux modes
+// dans le même message système. Avec un modèle aussi petit (1B), ça
+// causait un mélange des formats : le mode "indice" se mettait à
+// répondre "1. FOOT" ou "#1: NATURE" en imitant le format numéroté
+// des exemples du mode "devine", pourtant hors sujet ici. Séparer les
+// deux system prompts évite cette confusion.
+
+// Mode "JE DEVINE" (l'IA donne des indices) — le joueur doit deviner.
+//
+// ⚠️ Un system prompt qui DÉCRIT les règles en prose ne suffit pas pour
+// un modèle aussi petit (1B) : testé en conditions réelles, il produit
+// souvent des mots hors-sujet ou carrément inventés ("gathe",
+// "mousquaine"...). Un vrai historique de conversation avec des
+// exemples DÉJÀ RÉSOLUS (few-shot) donne des résultats nettement
+// meilleurs et plus rapides : le modèle complète un motif qu'il vient
+// de voir plutôt que d'interpréter une consigne abstraite.
+const CLUE_CONTEXT = `Tu es l'IA du jeu "Mot de Passe" en français. Tu donnes des indices par association d'idées pour faire deviner un mot secret à un joueur, sans jamais le dire. Réponds toujours par UN SEUL mot ou une expression très courte (1 à 3 mots), sans numéro, sans ponctuation, sans phrase.`;
+
+// Exemples déjà résolus, injectés comme historique de conversation
+// avant la vraie question (voir buildClueMessages ci-dessous).
+const CLUE_FEWSHOT = [
+  { role: 'user', content: 'Mot secret : PARIS\nThème : Géographie\nIndice :' },
+  { role: 'assistant', content: 'capitale' },
+  { role: 'user', content: 'Mot secret : GUITARE\nThème : Arts & Littérature\nIndice :' },
+  { role: 'assistant', content: 'instrument' },
+  { role: 'user', content: 'Mot secret : NAPOLÉON\nThème : Histoire\nIndice :' },
+  { role: 'assistant', content: 'empereur' },
+  { role: 'user', content: 'Mot secret : HANDBALL\nThème : Sports & Loisirs\nIndice :' },
+  { role: 'assistant', content: 'collectif' },
+];
+
+// Mode "JE FAIS DEVINER" (le joueur donne des indices, l'IA devine).
+const GUESS_CONTEXT = `Tu es l'IA du jeu "Mot de Passe" en français, en mode "je fais deviner" : le joueur te donne des indices, tu dois deviner le mot secret.
 
 RÈGLE ABSOLUE : CHOISIS UNIQUEMENT DANS LA LISTE FOURNIE !
 
-MODE "JE DEVINE" (tu donnes des indices) :
-- Donne 1 seul mot ou expression courte (max 3 mots)
-- NE DIS JAMAIS le mot secret ou une partie du mot
-- Progression : large → précis → très spécifique
-- Si le joueur (le "guesseur") s'est déjà trompé, adapte ton indice pour l'orienter
-  vers une piste différente de ses erreurs précédentes
-
-MODE "JE FAIS DEVINER" (tu devines) :
 - Analyse TOUS les indices donnés par le joueur, y compris les plus récents
 - Identifie le TYPE recherché (ville ? pays ? monument ? personne ?)
 - Choisis UNIQUEMENT parmi la liste fournie
@@ -110,7 +135,7 @@ async function initLlamaAI(onProgress) {
     // échouer l'initialisation même si le modèle a bien été chargé.
     await AI_ENGINE.chat.completions.create({
       messages: [
-        { role: 'system', content: GAME_CONTEXT },
+        { role: 'system', content: CLUE_CONTEXT },
         { role: 'user', content: 'Test' }
       ],
       temperature: 0.1,
@@ -147,53 +172,59 @@ async function getLlamaClue(word, clueNumber, theme, previousClues = [], wrongGu
   }
 
   try {
-    const strategy = clueNumber <= 2
-      ? 'très général (catégorie large, thème)'
-      : clueNumber <= 5
-      ? 'moyen (caractéristique notable)'
-      : 'précis (détail spécifique)';
-
     const prevContext = previousClues.length > 0
-      ? `\nIndices déjà donnés : ${previousClues.join(', ')}\n⚠️ NE RÉPÈTE PAS ces indices !`
+      ? `\nIndices déjà donnés : ${previousClues.join(', ')}\nNE RÉPÈTE PAS ces indices.`
       : '';
 
     const wrongContext = wrongGuesses.length > 0
-      ? `\nLe joueur s'est trompé sur : ${wrongGuesses.join(', ')}\n⚠️ Adapte ton indice pour l'orienter différemment de ces erreurs !`
+      ? `\nLe joueur s'est trompé sur : ${wrongGuesses.join(', ')}\nOriente ton indice différemment de ces erreurs.`
       : '';
 
-    const prompt = `Mot secret : ${word}
-Thème : ${theme}
-Indice #${clueNumber} - ${strategy}${prevContext}${wrongContext}
-
-RÈGLE CRITIQUE : L'indice NE DOIT PAS contenir le mot secret ou une partie du mot secret !
-
-Donne UN SEUL mot ou expression courte (max 3 mots) :`;
-
+    // On rejoue les exemples résolus (CLUE_FEWSHOT) comme historique de
+    // conversation, puis on pose la vraie question dans le même format
+    // exact ("Mot secret : … / Thème : … / Indice :") — c'est ce motif
+    // répété qui guide le modèle, bien plus qu'une consigne en prose.
     const response = await AI_ENGINE.chat.completions.create({
       messages: [
-        { role: 'system', content: GAME_CONTEXT },
-        { role: 'user', content: prompt }
+        { role: 'system', content: CLUE_CONTEXT },
+        ...CLUE_FEWSHOT,
+        { role: 'user', content: `Mot secret : ${word}\nThème : ${theme}${prevContext}${wrongContext}\nIndice :` }
       ],
-      temperature: 0.7,
-      max_tokens: 10,
+      // Testé en direct : 0.6-0.7 donne des indices plus "créatifs" mais
+      // aussi plus souvent hors-sujet pour un modèle aussi petit ; 0.3
+      // colle davantage au motif des exemples et reste plus fiable en
+      // moyenne (au prix d'un peu moins de variété).
+      temperature: 0.3,
+      max_tokens: 8,
     });
 
     let clue = response.choices[0].message.content.trim();
-    clue = clue.replace(/^(Indice|L'indice|Voici|Réponse)[\s:]+/i, '');
+    // Retire un éventuel format numéroté ("1.", "#2:", "3)") que le
+    // petit modèle imite parfois en confondant avec l'autre mode.
+    clue = clue.replace(/^#?\s*\d+\s*[.):-]\s*/, '');
+    clue = clue.replace(/^(Indice|L'indice|Voici|Réponse|Mot|Association)[\s:]+/i, '');
     clue = clue.replace(/[.!?;]$/g, '');
     clue = clue.split('\n')[0];
     clue = clue.replace(/^["']|["']$/g, '');
+    clue = clue.replace(/#/g, '').trim();
     clue = clue.toLowerCase().trim();
 
-    // Anti-leak : le mot secret ne doit pas apparaître dans l'indice
+    // Anti-leak : le mot secret ne doit pas apparaître dans l'indice.
+    // On réutilise aussi isClueInvalid() (déjà utilisé pour valider les
+    // indices tapés par un humain en mode "je fais deviner") : elle
+    // détecte en plus les préfixes/racines communes et les mots trop
+    // proches (Levenshtein), ce qu'un simple "includes" ne voit pas —
+    // ex. Llama qui invente une variante du mot secret (déjà observé).
     const normalizedClue = normalize(clue);
     const normalizedWord = normalize(word);
-    if (!clue || normalizedClue.includes(normalizedWord) || normalizedWord.includes(normalizedClue)) {
+    const leaks = normalizedClue.includes(normalizedWord) || normalizedWord.includes(normalizedClue)
+      || (typeof isClueInvalid === 'function' && isClueInvalid(clue, word));
+    if (!clue || leaks) {
       console.warn(`⚠️ ANTI-LEAK ou indice vide: "${clue}" → fallback`);
       return (wordData && wordData.assocs[clueNumber - 1]) || null;
     }
 
-    if (clue.length > 25 || clue.length < 2) {
+    if (clue.length > 25 || clue.length < 2 || /\d/.test(clue)) {
       console.warn(`⚠️ Indice hors gabarit: "${clue}" → fallback`);
       return (wordData && wordData.assocs[clueNumber - 1]) || null;
     }
@@ -238,7 +269,7 @@ Réponds UNIQUEMENT avec "NUMÉRO. MOT" (exemple : "3. PARIS") :`;
 
     const response = await AI_ENGINE.chat.completions.create({
       messages: [
-        { role: 'system', content: GAME_CONTEXT },
+        { role: 'system', content: GUESS_CONTEXT },
         { role: 'user', content: prompt }
       ],
       temperature: 0.2,
