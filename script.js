@@ -10,87 +10,87 @@ const W = (assocs, genre) => ({ assocs: assocs.split(','), genre });
 const THEMES_DATA = {
 
   '🌍 Géographie': [
-W('forêt,brésil,fleuve,jungle,amazone,tropique,équateur,biodiversité,amazonie,vert,poumon,pérou,colombie,bassin,déforestation','F'), // AMAZONIE
+W('forêt,brésil,fleuve,jungle,amazone,tropique,équateur,biodiversité,vert,poumon,pérou,colombie,bassin,déforestation','F'), // AMAZONIE
 W('montagne,cordillère,amérique,pérou,altitude,chaîne,sommet,chili,bolivie,condor,volcans,ski,trekking,équateur,neige','F'), // ANDES
-W('glace,pôle,pingouin,continent,froid,banquise,blanc,iceberg,désert,exploration,océan,scientifique,manchot,polaire,isolé','M'), // ANTARCTIQUE
+W('continent,glace,pôle,pingouin,froid,banquise,blanc,iceberg,désert,exploration,océan,scientifique,manchot,polaire,isolé','M'), // ANTARCTIQUE
 W('pôle,nord,glace,froid,océan,blanc,ours,inuit,banquise,exploration,cercle,polaire,glacial,esquimau,boréal','M'), // ARCTIQUE
 W('continent,océanie,pays,kangourou,sydney,océan,pacifique,melbourne,aborigène,outback,koala,surf,désert,boomerang,anglais','F'), // AUSTRALIE
-W('mur,allemagne,réunification,est,ouest,division,guerre,froide,checkpoint,charlie,porte,brandebourg,histoire,capitale,unification','M'), // BERLIN
-W('football,rio,amazonie,carnaval,samba,christ,café,tropique,plage,forêt,grand,amérique,vert,lusophone,biodiversité','M'), // BRÉSIL
-W('érable,toronto,froid,hockey,montréal,québec,ottawa,rocheuses,niagara,anglais,français,ours,nature,grand,nation','M'), // CANADA
+W('capitale,mur,allemagne,réunification,est,ouest,division,guerre,froide,checkpoint,charlie,porte,brandebourg,histoire,unification','M'), // BERLIN
+W('pays,football,rio,amazonie,carnaval,samba,christ,café,tropique,plage,forêt,grand,amérique,vert,lusophone,biodiversité','M'), // BRÉSIL
+W('nation,érable,toronto,froid,hockey,montréal,québec,ottawa,rocheuses,niagara,anglais,français,ours,nature,grand','M'), // CANADA
 W('pointe,extrémité,géographie,sud,afrique,atlantique,promontoire,vent,maritime,côte,navigation,tempête,bout,mer,terre','M'), // CAP
 W('mer,îles,amérique,tropique,plage,pirates,cuba,jamaïque,bahamas,turquoise,corail,antilles,colomb,soleil,paradis','F'), // CARAÏBES
-W('maroc,ville,film,blanc,port,mosquée,atlantique,africain,française,coloniale,bogart,hassan,cosmopolite,cinéma,médina','F'), // CASABLANCA
-W('dragon,beijing,shanghai,mur,population,mandarin,riz,soie,thé,empire,communiste,rouge,grande,asie,dynasties','F'), // CHINE
+W('ville,maroc,blanc,film,port,mosquée,atlantique,africain,française,coloniale,bogart,hassan,cosmopolite,cinéma,médina','F'), // CASABLANCA
+W('pays,dragon,beijing,shanghai,mur,population,mandarin,riz,soie,thé,empire,communiste,rouge,grande,asie,dynasties','F'), // CHINE
 W('fleuve,canyon,grand,arizona,rouge,gorge,barrage,rafting,rocheuses,ouest,rivière,états-unis,erosion,hoover,nature','M'), // COLORADO
 W('fleuve,afrique,kinshasa,forêt,jungle,équateur,brazzaville,zaïre,bassin,tropical,long,exploration,stanley,rivière,central','M'), // CONGO
-W('séoul,nord,sud,division,kimchi,samsung,k-pop,péninsule,guerre,taekwondo,pyongyang,frontière,asie,riz,technologie','F'), // CORÉE
+W('pays,séoul,nord,sud,division,kimchi,samsung,k-pop,péninsule,guerre,taekwondo,pyongyang,frontière,asie,riz,technologie','F'), // CORÉE
 W('fleuve,vienne,budapest,europe,long,bleu,source,eau,navigation,delta,allemagne,autriche,international,ville,grand','M'), // DANUBE
 W('sable,dune,chaleur,aride,chameau,oasis,nomade,sahara,soif,sec,mirage,soleil,nuit,vent,sécheresse','M'), // DÉSERT
-W('pyramide,pharaon,nil,sphinx,caire,sable,momie,hiéroglyphe,antiquité,cléopâtre,toutankhamon,oasis,afrique,camelle,temple','F'), // ÉGYPTE
+W('pays,pyramide,pharaon,nil,sphinx,caire,sable,momie,hiéroglyphe,antiquité,cléopâtre,toutankhamon,oasis,afrique,camelle,temple','F'), // ÉGYPTE
 W('ligne,zéro,latitude,tropique,imaginaire,terre,milieu,soleil,chaud,géographie,brésil,ecuador,division,chaleur,globe','M'), // ÉQUATEUR
 W('montagne,sommet,himalaya,népal,altitude,plus,haut,sherpa,conquête,escalade,hillary,neige,tibet,8848,monde','M'), // EVEREST
 W('norvège,eau,glaciaire,vallée,falaise,profond,scandinave,mer,côte,scenic,bateau,verdure,montagne,bleu,nord','M'), // FJORD
-W('italie,renaissance,art,toscane,ponte,vecchio,duomo,uffizi,arno,médicis,cathédrale,david,michel-ange,culture,beauté','F'), // FLORENCE
-W('paris,eiffel,vin,fromage,baguette,liberté,révolution,tricolore,coq,gallic,patrimoine,gastronomie,art,mode,élégance','F'), // FRANCE
+W('ville,italie,renaissance,art,toscane,ponte,vecchio,duomo,uffizi,arno,médicis,cathédrale,david,michel-ange,culture,beauté','F'), // FLORENCE
+W('pays,paris,eiffel,vin,fromage,baguette,liberté,révolution,tricolore,coq,gallic,patrimoine,gastronomie,art,mode,élégance','F'), // FRANCE
 W('fleuve,inde,sacré,hindou,himalaya,varanasi,pollution,crémation,bangladesh,delta,pèlerinage,spirituel,ablution,long,religion','M'), // GANGE
-W('glace,danemark,inuit,arctique,iceberg,île,blanc,grand,autonome,froid,esquimau,viking,nuuk,calotte,nord','M'), // GROENLAND
+W('île,glace,danemark,inuit,arctique,iceberg,blanc,grand,autonome,froid,esquimau,viking,nuuk,calotte,nord','M'), // GROENLAND
 W('montagne,nepal,everest,tibet,altitude,chaîne,sherpa,sommet,trekking,k2,neige,asie,frontière,toit,monde','M'), // HIMALAYA
-W('delhi,mumbai,bollywood,curry,taj,mahal,hindi,gandhi,vache,épices,population,grand,asie,yoga,sari','F'), // INDE
-W('vert,dublin,trèfle,guinness,whiskey,celte,mouton,atlantique,gaélique,nord,île,pub,patrick,europe,pluie','F'), // IRLANDE
-W('turquie,bosphore,mosquée,sainte-sophie,détroit,constantinople,ottomane,pont,asie,europe,byzantine,topkapi,sultan,minarets,carrefour','M'), // ISTANBUL
-W('sushi,manga,tokyo,fuji,samouraï,anime,kimono,geisha,cerisier,technologie,île,soleil,zen,tempura,culture','M'), // JAPON
-W('tanzanie,afrique,sommet,volcan,altitude,neige,safari,équateur,trekking,escalade,cratère,uhuru,highest,montagne,kenya','M'), // KILIMANDJARO
-W('moscou,russie,forteresse,rouge,place,pouvoir,politique,cathédrale,tsar,mur,tour,gouvernement,histoire,pierre,basile','M'), // KREMLIN
+W('pays,delhi,mumbai,bollywood,curry,taj,mahal,hindi,gandhi,vache,épices,population,grand,asie,yoga,sari','F'), // INDE
+W('pays,vert,dublin,trèfle,guinness,whiskey,celte,mouton,atlantique,gaélique,nord,île,pub,patrick,europe,pluie','F'), // IRLANDE
+W('ville,turquie,bosphore,mosquée,sainte-sophie,détroit,constantinople,ottomane,pont,asie,europe,byzantine,topkapi,sultan,minarets,carrefour','M'), // ISTANBUL
+W('pays,sushi,manga,tokyo,fuji,samouraï,anime,kimono,geisha,cerisier,technologie,île,soleil,zen,tempura,culture','M'), // JAPON
+W('montagne,tanzanie,afrique,sommet,volcan,altitude,neige,safari,équateur,trekking,escalade,cratère,uhuru,highest,kenya','M'), // KILIMANDJARO
+W('forteresse,moscou,russie,rouge,place,pouvoir,politique,cathédrale,tsar,mur,tour,gouvernement,histoire,pierre,basile','M'), // KREMLIN
 W('eau,douce,nature,poisson,pêche,berge,rivage,montagne,bateau,baignade,profond,titicaca,léman,reflet,calme','M'), // LAC
-W('beyrouth,cèdre,méditerranée,phénicien,montagne,guerre,syrie,israël,arabe,gastronomie,libanais,civile,français,houmous,histoire','M'), // LIBAN
-W('portugal,tage,fado,tram,colline,azulejos,atlantic,belém,pastel,tour,mouette,capitale,port,lisbon,sud','F'), // LISBONNE
+W('pays,beyrouth,cèdre,méditerranée,phénicien,montagne,guerre,syrie,israël,arabe,gastronomie,libanais,civile,français,houmous,histoire','M'), // LIBAN
+W('capitale,portugal,tage,fado,tram,colline,azulejos,atlantic,belém,pastel,tour,mouette,port,lisbon,sud','F'), // LISBONNE
 W('fleuve,château,france,orléans,nantes,val,atlantique,vins,long,tours,royal,saumur,anjou,sable,lent','F'), // LOIRE
 W('île,lémur,baobab,vanille,océan,indien,malgache,biodiversité,rouge,unique,endémique,antananarivo,africain,nature,forêt','M'), // MADAGASCAR
-W('kuala,lumpur,petronas,jungle,malais,singapour,thaïlande,tropical,islam,asie,multiculturel,mer,île,colonial,riz','F'), // MALAISIE
-W('philippines,capitale,luzon,baie,pacifique,trafic,asie,espagnol,cathédrale,jeepney,urbain,peuplé,intramuros,rizal,typhon','F'), // MANILLE
-W('marrakech,sahara,atlas,arabe,berbère,rabat,casablanca,tajine,thé,menthe,fès,mosquée,souk,couscous,nord','M'), // MAROC
+W('pays,kuala,lumpur,petronas,jungle,malais,singapour,thaïlande,tropical,islam,asie,multiculturel,mer,île,colonial,riz','F'), // MALAISIE
+W('capitale,philippines,luzon,baie,pacifique,trafic,asie,espagnol,cathédrale,jeepney,urbain,peuplé,intramuros,rizal,typhon','F'), // MANILLE
+W('pays,marrakech,sahara,atlas,arabe,berbère,rabat,casablanca,tajine,thé,menthe,fès,mosquée,souk,couscous,nord','M'), // MAROC
 W('mer,bleu,plage,italie,espagne,grèce,france,île,soleil,antique,cruise,sel,poisson,côte,chaleur','F'), // MÉDITERRANÉE
-W('aztèque,tequila,tacos,cancún,pyramide,guadalajara,sombrero,mariachi,chili,maya,ciudad,espagnol,latino,cactus,volcan','M'), // MEXIQUE
-W('steppe,gengis,khan,nomade,yourte,cheval,désert,gobi,oulan-bator,cashmere,vaste,central,aigle,troupeau,vent','F'), // MONGOLIE
-W('kremlin,rouge,place,russie,métro,tsar,cathédrale,basile,froid,europe,politique,histoire,vodka,grand,capitale','M'), // MOSCOU
-W('fleuve,égypte,long,pharaon,caire,delta,crocodile,lotus,assouan,bleu,blanc,source,barrage,nil,afrique','M'), // NIL
-W('fjord,oslo,viking,saumon,ski,pétrole,arctique,scandinave,nordique,soleil,minuit,aurore,montagne,froid,nature','F'), // NORVÈGE
-W('maori,kiwi,mouton,hobbit,rugby,auckland,wellington,volcan,géothermal,île,nature,pacifique,all,blacks,scenic','F'), // NOUVELLE-ZÉLANDE
+W('pays,aztèque,tequila,tacos,cancún,pyramide,guadalajara,sombrero,mariachi,chili,maya,ciudad,espagnol,latino,cactus,volcan','M'), // MEXIQUE
+W('pays,steppe,gengis,khan,nomade,yourte,cheval,désert,gobi,oulan-bator,cashmere,vaste,central,aigle,troupeau,vent','F'), // MONGOLIE
+W('capitale,kremlin,rouge,place,russie,métro,tsar,cathédrale,basile,froid,europe,politique,histoire,vodka,grand','M'), // MOSCOU
+W('fleuve,égypte,long,pharaon,caire,delta,crocodile,lotus,assouan,bleu,blanc,source,barrage,afrique','M'), // NIL
+W('pays,fjord,oslo,viking,saumon,ski,pétrole,arctique,scandinave,nordique,soleil,minuit,aurore,montagne,froid,nature','F'), // NORVÈGE
+W('pays,maori,kiwi,mouton,hobbit,rugby,auckland,wellington,volcan,géothermal,île,nature,pacifique,all,blacks,scenic','F'), // NOUVELLE-ZÉLANDE
 W('mer,eau,salée,vague,profond,atlantique,pacifique,bleu,courant,abysses,marin,vaste,tempête,immensité,navigation','M'), // OCÉAN
 W('montagne,russie,frontière,europe,asie,sibérie,chaîne,minéral,foret,long,divise,oriental,altitude,nord,naturel','M'), // OURAL
-W('canal,isthme,chapeau,pacifique,atlantique,navigation,commerce,tropical,amérique,centrale,colon,zone,pays,jonction,mer','M'), // PANAMA
-W('tour,eiffel,louvre,seine,notre-dame,champs,élysées,montmartre,arc,triomphe,mode,lumière,romantique,métro,capitale','M'), // PARIS
-W('inca,machu,picchu,lima,cuzco,lama,andes,pisco,nazca,amazonie,condor,espagnol,côte,désert,altitude','M'), // PÉROU
-W('manille,île,pacifique,typhon,catholique,riz,mer,corail,mindanao,espagnol,archipel,tropique,plage,poisson,asie','F'), // PHILIPPINES
+W('pays,canal,isthme,chapeau,pacifique,atlantique,navigation,commerce,tropical,amérique,centrale,colon,zone,jonction,mer','M'), // PANAMA
+W('capitale,tour,eiffel,louvre,seine,notre-dame,champs,élysées,montmartre,arc,triomphe,mode,lumière,romantique,métro','M'), // PARIS
+W('pays,inca,machu,picchu,lima,cuzco,lama,andes,pisco,nazca,amazonie,condor,espagnol,côte,désert,altitude','M'), // PÉROU
+W('île,manille,pacifique,typhon,catholique,riz,mer,corail,mindanao,espagnol,archipel,tropique,plage,poisson,asie','F'), // PHILIPPINES
 W('nord,sud,glace,magnétique,froid,arctique,antarctique,explorateur,amundsen,boussole,axe,rotation,terre,blanc,extrême','M'), // PÔLE
-W('lisbonne,fado,porto,atlantique,bacalhau,vasco,gama,azulejos,algarve,vin,pasteis,sardine,cristiano,europe,maritime','M'), // PORTUGAL
-W('tchèque,vltava,château,pont,charles,bière,pilsner,kafka,bohème,revolution,velvet,architecture,europe,médievale,belle','F'), // PRAGUE
-W('corée,nord,kim,dictature,communiste,isolé,armée,nucléaire,propagande,hermit,capitale,juche,régime,misère,militaire','M'), // PYONGYANG
-W('australie,brisbane,corail,barrière,récif,tropical,gold,coast,cairns,soleil,nature,outback,reef,sunshine,tourisme','M'), // QUEENSLAND
-W('équateur,capitale,altitude,andes,volcans,pichincha,mitad,monde,colonial,équatoriale,église,montagne,amérique,sud,plateau','M'), // QUITO
+W('pays,lisbonne,fado,porto,atlantique,bacalhau,vasco,gama,azulejos,algarve,vin,pasteis,sardine,cristiano,europe,maritime','M'), // PORTUGAL
+W('ville,tchèque,vltava,château,pont,charles,bière,pilsner,kafka,bohème,revolution,velvet,architecture,europe,médievale,belle','F'), // PRAGUE
+W('capitale,corée,nord,kim,dictature,communiste,isolé,armée,nucléaire,propagande,hermit,juche,régime,misère,militaire','M'), // PYONGYANG
+W('région,australie,brisbane,corail,barrière,récif,tropical,gold,coast,cairns,soleil,nature,outback,reef,sunshine,tourisme','M'), // QUEENSLAND
+W('capitale,équateur,altitude,andes,volcans,pichincha,mitad,monde,colonial,équatoriale,église,montagne,amérique,sud,plateau','M'), // QUITO
 W('fleuve,allemagne,suisse,france,château,vin,cologne,bâle,navigation,romantique,frontière,long,rhénan,europe,affluent','M'), // RHIN
-W('colisée,gladiateur,césar,empire,forum,sénat,antiquité,latin,légion,capitole,papauté,éternelle,catholicisme,pape,antique','F'), // ROME
-W('vodka,tsar,moscou,sibérie,grand,froid,communiste,poutine,ballet,kremlin,neige,ours,vaste,europe,asie','F'), // RUSSIE
-W('sable,dune,chaud,aride,touareg,chameau,désert,oasis,afrique,nord,immense,vent,nuit,étoile,sécheresse','M'), // SAHARA
+W('ville,colisée,gladiateur,césar,empire,forum,sénat,antiquité,latin,légion,capitole,papauté,éternelle,catholicisme,pape,antique','F'), // ROME
+W('pays,vodka,tsar,moscou,sibérie,grand,froid,communiste,poutine,ballet,kremlin,neige,ours,vaste,europe,asie','F'), // RUSSIE
+W('désert,sable,dune,chaud,aride,touareg,chameau,oasis,afrique,nord,immense,vent,nuit,étoile,sécheresse','M'), // SAHARA
 W('fleuve,paris,normandie,pont,rive,notre-dame,impressionniste,havre,rouen,navigation,gauche,droite,crue,source,france','F'), // SEINE
-W('corée,sud,k-pop,samsung,moderne,han,rivière,technologie,cuisine,palais,gyeongbokgung,hanbok,kimchi,économie,asie','M'), // SÉOUL
-W('chine,métropole,pudong,bund,perle,gratte-ciel,port,moderne,yangtze,commercial,économie,néon,cosmopolite,asie,finance','M'), // SHANGHAI
-W('russie,froid,taïga,toundra,vaste,arctique,pipeline,isolé,permafrost,gaz,pétrole,ours,train,transsibérien,nature','F'), // SIBÉRIE
-W('île,état,merlion,propre,moderne,gratte-ciel,finance,port,multiculture,asie,jardins,baie,technologie,prospère,ordre','M'), // SINGAPOUR
-W('australie,opéra,harbour,bridge,plage,bondi,port,ville,météo,cosmopolite,nouvelle-galles,ensoleillé,baie,pacifique,australien','M'), // SYDNEY
-W('australie,île,diable,nature,sauvage,hobart,wilderness,national,parc,froid,isolée,pristine,unique,sud,forêt','F'), // TASMANIE
-W('afrique,désert,ndjamena,lac,sahara,sahel,pauvre,landlocked,français,arabe,sécheresse,nomade,central,pays,frontière','M'), // TCHAD
-W('japon,shibuya,akihabara,manga,anime,sushi,gratte-ciel,impérial,palais,fuji,néon,métropole,moderne,quartier,foule','M'), // TOKYO
-W('canada,cn,tower,ontario,niagara,multiculturel,grand,lac,froid,anglais,diversité,metropole,hockey,finance,urbain','M'), // TORONTO
-W('istanbul,ankara,bosphore,kebab,mosquée,cappadoce,méditerranée,anatolie,danse,ottomane,islam,tapis,empire,ponte,culture','F'), // TURQUIE
-W('pape,rome,saint-pierre,catholique,chapelle,sixtine,michel-ange,garde,suisse,cité,état,petit,saint,religieux,religion','M'), // VATICAN
-W('autriche,mozart,valse,danube,schönbrunn,hofburg,café,sacher,torte,strauss,art,nouveau,opéra,culture,impériale','F'), // VIENNE
+W('capitale,corée,sud,k-pop,samsung,moderne,han,rivière,technologie,cuisine,palais,gyeongbokgung,hanbok,kimchi,économie,asie','M'), // SÉOUL
+W('métropole,chine,pudong,bund,perle,gratte-ciel,port,moderne,yangtze,commercial,économie,néon,cosmopolite,asie,finance','M'), // SHANGHAI
+W('région,russie,froid,taïga,toundra,vaste,arctique,pipeline,isolé,permafrost,gaz,pétrole,ours,train,transsibérien,nature','F'), // SIBÉRIE
+W('état,île,merlion,propre,moderne,gratte-ciel,finance,port,multiculture,asie,jardins,baie,technologie,prospère,ordre','M'), // SINGAPOUR
+W('ville,australie,opéra,harbour,bridge,plage,bondi,port,météo,cosmopolite,nouvelle-galles,ensoleillé,baie,pacifique,australien','M'), // SYDNEY
+W('île,australie,diable,nature,sauvage,hobart,wilderness,national,parc,froid,isolée,pristine,unique,sud,forêt','F'), // TASMANIE
+W('pays,afrique,désert,ndjamena,lac,sahara,sahel,pauvre,landlocked,français,arabe,sécheresse,nomade,central,frontière','M'), // TCHAD
+W('métropole,japon,shibuya,akihabara,manga,anime,sushi,gratte-ciel,impérial,palais,fuji,néon,moderne,quartier,foule','M'), // TOKYO
+W('metropole,canada,cn,tower,ontario,niagara,multiculturel,grand,lac,froid,anglais,diversité,hockey,finance,urbain','M'), // TORONTO
+W('pays,istanbul,ankara,bosphore,kebab,mosquée,cappadoce,méditerranée,anatolie,danse,ottomane,islam,tapis,empire,ponte,culture','F'), // TURQUIE
+W('état,pape,rome,saint-pierre,catholique,chapelle,sixtine,michel-ange,garde,suisse,cité,petit,saint,religieux,religion','M'), // VATICAN
+W('ville,autriche,mozart,valse,danube,schönbrunn,hofburg,café,sacher,torte,strauss,art,nouveau,opéra,culture,impériale','F'), // VIENNE
 W('fleuve,russie,long,caspienne,mer,delta,navigation,mère,moscou,stalingrad,economique,vital,commerce,bassin,europe','F'), // VOLGA
 W('parc,wyoming,geyser,old,faithful,bison,grizzly,volcanique,géothermal,nature,national,états-unis,prismatique,printemps,faune','M'), // YELLOWSTONE
 W('fleuve,afrique,victoria,chutes,zambie,zimbabwe,mozambique,crocodile,barrage,kariba,navigation,long,rivière,bassin,delta','M'), // ZAMBÈZE
-W('tanzanie,île,océan,indien,épices,swahili,plage,turquoise,pierre,arabe,commerce,tropical,stone,town,historique','M'), // ZANZIBAR
-W('afrique,harare,victoria,chutes,mugabe,rhodésie,ruines,grand,économie,crise,inflation,landlocked,sanction,savane,sud','M'), // ZIMBABWE
+W('île,tanzanie,océan,indien,épices,swahili,plage,turquoise,pierre,arabe,commerce,tropical,stone,town,historique','M'), // ZANZIBAR
+W('pays,afrique,harare,victoria,chutes,mugabe,rhodésie,ruines,grand,économie,crise,inflation,landlocked,sanction,savane,sud','M'), // ZIMBABWE
 W('île,groupe,océan,dispersé,pacifique,volcanique,corail,polynésie,navigation,tropical,mer,atoll,chaîne,indonesia,grec','M'), // ARCHIPEL
 W('île,corail,lagon,océan,anneau,pacifique,maldives,polynésie,tropical,turquoise,formation,circulaire,réef,basse,plage','M'), // ATOLL
 W('montagne,andes,amérique,chaîne,altitude,volcans,massive,tectonique,sommet,rocheuses,longue,frontière,neige,géologie,dorsale','F'), // CORDILLÈRE
@@ -101,7 +101,7 @@ W('géographie,parallèle,équateur,coordonnée,nord,sud,degré,horizontal,clima
 W('coordonnée,verticale,greenwich,méridien,fuseau,horaire,est,ouest,degré,position,géographie,ligne,prime,mesure,temps','F'), // LONGITUDE
 W('ligne,longitude,greenwich,prime,zéro,vertical,fuseau,horaire,géographie,référence,temps,utc,division,international,terrestre','M'), // MÉRIDIEN
 W('latitude,horizontal,équateur,tropique,polaire,ligne,géographie,température,zone,nord,sud,cercle,constante,terrestre,imagin','M'), // PARALLÈLE
-W('mer,terre,côte,avancée,promontoire,géographie,trois,côtés,eau,péninsule,ibérique,italique,frontière,maritime,presqu','F'), // PÉNINSULE
+W('mer,terre,côte,avancée,promontoire,géographie,trois,côtés,eau,ibérique,italique,frontière,maritime,presqu','F'), // PÉNINSULE
 W('altitude,plat,élevée,tibet,anatolie,steppe,mesa,géologie,formation,érosion,horizontal,vaste,herbe,vent,semi-aride','M'), // PLATEAU
 W('corail,mer,océan,barrière,tropique,plongée,poisson,biodiversité,australie,fragile,coloré,polype,reef,côte,atoll','M'), // RÉCIF
 W('herbe,plaine,eurasie,mongolie,russie,sec,nomade,vaste,vent,continental,plat,tempéré,treeless,cheval,troupeau','F'), // STEPPE
@@ -375,7 +375,7 @@ W('analyse,jugement,évaluation,compte-rendu,commentaire,opinion,appréciation,e
 W('scène,décoration,théâtre,backdrop,plateau,accessoires,ambiance,design,visuel,fond,reconstitution,réaliste,décorateur,atelier,coulisses','M'), // DÉCORS
 W('conversation,échange,paroles,discussion,texte,script,verbal,interaction,théâtral,communication,réplique,personnage,discours,pièce,réponse','M'), // DIALOGUE
 W('publication,livre,maison,impression,sortie,version,éditeur,texte,littéraire,presse,reliure,tirage,numéro,collection,parution','F'), // ÉDITION
-W('rugby,touchdown,marquer,cinq,point,conversion,mêlée,aplatir,ligne,en-but,joueur,ballon,ovale,tentative,victoire','M'), // ESSAI
+W('aplatir,en-but,touchdown,rugby,marquer,cinq,point,conversion,mêlée,ligne,joueur,ballon,ovale,tentative,victoire','M'), // ESSAI
 W('comédie,légère,bouffonnerie,humour,théâtre,comique,ridicule,amusant,pièce,moquerie,trivial,gags,comedia,populaire,rire','F'), // FARCE
 W('catégorie,style,type,littéraire,classification,forme,artistique,mode,variété,division,roman,poésie,théâtre,fiction,fantastique','M'), // GENRE
 W('peinture,opaque,épaisse,couleur,medium,pigment,mat,corps,couverture,artistique,eau,dessin,illustration,affiche,poster','F'), // GOUACHE
@@ -422,7 +422,7 @@ W('science,vivant,cellule,organisme,étude,zoologie,botanique,génétique,écolo
 W('unité,vie,noyau,membrane,organisme,microscope,tissu,division,mitose,biologie,nucleus,cytoplasme,énergie,base,reproduction','F'), // CELLULE
 W('science,élément,réaction,molécule,laboratoire,atome,composé,formule,équation,périodique,substance,expérience,litre,solution,matière','F'), // CHIMIE
 W('génétique,ADN,cellule,hérédité,mutation,gène,allèle,trait,noyau,karyotype,X,Y,paire,brin,porteur','M'), // CHROMOSOME
-W('automobile,piste,tour,course,formule,boucle,ovale,virage,tracé,asphalte,ligne,droite,chicane,circuit,grand','M'), // CIRCUIT
+W('chicane,virage,tracé,automobile,piste,tour,course,formule,boucle,ovale,asphalte,ligne,droite,grand','M'), // CIRCUIT
 W('météo,température,atmosphère,réchauffement,précipitation,saisonnier,mondial,changement,zone,biome,tropical,aride,polaire,tempéré,carbone','M'), // CLIMAT
 W('organe,sang,battement,cardiaque,pompe,vital,muscle,circulation,rythme,artère,veine,médecine,droit,gauche,contrôle','M'), // CŒUR
 W('astre,espace,queue,noyau,glace,halley,céleste,orbite,solaire,périodique,pluie,météores,visible,brillante,nébuleuse','F'), // COMÈTE
@@ -540,121 +540,121 @@ W('géographie,région,climat,tempéré,tropique,arctique,intertropicale,latitud
   ],
 
   '⚽ Sports & Loisirs': [
-W('sport,sifflet,règle,match,football,décision,carton,impartial,officiel,justice,contrôle,faute,rouge,jaune,litige','M'), // ARBITRE
-W('course,piste,sprint,100m,marathon,olympique,record,médaille,vitesse,sauter,lancer,saut,haies,relais,stade','M'), // ATHLÉTISME
-W('raquette,volant,filet,smash,asie,rapide,double,tournoi,service,échange,olympique,plumes,léger,précis,court','M'), // BADMINTON
-W('rond,football,basket,rugby,gonfler,cuir,kick,sphère,rebond,jeu,lancer,attraper,air,pression,sports','M'), // BALLON
-W('batte,base,homerun,mlb,lanceur,terrain,manche,strike,gant,yankees,stade,américain,diamond,inning,balle','M'), // BASEBALL
-W('panier,NBA,dribble,jordan,tir,orange,cinq,anneau,terrain,dunk,rebond,basketball,meneur,pivot,aile','M'), // BASKET
-W('table,queue,boule,huit,snooker,touche,poche,feutrine,craie,rack,visée,carambole,billes,précision,coup','M'), // BILLARD
-W('quilles,strike,spare,piste,boule,couloir,chaussures,gouttière,carreau,dix,rouler,toucher,marquage,boulodrome,décompte','M'), // BOWLING
-W('gants,ring,ko,punch,round,poids,knockout,uppercut,jab,arbitre,coin,boxeur,titre,mondial,combat','F'), // BOXE
-W('marquer,goal,score,football,rugby,hockey,filet,gagner,point,tirer,objectif,victoire,vainqueur,décisif,réussi','M'), // BUT
-W('eau,pagaie,rivière,kayak,sport,descente,rapides,embarcation,raft,nature,navigation,lac,courant,aventure,nautique','M'), // CANOË
-W('lutte,spectacle,wwe,ring,lutteur,entertainment,masqué,combat,prise,slam,championnat,théâtral,smackdown,costumes,show','M'), // CATCH
-W('gagnant,premier,médaille,titre,coupe,vainqueur,meilleur,triomphe,record,victoire,or,défense,couronné,consacré,élu','M'), // CHAMPION
-W('temps,course,mesure,précision,stopwatch,secondes,chrono,digital,tour,record,décisif,compétition,bouton,piste,résultat','M'), // CHRONOMÈTRE
-W('vélo,tour,france,pédales,roue,route,casque,maillot,sprint,ascension,étape,coureur,équipe,montagne,contre-la-montre','M'), // CYCLISME
-W('jeu,plateau,pion,diagonal,damier,saut,capture,adversaire,stratégie,coin,promotion,reine,règle,noire,blanc','F'), // DAME
-W('course,cheval,hippodrome,jockey,galop,piste,pari,gazon,classique,équestre,pur-sang,étape,victoire,racing,plat','M'), // DERBY
-W('lancer,athlétisme,javelot,poids,champ,olympique,tournoyer,trajectoire,distance,spinning,force,technique,cercle,élan,acier','M'), // DISQUE
-W('basket,contrôle,ballon,manœuvre,rebond,crossover,habile,mouvement,feinte,football,pied,technique,avancer,rapide,dribblo','M'), // DRIBBLE
-W('basket,smash,panier,spectacle,saut,puissant,foule,athletique,highlight,NBA,anneau,aérien,volcanique,plonger,acrobatique','M'), // DUNK
-W('jeu,stratégie,roi,dame,échec,mat,tour,fou,cavalier,pion,échiquier,tactique,partie,grand,maître','M'), // ÉCHECS
-W('épée,fleuret,sabre,touche,masque,piste,duel,parer,attaque,retraite,riposte,botte,tierce,position,olympique','F'), // ESCRIME
-W('rugby,touchdown,marquer,cinq,point,conversion,mêlée,aplatir,ligne,en-but,joueur,ballon,ovale,tentative,victoire','M'), // ESSAI
-W('exercice,gym,musculation,santé,entraînement,cardio,bodybuilding,aérobie,force,bien-être,routine,nutrition,corps,endurance,style','M'), // FITNESS
-W('cible,dard,précision,pub,bullseye,tableau,lancer,flèche,double,triple,180,score,toucher,distance,jeu','F'), // FLÉCHETTES
-W('ballon,équipe,goal,coupe,monde,terrain,FIFA,match,stade,joueur,buteur,gardien,pied,règle,club','M'), // FOOTBALL
-W('faute,violation,règle,pénalité,arbitre,sifflet,carton,illégal,infraction,basket,contact,joueur,sanctionner,tir,libre','M'), // FOUL
-W('club,balle,green,trou,swing,putt,caddy,fairway,birdie,bogey,parcours,handicap,18,bois,fer','M'), // GOLF
-W('souplesse,acrobatie,poutre,agrès,flexible,saut,rotation,sol,barre,cheval,artistique,rythme,olympique,note,élégance','F'), // GYMNASTIQUE
-W('poids,force,musculation,barre,arracher,épaulé-jeté,olympique,lourd,performance,compétition,soulever,plateau,kilos,bras,épaule','F'), // HALTÉROPHILIE
-W('équipe,ballon,but,sept,terrain,lanceur,gardien,européen,rapide,pivot,aile,défense,attaque,tir,rebond','M'), // HANDBALL
-W('glace,palet,crosse,NHL,patinoire,équipe,gardien,tir,but,hors-jeu,face-off,rondelle,puissance,contact,vite','M'), // HOCKEY
-W('martial,japonais,kimono,ceinture,ippon,lancer,projection,tatami,dojo,combat,olympique,grade,souplesse,déséquilibre,kodokan','M'), // JUDO
-W('martial,japonais,coup,pied,poing,kata,dojo,ceinture,frapper,blocage,discipline,autodéfense,olympique,kihon,kumite','M'), // KARATÉ
-W('eau,pagaie,rivière,eskimo,rapide,bateau,manœuvre,roll,pagayer,aviron,embarcation,sportif,navigation,descente,outdoor','M'), // KAYAK
-W('boxe,knockout,combat,victoire,coup,technique,TKO,décisif,finish,arbitre,blessure,soigner,compter,direct,massue','M'), // KO
-W('athlétisme,javelot,poids,disque,marteau,champ,distance,olympique,technique,propulser,élan,touche,précision,force,trajectoire','M'), // LANCER
-W('course,42km,endurance,olympique,courir,résistance,distance,26,miles,runner,stamina,athènes,finir,dossard,ravitaillement','M'), // MARATHON
-W('compétition,équipe,jeu,rencontre,adversaire,terrain,résultat,score,victoire,défaite,mi-temps,arbitre,duel,enjeu,fixture','M'), // MATCH
-W('or,argent,bronze,podium,cérémonie,olympique,récompense,honneur,classement,gagnant,distinction,performance,fierté,gagner,reconnaissance','F'), // MÉDAILLE
-W('piscine,crawl,brasse,papillon,dos,nager,compétition,bassin,temps,couloir,aquatique,plongeon,eau,olympique,chrono','F'), // NATATION
-W('basket,américain,ligue,professionnel,championnat,playoffs,superstar,arène,dunk,Jordan,LeBron,draft,franchise,trophée,saison','F'), // NBA
-W('jeux,médaille,torche,cinq,anneaux,athlète,international,cérémonie,or,national,compétition,quatre,ans,nations,stade','M'), // OLYMPIQUE
-W('football,faute,coup,franc,gardien,tirer,marquer,spot,penalty,duel,stressant,séance,final,panenka,décisif','M'), // PENALTY
-W('boules,terrain,cochonnet,provence,métal,lancer,pointeur,tireur,milieu,piste,jeu,français,pelouse,estivale,convivial','F'), // PÉTANQUE
-W('table,tennis,raquette,smash,spin,service,rally,forehand,backhand,rapide,balle,légère,rebond,indoor,pongiste','M'), // PING-PONG
-W('cartes,mise,bluff,jetons,texas,holdem,main,donneur,coucher,tapis,pair,relance,all-in,stratégie,casino','M'), // POKER
-W('cheval,maillet,équestre,cavalier,équipe,terrain,goal,sport,noble,manche,arbitre,gallop,luxe,argentine,monde','M'), // POLO
-W('eau,rapides,bateau,aventure,raft,rivière,pagayer,extrême,palpitant,canyon,colorado,descente,équipe,gilet,casque','M'), // RAFTING
-W('course,automobile,voiture,vitesse,navigation,étape,championnat,pilote,copilote,terrain,boue,compétition,chronométré,spéciale,monte','M'), // RALLYE
-W('tennis,badminton,cordage,manche,frappe,cadre,tête,sport,coup,droit,revers,volée,smash,fibre,graphite','F'), // RAQUETTE
-W('meilleur,temps,performance,mondial,chrono,battre,établir,certifié,guinness,athlète,history,fastest,holder,marque,dépassé','M'), // RECORD
-W('ballon,ovale,essai,mêlée,plaquage,conversion,avants,arrières,ligne,but,touche,hors-jeu,ruck,maul,scrum','M'), // RUGBY
-W('bond,hauteur,longueur,perche,tremplin,triple,olympique,plongeon,chute,acrobatie,impulsion,réception,barre,vertical,athlétisme','M'), // SAUT
-W('neige,montagne,piste,slalom,descente,remonte-pente,casque,bâtons,station,alpine,combiné,super-G,freestyle,olympique,vitesse','M'), // SKI
-W('neige,planche,half-pipe,trick,freestyle,montagne,ride,shred,carving,snowpark,figure,saut,glisse,olympique,style','M'), // SNOWBOARD
-W('football,américain,FIFA,ballon,coupe,monde,terrain,attaquant,gardien,ligue,match,règle,tir,passe,club','M'), // SOCCER
-W('raquette,mur,balle,enclosed,fitness,rapide,contre,paroi,service,hauteur,drop,boîte,coup,rebond,enceinte','M'), // SQUASH
-W('vague,planche,océan,plage,tube,ride,paddle,swell,compétition,hawaii,longboard,shortboard,glisse,olympique,barreaux','M'), // SURF
-W('martial,coréen,pied,combat,ceinture,olympique,formes,sparring,discipline,coups,arts,jambe,dobok,pointe,fédération','M'), // TAEKWONDO
-W('raquette,court,service,wimbledon,baseline,forehand,volée,grand,chelem,deuce,avantage,ace,tie-break,fond,relance','M'), // TENNIS
-W('cible,précision,arc,tir,archerie,bullseye,fusil,pistolet,arme,plombs,olympique,marksman,distance,viseur,carabine','M'), // TIR
-W('compétition,championnat,coupe,tableau,knockout,fixture,tirage,trophée,playoff,tour,bracket,tenant,titre,victoire,récompense','M'), // TOURNOI
-W('acrobatie,rebond,saut,gymnaste,flip,tricks,tumbling,aérien,rebondir,olympique,hauteur,figure,indoor,ressort,mousse','M'), // TRAMPOLINE
-W('natation,vélo,course,ironman,endurance,multisport,transition,athlète,stamina,sports,distance,sprint,olympique,complet,finisher','M'), // TRIATHLON
-W('cheval,course,hippique,sulky,attelé,harnais,trotteur,conducteur,piste,allure,rênes,vitesse,hippodrome,parier,vincennes','M'), // TROT
-W('volley-ball,équipe,filet,smash,service,spike,set,dig,rotation,court,beach,libero,ace,manchette,position','M'), // VOLLEY
-W('tennis,tournoi,anglais,gazon,court,prestigieux,championnat,grand,chelem,britannique,blanc,cravate,fraises,crème,herbe','M'), // WIMBLEDON
-W('zen,méditation,posture,souplesse,paix,respiration,asana,relaxation,pleine,conscience,corps,namaste,karma,équilibre,sérénité','M'), // YOGA
-W('tennis,service,point,gagnant,irretournable,puissant,direct,scorer,tir,première,seconde,ligne,winner,imprimable,filet','M'), // ACE
-W('football,attaque,ailier,latéral,flanc,position,avant,offensif,large,touche,dribble,centrer,course,débordement,côté','F'), // AILE
-W('match,double,sens,aller,retour,fixture,domicile,extérieur,premier,second,jambe,résultat,cumul,critère,buts','M'), // ALLER-RETOUR
-W('montagne,escalade,sommet,corde,ascension,rocher,grimpe,altitude,crampons,piolet,glacier,cordée,alpiniste,bivouac,voie','M'), // ALPINISME
-W('sport,jugement,officiel,décision,impartial,sifflet,carton,règle,litige,concilier,contrôle,assistants,VAR,video,équité','M'), // ARBITRAGE
-W('gardien,bloquer,sauver,défense,stop,attraper,déflexion,plongeant,réflexe,gardiennage,parade,dernier,recours,tir,keeper','M'), // ARRÊT
-W('offensive,assaut,avant,scorer,agressif,pression,but,pousser,marquage,combinaison,rapide,contre,pressing,stratégie,football','F'), // ATTAQUE
-W('football,position,attaquant,striker,offensif,premier,but,avant-centre,gauche,droit,ligne,attaque,marquer,finisseur,tête','M'), // AVANT
-W('gymnastics,flip,arrière,acrobatie,culbute,rotation,aérien,tumbling,trick,inversé,sol,trampoline,saut,spectaculaire,gymnaste','M'), // BACKFLIP
-W('golf,oiseau,score,sous,par,trou,réussi,performance,bon,résultat,card,marquage,félicitation,green,club','M'), // BIRDIE
-W('escalade,rocher,mur,prise,grip,voie,indoor,outdoor,problème,bouldering,main,pied,difficulté,salle,hauteur','M'), // BLOC
-W('tennis,jeu,service,pression,rupture,set,tiebreak,avantage,momentum,changer,adversaire,relâche,pause,intervalle,changeover','M'), // BREAK
-W('football,attaquant,scorer,marquer,but,avant,tir,finisseur,offensif,classement,bomber,tueur,zone,pied,tête','M'), // BUTEUR
-W('sport,milieu,terrain,position,pivot,meneur,playmaker,relais,défensif,offensif,distribution,collecteur,basculer,joueur,créatif','M'), // CENTRE
-W('automobile,piste,tour,course,formule,boucle,ovale,virage,tracé,asphalte,ligne,droite,chicane,circuit,grand','M'), // CIRCUIT
-W('rang,position,tableau,standings,ligue,ladder,hiérarchie,ordre,placement,points,leader,première,tête,dernière,classé','M'), // CLASSEMENT
-W('entraîneur,équipe,tactique,manager,instructeur,guide,stratégie,mentor,directeur,sportif,leader,préparateur,physique,banc,sélection','M'), // COACH
-W('football,angle,coup,franc,drapeau,arc,centre,attaque,set,piece,calcio,angolo,tirer,envoi,débordement','M'), // CORNER
-W('frappe,tir,shoot,coup,direct,swing,impact,puissant,livrer,lancer,frapper,attaque,fort,décisif,exécution','M'), // COUP
-W('marathon,compétition,vitesse,piste,running,sprint,track,runner,distance,chasse,finish,départ,arrivée,classement,dossard','F'), // COURSE
-W('protection,arrière,défenseur,back,bloquer,couvrir,plaquage,zone,marquage,interception,stop,rempart,barrage,mur,résistance','F'), // DÉFENSE
-W('ski,pente,bas,vitesse,alpine,montagne,rapide,slalom,super-G,course,risque,neige,vent,combiné,pointe','F'), // DESCENTE
-W('tennis,deux,joueurs,paire,partenariat,équipe,match,mixte,hommes,femmes,servir,smash,coordination,complicité,titre','M'), // DOUBLE
-W('golf,coup,distance,long,carry,fairway,driver,puissant,lancer,départ,tee,bois,force,précision,trajectoire','M'), // DRIVE
-W('stamina,résistance,longue,marathon,persévérance,fortitude,force,tenir,effort,durée,cardiovasculaire,mental,corps,entraînement,limite','F'), // ENDURANCE
-W('groupe,joueurs,ensemble,collectif,squad,sélection,effectif,composition,club,alliance,vestiaire,cohésion,esprit,coopération,uniforme','F'), // ÉQUIPE
-W('entraînement,activité,gym,physique,training,drill,routine,pratique,fitness,répétition,série,cardio,musculation,étirement,warm-up','M'), // EXERCICE
-W('étirement,souplesse,muscle,allonger,stretch,assouplissement,limber,warm,up,étendre,atteindre,amplitude,range,motion,flexible','F'), // EXTENSION
-W('hockey,mise,jeu,palet,drop,départ,centre,glace,confrontation,draw,début,bully,puck,rondelle,adversaire','M'), // FACE-OFF
-W('infraction,règle,pénalité,violation,arbitre,sifflet,carton,illégal,déduction,contact,balle,sanction,personnel,technique,sportivité','F'), // FAUTE
-W('tennis,volleyball,net,mesh,frontière,volée,passer,point,smash,servir,diviser,central,hauteur,bande,obstacle','M'), // FILET
-W('dernière,manche,ultime,championnat,décisive,conclusion,confrontation,climax,gagnant,perdant,titre,trophée,victoire,récompense,showdown','F'), // FINALE
-W('tir,coup,kick,shoot,frapper,impact,puissant,balle,diriger,pied,poignet,volée,précis,cadré,spectaculaire','F'), // FRAPPE
-W('libre,style,improvisation,acrobatie,trick,créatif,spontané,skateboard,BMX,motoneige,ski,half-pipe,expression,urbain,compétition','M'), // FREESTYLE
-W('victoire,gagner,récompense,bénéfice,profit,triomphe,résultat,acquisition,avantage,réussite,succès,point,score,positif,mérite','M'), // GAIN
-W('but,protecteur,keeper,goal,filet,sauver,bloquer,plonger,arrêt,défense,dernier,rempart,gants,cage,gardiennage','M'), // GARDIEN
-W('but,score,marquer,objectif,filet,football,soccer,hockey,basket,gardien,tirer,tir,réussir,décisif,victoire','M'), // GOAL
-W('escalade,montée,ascension,rocher,mur,traction,prise,cordée,hauteur,alpinisme,grimpeur,force,technique,indoor,outdoor','F'), // GRIMPE
-W('prise,main,adhérence,raquette,manche,tenir,secure,tennis,club,saisir,ferme,résistance,anti-dérapant,friction,contrôle','M'), // GRIP
-W('terrain,sol,baseball,field,fond,surface,pitch,diamond,dirt,grass,toucher,line,ball,jeu,balle','M'), // GROUND
-W('hockey,trois,buts,tour,chapeau,feat,successive,match,rare,réalisé,triplicé,foot,cricket,prouesse,marquer','M'), // HAT-TRICK
-W('talon,arrière,pied,kick,football,soccer,boot,chaussure,derrière,revers,retourné,inattendu,technique,spectaculaire,retro','M'), // HEEL
-W('baseball,circuit,complet,clôture,quatre,bases,grand,chelem,frapper,homerun,batteur,stade,domicile,lanceur,balle','M'), // HOME-RUN
-W('football,offside,ligne,position,avancée,arbitre,assistant,drapeau,VAR,attaquant,illégal,défenseur,passe,dernière,règle','M'), // HORS-JEU
-W('football,américain,défense,attraper,passe,adversaire,rebondissement,volé,turnover,steal,défensif,pick,corner,retour,touchdown','F'), // INTERCEPTION
-W('basketball,dunk,bloquer,panier,slam,stuff,puissant,cerceau,spectacular,anneau,lancer,exploit,sauter,bras,force','M'), // JAM
+W('sport,sifflet,carton,impartial,règle,match,football,décision,officiel,justice,contrôle,faute,rouge,jaune,litige','M'), // ARBITRE
+W('sport,haies,relais,100m,course,piste,sprint,marathon,olympique,record,médaille,vitesse,sauter,lancer,saut,stade','M'), // ATHLÉTISME
+W('sport,volant,plumes,raquette,filet,smash,asie,rapide,double,tournoi,service,échange,olympique,léger,précis,court','M'), // BADMINTON
+W('sport,gonfler,rond,cuir,football,basket,rugby,kick,sphère,rebond,jeu,lancer,attraper,air,pression,sports','M'), // BALLON
+W('sport,batte,homerun,diamond,base,mlb,lanceur,terrain,manche,strike,gant,yankees,stade,américain,inning,balle','M'), // BASEBALL
+W('sport,panier,dribble,dunk,NBA,jordan,tir,orange,cinq,anneau,terrain,rebond,basketball,meneur,pivot,aile','M'), // BASKET
+W('sport,queue,poche,feutrine,table,boule,huit,snooker,touche,craie,rack,visée,carambole,billes,précision,coup','M'), // BILLARD
+W('sport,quilles,gouttière,spare,strike,piste,boule,couloir,chaussures,carreau,dix,rouler,toucher,marquage,boulodrome,décompte','M'), // BOWLING
+W('sport,uppercut,jab,ko,gants,ring,punch,round,poids,knockout,arbitre,coin,boxeur,titre,mondial,combat','F'), // BOXE
+W('sport,filet,marquer,tirer,goal,score,football,rugby,hockey,gagner,point,objectif,victoire,vainqueur,décisif,réussi','M'), // BUT
+W('sport,eau,pagaie,rivière,kayak,descente,rapides,embarcation,raft,nature,navigation,lac,courant,aventure,nautique','M'), // CANOË
+W('sport,wwe,smackdown,masqué,lutte,spectacle,ring,lutteur,entertainment,combat,prise,slam,championnat,théâtral,costumes,show','M'), // CATCH
+W('sport,couronné,consacré,titre,gagnant,premier,médaille,coupe,vainqueur,meilleur,triomphe,record,victoire,or,défense,élu','M'), // CHAMPION
+W('sport,stopwatch,chrono,secondes,temps,course,mesure,précision,digital,tour,record,décisif,compétition,bouton,piste,résultat','M'), // CHRONOMÈTRE
+W('sport,pédales,maillot,vélo,tour,france,roue,route,casque,sprint,ascension,étape,coureur,équipe,montagne,contre-la-montre','M'), // CYCLISME
+W('sport,damier,diagonal,pion,jeu,plateau,saut,capture,adversaire,stratégie,coin,promotion,reine,règle,noire,blanc','F'), // DAME
+W('sport,jockey,hippodrome,pur-sang,course,cheval,galop,piste,pari,gazon,classique,équestre,étape,victoire,racing,plat','M'), // DERBY
+W('sport,tournoyer,cercle,lancer,athlétisme,javelot,poids,champ,olympique,trajectoire,distance,spinning,force,technique,élan,acier','M'), // DISQUE
+W('sport,crossover,feinte,contrôle,basket,ballon,manœuvre,rebond,habile,mouvement,football,pied,technique,avancer,rapide,dribblo','M'), // DRIBBLE
+W('sport,panier,smash,anneau,basket,spectacle,saut,puissant,foule,athletique,highlight,NBA,aérien,volcanique,plonger,acrobatique','M'), // DUNK
+W('sport,échiquier,roi,cavalier,jeu,stratégie,dame,échec,mat,tour,fou,pion,tactique,partie,grand,maître','M'), // ÉCHECS
+W('sport,fleuret,sabre,masque,épée,touche,piste,duel,parer,attaque,retraite,riposte,botte,tierce,position,olympique','F'), // ESCRIME
+W('sport,aplatir,en-but,touchdown,rugby,marquer,cinq,point,conversion,mêlée,ligne,joueur,ballon,ovale,tentative,victoire','M'), // ESSAI
+W('sport,cardio,aérobie,musculation,exercice,gym,santé,entraînement,bodybuilding,force,bien-être,routine,nutrition,corps,endurance,style','M'), // FITNESS
+W('sport,bullseye,dard,180,cible,précision,pub,tableau,lancer,flèche,double,triple,score,toucher,distance,jeu','F'), // FLÉCHETTES
+W('sport,FIFA,buteur,gardien,ballon,équipe,goal,coupe,monde,terrain,match,stade,joueur,pied,règle,club','M'), // FOOTBALL
+W('sport,violation,infraction,pénalité,faute,règle,arbitre,sifflet,carton,illégal,basket,contact,joueur,sanctionner,tir,libre','M'), // FOUL
+W('sport,swing,putt,green,club,balle,trou,caddy,fairway,birdie,bogey,parcours,handicap,18,bois,fer','M'), // GOLF
+W('sport,poutre,agrès,acrobatie,souplesse,flexible,saut,rotation,sol,barre,cheval,artistique,rythme,olympique,note,élégance','F'), // GYMNASTIQUE
+W('sport,épaulé-jeté,arracher,barre,poids,force,musculation,olympique,lourd,performance,compétition,soulever,plateau,kilos,bras,épaule','F'), // HALTÉROPHILIE
+W('sport,main,sept,but,équipe,ballon,terrain,lanceur,gardien,européen,rapide,pivot,aile,défense,attaque,tir','M'), // HANDBALL
+W('sport,crosse,palet,patinoire,glace,NHL,équipe,gardien,tir,but,hors-jeu,face-off,rondelle,puissance,contact,vite','M'), // HOCKEY
+W('sport,kimono,ippon,tatami,martial,japonais,ceinture,lancer,projection,dojo,combat,olympique,grade,souplesse,déséquilibre,kodokan','M'), // JUDO
+W('sport,kata,kumite,kihon,martial,japonais,coup,pied,poing,dojo,ceinture,frapper,blocage,discipline,autodéfense,olympique','M'), // KARATÉ
+W('sport,roll,eskimo,pagaie,eau,rivière,rapide,bateau,manœuvre,pagayer,aviron,embarcation,sportif,navigation,descente,outdoor','M'), // KAYAK
+W('sport,knockout,TKO,boxe,combat,victoire,coup,technique,décisif,finish,arbitre,blessure,soigner,compter,direct,massue','M'), // KO
+W('sport,marteau,javelot,disque,athlétisme,poids,champ,distance,olympique,technique,propulser,élan,touche,précision,force,trajectoire','M'), // LANCER
+W('sport,42km,athènes,dossard,course,endurance,olympique,courir,résistance,distance,26,miles,runner,stamina,finir,ravitaillement','M'), // MARATHON
+W('sport,mi-temps,fixture,rencontre,compétition,équipe,jeu,adversaire,terrain,résultat,score,victoire,défaite,arbitre,duel,enjeu','M'), // MATCH
+W('sport,podium,or,argent,bronze,cérémonie,olympique,récompense,honneur,classement,gagnant,distinction,performance,fierté,gagner,reconnaissance','F'), // MÉDAILLE
+W('sport,crawl,brasse,papillon,piscine,dos,nager,compétition,bassin,temps,couloir,aquatique,plongeon,eau,olympique,chrono','F'), // NATATION
+W('sport,playoffs,draft,LeBron,basket,américain,ligue,professionnel,championnat,superstar,arène,dunk,Jordan,franchise,trophée,saison','F'), // NBA
+W('sport,torche,anneaux,jeux,médaille,cinq,athlète,international,cérémonie,or,national,compétition,quatre,ans,nations,stade','M'), // OLYMPIQUE
+W('sport,panenka,spot,séance,football,faute,coup,franc,gardien,tirer,marquer,penalty,duel,stressant,final,décisif','M'), // PENALTY
+W('sport,cochonnet,boules,pointeur,terrain,provence,métal,lancer,tireur,milieu,piste,jeu,français,pelouse,estivale,convivial','F'), // PÉTANQUE
+W('sport,pongiste,spin,table,tennis,raquette,smash,service,rally,forehand,backhand,rapide,balle,légère,rebond,indoor','M'), // PING-PONG
+W('sport,bluff,texas,holdem,cartes,mise,jetons,main,donneur,coucher,tapis,pair,relance,all-in,stratégie,casino','M'), // POKER
+W('sport,maillet,cavalier,équestre,cheval,équipe,terrain,goal,noble,manche,arbitre,gallop,luxe,argentine,monde','M'), // POLO
+W('sport,raft,rapides,canyon,eau,bateau,aventure,rivière,pagayer,extrême,palpitant,colorado,descente,équipe,gilet,casque','M'), // RAFTING
+W('sport,copilote,spéciale,boue,course,automobile,voiture,vitesse,navigation,étape,championnat,pilote,terrain,compétition,chronométré,monte','M'), // RALLYE
+W('sport,cordage,cadre,manche,tennis,badminton,frappe,tête,coup,droit,revers,volée,smash,fibre,graphite','F'), // RAQUETTE
+W('sport,guinness,battre,établir,meilleur,temps,performance,mondial,chrono,certifié,athlète,history,fastest,holder,marque,dépassé','M'), // RECORD
+W('sport,ovale,mêlée,plaquage,ballon,essai,conversion,avants,arrières,ligne,but,touche,hors-jeu,ruck,maul,scrum','M'), // RUGBY
+W('sport,perche,tremplin,hauteur,bond,longueur,triple,olympique,plongeon,chute,acrobatie,impulsion,réception,barre,vertical,athlétisme','M'), // SAUT
+W('sport,slalom,remonte-pente,bâtons,neige,montagne,piste,descente,casque,station,alpine,combiné,super-G,freestyle,olympique,vitesse','M'), // SKI
+W('sport,half-pipe,planche,carving,neige,trick,freestyle,montagne,ride,shred,snowpark,figure,saut,glisse,olympique,style','M'), // SNOWBOARD
+W('sport,américain,FIFA,football,ballon,coupe,monde,terrain,attaquant,gardien,ligue,match,règle,tir,passe,club','M'), // SOCCER
+W('sport,mur,paroi,enclosed,raquette,balle,fitness,rapide,contre,service,hauteur,drop,boîte,coup,rebond,enceinte','M'), // SQUASH
+W('sport,vague,planche,tube,océan,plage,ride,paddle,swell,compétition,hawaii,longboard,shortboard,glisse,olympique,barreaux','M'), // SURF
+W('sport,coréen,dobok,sparring,martial,pied,combat,ceinture,olympique,formes,discipline,coups,arts,jambe,pointe,fédération','M'), // TAEKWONDO
+W('sport,wimbledon,deuce,tie-break,raquette,court,service,baseline,forehand,volée,grand,chelem,avantage,ace,fond,relance','M'), // TENNIS
+W('sport,archerie,carabine,viseur,cible,précision,arc,bullseye,fusil,pistolet,arme,plombs,olympique,marksman,distance','M'), // TIR
+W('sport,bracket,tirage,playoff,compétition,championnat,coupe,tableau,knockout,fixture,trophée,tour,tenant,titre,victoire,récompense','M'), // TOURNOI
+W('sport,ressort,rebondir,flip,acrobatie,rebond,saut,gymnaste,tricks,tumbling,aérien,olympique,hauteur,figure,indoor,mousse','M'), // TRAMPOLINE
+W('sport,ironman,transition,multisport,natation,vélo,course,endurance,athlète,stamina,sports,distance,sprint,olympique,complet,finisher','M'), // TRIATHLON
+W('sport,sulky,attelé,trotteur,cheval,course,hippique,harnais,conducteur,piste,allure,rênes,vitesse,hippodrome,parier,vincennes','M'), // TROT
+W('sport,spike,libero,manchette,volley-ball,équipe,filet,smash,service,set,dig,rotation,court,beach,ace,position','M'), // VOLLEY
+W('sport,gazon,fraises,crème,tennis,tournoi,anglais,court,prestigieux,championnat,grand,chelem,britannique,blanc,cravate,herbe','M'), // WIMBLEDON
+W('sport,asana,namaste,posture,zen,méditation,souplesse,paix,respiration,relaxation,pleine,conscience,corps,karma,équilibre,sérénité','M'), // YOGA
+W('sport,irretournable,winner,service,tennis,point,gagnant,puissant,direct,scorer,tir,première,seconde,ligne,imprimable,filet','M'), // ACE
+W('sport,ailier,débordement,flanc,football,attaque,latéral,position,avant,offensif,large,touche,dribble,centrer,course,côté','F'), // AILE
+W('sport,domicile,extérieur,cumul,match,double,sens,aller,retour,fixture,premier,second,jambe,résultat,critère,buts','M'), // ALLER-RETOUR
+W('sport,piolet,crampons,cordée,montagne,escalade,sommet,corde,ascension,rocher,grimpe,altitude,glacier,alpiniste,bivouac,voie','M'), // ALPINISME
+W('sport,VAR,sifflet,carton,jugement,officiel,décision,impartial,règle,litige,concilier,contrôle,assistants,video,équité','M'), // ARBITRAGE
+W('sport,déflexion,plongeant,parade,gardien,bloquer,sauver,défense,stop,attraper,réflexe,gardiennage,dernier,recours,tir,keeper','M'), // ARRÊT
+W('sport,offensive,pressing,assaut,avant,scorer,agressif,pression,but,pousser,marquage,combinaison,rapide,contre,stratégie,football','F'), // ATTAQUE
+W('sport,striker,avant-centre,finisseur,football,position,attaquant,offensif,premier,but,gauche,droit,ligne,attaque,marquer,tête','M'), // AVANT
+W('sport,flip,culbute,inversé,gymnastics,arrière,acrobatie,rotation,aérien,tumbling,trick,sol,trampoline,saut,spectaculaire,gymnaste','M'), // BACKFLIP
+W('sport,oiseau,sous,par,golf,score,trou,réussi,performance,bon,résultat,card,marquage,félicitation,green,club','M'), // BIRDIE
+W('sport,bouldering,prise,grip,escalade,rocher,mur,voie,indoor,outdoor,problème,main,pied,difficulté,salle,hauteur','M'), // BLOC
+W('sport,tiebreak,rupture,changeover,tennis,jeu,service,pression,set,avantage,momentum,changer,adversaire,relâche,pause,intervalle','M'), // BREAK
+W('sport,tueur,bomber,classement,football,attaquant,scorer,marquer,but,avant,tir,finisseur,offensif,zone,pied,tête','M'), // BUTEUR
+W('sport,playmaker,meneur,distribution,milieu,terrain,position,pivot,relais,défensif,offensif,collecteur,basculer,joueur,créatif','M'), // CENTRE
+W('sport,chicane,virage,tracé,automobile,piste,tour,course,formule,boucle,ovale,asphalte,ligne,droite,grand','M'), // CIRCUIT
+W('sport,standings,ladder,rang,position,tableau,ligue,hiérarchie,ordre,placement,points,leader,première,tête,dernière,classé','M'), // CLASSEMENT
+W('sport,entraîneur,banc,préparateur,équipe,tactique,manager,instructeur,guide,stratégie,mentor,directeur,sportif,leader,physique,sélection','M'), // COACH
+W('sport,drapeau,angle,franc,football,coup,arc,centre,attaque,set,piece,calcio,angolo,tirer,envoi,débordement','M'), // CORNER
+W('sport,frappe,impact,swing,tir,shoot,direct,puissant,livrer,lancer,frapper,attaque,fort,décisif,exécution','M'), // COUP
+W('sport,dossard,départ,arrivée,marathon,compétition,vitesse,piste,running,sprint,track,runner,distance,chasse,finish,classement','F'), // COURSE
+W('sport,rempart,barrage,couvrir,protection,arrière,défenseur,back,bloquer,plaquage,zone,marquage,interception,stop,mur,résistance','F'), // DÉFENSE
+W('sport,super-G,pente,alpine,ski,bas,vitesse,montagne,rapide,slalom,course,risque,neige,vent,combiné,pointe','F'), // DESCENTE
+W('sport,paire,mixte,partenariat,tennis,deux,joueurs,équipe,match,hommes,femmes,servir,smash,coordination,complicité,titre','M'), // DOUBLE
+W('sport,tee,driver,fairway,golf,coup,distance,long,carry,puissant,lancer,départ,bois,force,précision,trajectoire','M'), // DRIVE
+W('sport,stamina,cardiovasculaire,fortitude,résistance,longue,marathon,persévérance,force,tenir,effort,durée,mental,corps,entraînement,limite','F'), // ENDURANCE
+W('sport,squad,vestiaire,effectif,groupe,joueurs,ensemble,collectif,sélection,composition,club,alliance,cohésion,esprit,coopération,uniforme','F'), // ÉQUIPE
+W('sport,drill,répétition,série,entraînement,activité,gym,physique,training,routine,pratique,fitness,cardio,musculation,étirement,warm-up','M'), // EXERCICE
+W('sport,amplitude,stretch,assouplissement,étirement,souplesse,muscle,allonger,limber,warm,up,étendre,atteindre,range,motion,flexible','F'), // EXTENSION
+W('sport,drop,bully,mise,hockey,jeu,palet,départ,centre,glace,confrontation,draw,début,puck,rondelle,adversaire','M'), // FACE-OFF
+W('sport,sanction,déduction,personnel,infraction,règle,pénalité,violation,arbitre,sifflet,carton,illégal,contact,balle,technique,sportivité','F'), // FAUTE
+W('sport,mesh,frontière,net,tennis,volleyball,volée,passer,point,smash,servir,diviser,central,hauteur,bande,obstacle','M'), // FILET
+W('sport,showdown,climax,ultime,dernière,manche,championnat,décisive,conclusion,confrontation,gagnant,perdant,titre,trophée,victoire,récompense','F'), // FINALE
+W('sport,poignet,cadré,diriger,tir,coup,kick,shoot,frapper,impact,puissant,balle,pied,volée,précis,spectaculaire','F'), // FRAPPE
+W('sport,BMX,motoneige,improvisation,libre,style,acrobatie,trick,créatif,spontané,skateboard,ski,half-pipe,expression,urbain,compétition','M'), // FREESTYLE
+W('sport,bénéfice,profit,acquisition,victoire,gagner,récompense,triomphe,résultat,avantage,réussite,succès,point,score,positif,mérite','M'), // GAIN
+W('sport,cage,keeper,gants,but,protecteur,goal,filet,sauver,bloquer,plonger,arrêt,défense,dernier,rempart,gardiennage','M'), // GARDIEN
+W('sport,filet,objectif,soccer,but,score,marquer,football,hockey,basket,gardien,tirer,tir,réussir,décisif,victoire','M'), // GOAL
+W('sport,traction,cordée,grimpeur,escalade,montée,ascension,rocher,mur,prise,hauteur,alpinisme,force,technique,indoor,outdoor','F'), // GRIMPE
+W('sport,adhérence,anti-dérapant,friction,prise,main,raquette,manche,tenir,secure,tennis,club,saisir,ferme,résistance,contrôle','M'), // GRIP
+W('sport,field,pitch,dirt,terrain,sol,baseball,fond,surface,diamond,grass,toucher,line,ball,jeu,balle','M'), // GROUND
+W('sport,chapeau,triplicé,successive,hockey,trois,buts,tour,feat,match,rare,réalisé,foot,cricket,prouesse,marquer','M'), // HAT-TRICK
+W('sport,talon,retourné,revers,arrière,pied,kick,football,soccer,boot,chaussure,derrière,inattendu,technique,spectaculaire,retro','M'), // HEEL
+W('sport,clôture,quatre,grand,baseball,circuit,complet,bases,chelem,frapper,batteur,stade,domicile,lanceur,balle','M'), // HOME-RUN
+W('sport,offside,avancée,assistant,football,ligne,position,arbitre,drapeau,VAR,attaquant,illégal,défenseur,passe,dernière,règle','M'), // HORS-JEU
+W('sport,turnover,pick,steal,football,américain,défense,attraper,passe,adversaire,rebondissement,volé,défensif,corner,retour,touchdown','F'), // INTERCEPTION
+W('sport,slam,stuff,cerceau,basketball,dunk,bloquer,panier,puissant,spectacular,anneau,lancer,exploit,sauter,bras,force','M'), // JAM
   ],
 };
 
@@ -1386,8 +1386,20 @@ function isClueInvalid(clue, secretWord) {
   return false;
 }
 
+// Nombre max d'indices avant d'abandonner un mot (au-delà, on considère
+// qu'il n'est pas trouvable et on passe au suivant).
+const MAX_CLUES_PER_WORD = 10;
+
 async function giveNextClue() {
   if (STATE.gameOver || STATE.mancheOver) return;
+
+  // Les 10 indices ont déjà été donnés et le joueur n'a toujours pas
+  // trouvé : on arrête les frais plutôt que d'en générer un 11e.
+  if (STATE.clueIndex >= MAX_CLUES_PER_WORD) {
+    wordNotFound();
+    return;
+  }
+
   const wrongGuesses = STATE.guesserWrongGuesses || [];
 
   // ── IA Llama 3.2 (si activée) : indice généré et adapté aux erreurs ──
@@ -1622,6 +1634,37 @@ function wordFound() {
   setTimeout(() => {
     if (!STATE.mancheOver) loadCurrentWord();
   }, 1200);
+}
+
+// Abandon automatique après MAX_CLUES_PER_WORD indices sans succès.
+// Contrairement à passWord() (qui remet le mot en fin de manche pour
+// le retenter plus tard), ici le mot est définitivement marqué comme
+// non trouvé : au-delà de 10 indices, on considère qu'il ne l'est pas.
+function wordNotFound() {
+  if (STATE.gameOver || STATE.mancheOver) return;
+  STATE.gameOver = true;
+  stopListening();
+
+  const wordName = STATE.currentWordName;
+  showToast(`⏹ Pas trouvé… c'était "${wordName}" !`, 2200);
+
+  STATE.mancheResults.push({ word: wordName, found: false, clues: STATE.wordClueCount });
+
+  // Retirer définitivement des deux files (pas de nouvelle tentative)
+  const idx = STATE.mancheQueue.indexOf(wordName);
+  if (idx !== -1) STATE.mancheQueue.splice(idx, 1);
+  const idx2 = STATE.passedQueue.indexOf(wordName);
+  if (idx2 !== -1) STATE.passedQueue.splice(idx2, 1);
+
+  // Révéler le mot, comme pour une victoire
+  secretWordEl.textContent = wordName;
+  secretWordEl.classList.remove('blurred');
+  updateWordProgress();
+  updateQueueBar();
+
+  setTimeout(() => {
+    if (!STATE.mancheOver) loadCurrentWord();
+  }, 1400);
 }
 
 function passWord() {
