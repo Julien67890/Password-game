@@ -105,8 +105,14 @@ async function initLlamaAI(onProgress) {
     });
 
     // Test rapide avec le contexte système
+    // ⚠️ WebLLM exige que le dernier message soit `user` (ou `tool`) —
+    // un message `system` seul déclenche une MessageOrderError et fait
+    // échouer l'initialisation même si le modèle a bien été chargé.
     await AI_ENGINE.chat.completions.create({
-      messages: [{ role: 'system', content: GAME_CONTEXT }],
+      messages: [
+        { role: 'system', content: GAME_CONTEXT },
+        { role: 'user', content: 'Test' }
+      ],
       temperature: 0.1,
       max_tokens: 5,
     });
@@ -381,3 +387,15 @@ function initAIToggle() {
 }
 
 console.log('✅ Script Llama v5.2 chargé (branché sur giveNextClue / handleHint)');
+
+// ── Auto-init du toggle IA ───────────────────────────────────────
+// script.js appelle déjà `initAIToggle()` depuis sa fonction init(),
+// mais cet appel arrive AVANT que ce fichier (chargé juste après
+// script.js dans index.html) soit exécuté : à ce moment-là,
+// `initAIToggle` n'existe pas encore, donc le `if (typeof
+// initAIToggle === 'function')` échoue silencieusement et le listener
+// du switch IA n'est JAMAIS attaché (le switch reste visuellement
+// cliquable mais ne fait plus rien). On s'auto-initialise ici, une
+// fois que ce script est chargé et que le DOM existe déjà (les deux
+// <script> sont en bas du <body>).
+if (typeof initAIToggle === 'function') initAIToggle();
