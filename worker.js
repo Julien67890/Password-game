@@ -24,7 +24,14 @@ const ALLOWED_ORIGINS = new Set([
 // Le modèle est IMPOSÉ côté serveur, jamais choisi par le client :
 // ça empêche quelqu'un d'appeler ce proxy pour router des requêtes
 // vers un modèle plus gros/plus cher que celui prévu pour ce jeu.
-const MISTRAL_MODEL = 'mistral-small-latest';
+//
+// ⚠️ ministral-8b et pas mistral-small : testé en direct sur le compte
+// gratuit, mistral-small-latest renvoie systématiquement une erreur
+// 429 "Rate limit exceeded" (code 1300) — le tier gratuit ne donne pas
+// accès aux modèles de cette taille. ministral-8b-latest répond en 200.
+// Si un jour le compte passe en payant, repasser sur
+// 'mistral-small-latest' donnera des indices sensiblement meilleurs.
+const MISTRAL_MODEL = 'ministral-8b-latest';
 
 // Gabarit des indices/réponses du jeu : très court (voir
 // script_llama.js). On plafonne large pour laisser de la marge sans

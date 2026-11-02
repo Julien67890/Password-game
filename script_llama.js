@@ -21,10 +21,10 @@
    - handleHint()   → getLlamaGuess() (mode "je fais deviner")
    ═══════════════════════════════════════════════════════════════ */
 
-// ⚠️ À REMPLACER après avoir déployé le Worker (voir DEPLOIEMENT_IA.md) :
-// c'est l'URL affichée par `wrangler deploy`, du style
-// "https://mot-de-passe-ia-proxy.<ton-compte>.workers.dev".
-const AI_WORKER_URL = 'https://mot-de-passe-ia-proxy.guioniejulien.workers.dev/';
+// URL du proxy Cloudflare Worker (voir DEPLOIEMENT_IA.md).
+// La clé API Mistral n'est PAS ici : elle est stockée en secret côté
+// Worker, donc invisible depuis ce fichier public.
+const AI_WORKER_URL = 'https://mot-de-passe-ia-proxy.guioniejulien.workers.dev';
 
 let AI_LOADING    = false;
 let AI_READY      = false;
