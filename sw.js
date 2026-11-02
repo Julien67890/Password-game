@@ -56,10 +56,19 @@ self.addEventListener('activate', event => {
 // Contrairement à "cache d'abord", ça garantit qu'on charge toujours la
 // dernière version déployée quand une connexion est disponible — le
 // cache ne sert que de filet de sécurité hors-ligne.
+//
+// ⚠️ { cache: 'no-store' } est indispensable ici : un simple fetch()
+// reste soumis au cache HTTP normal du navigateur, qui respecte le
+// Cache-Control envoyé par GitHub Pages (max-age=600, soit 10 min).
+// Sans ce flag, "réseau en priorité" ne bypassait en réalité QUE le
+// Cache Storage de ce Service Worker, pas le cache HTTP — un fichier
+// tout juste redéployé (ex: script_llama.js) pouvait donc continuer à
+// être servi tel qu'avant pendant jusqu'à 10 minutes après le push,
+// sans aucune erreur visible (juste l'ancien code qui tournait).
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   event.respondWith(
-    fetch(event.request)
+    fetch(event.request, { cache: 'no-store' })
       .then(response => {
         const clone = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));

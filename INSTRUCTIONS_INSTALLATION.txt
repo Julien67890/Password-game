@@ -81,11 +81,17 @@ SUR ANDROID:
   - Durée: 30s, 1min, 2min, 3min ou 5min
   - Mode vocal: ON/OFF (micro 🎙️)
 
-✅ 100% LOCAL:
+✅ MOTEUR D'INDICES HEURISTIQUE 100% LOCAL:
   - Aucune connexion internet requise (après 1er chargement)
-  - Aucune donnée envoyée
   - Scores stockés localement
   - Fonctionne offline
+
+⚠️ IA (toggle "🧠 IA", optionnelle):
+  - Nécessite une connexion internet (appel à un serveur Mistral
+    via un proxy Cloudflare Worker qui protège la clé API)
+  - Si désactivée ou hors-ligne, le jeu retombe automatiquement
+    sur le moteur heuristique ci-dessus (aucune fonctionnalité
+    perdue, juste des indices moins "intelligents")
 
 ═══════════════════════════════════════════════════════════════
 🐛 RÉSOLUTION DES PROBLÈMES:

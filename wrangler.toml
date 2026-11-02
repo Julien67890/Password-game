@@ -1,0 +1,7 @@
+name = "mot-de-passe-ia-proxy"
+main = "worker.js"
+compatibility_date = "2026-08-27"
+
+# La clé Mistral ne va JAMAIS ici (ce fichier peut finir sur GitHub).
+# Elle se configure comme secret après déploiement :
+#   npx wrangler secret put MISTRAL_API_KEY
