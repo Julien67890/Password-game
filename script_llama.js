@@ -24,7 +24,7 @@
 // ⚠️ À REMPLACER après avoir déployé le Worker (voir DEPLOIEMENT_IA.md) :
 // c'est l'URL affichée par `wrangler deploy`, du style
 // "https://mot-de-passe-ia-proxy.<ton-compte>.workers.dev".
-const AI_WORKER_URL = 'https://mot-de-passe-ia-proxy.TON-COMPTE.workers.dev';
+const AI_WORKER_URL = 'https://mot-de-passe-ia-proxy.guioniejulien.workers.dev/';
 
 let AI_LOADING    = false;
 let AI_READY      = false;
