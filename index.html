@@ -165,7 +165,13 @@
         <span id="ia-clue-text">En attente d'indice…</span>
       </div>
       <div class="input-row">
-        <input type="text" id="input-guess" class="game-input" placeholder="Ta réponse…" autocomplete="off" spellcheck="false" />
+        <!-- type="search" et pas "text" : Chrome Android affiche sa barre
+             d'autofill (clé / carte / épingle) au-dessus du clavier pour les
+             champs texte ordinaires, en ignorant autocomplete="off". Les
+             champs de recherche n'étant pas candidats au remplissage, la
+             barre ne s'affiche pas. Le style natif (croix de effacement,
+             apparence) est neutralisé dans style.css. -->
+        <input type="search" id="input-guess" class="game-input" placeholder="Ta réponse…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
         <button class="btn-submit" id="btn-guess" title="Valider">✓</button>
         <button class="btn-mic" id="btn-mic-guess" title="Parler" style="display:none">🎙️</button>
       </div>
@@ -184,7 +190,7 @@
         <div class="ia-guess-temp" id="ia-guess-temp"></div>
       </div>
       <div class="input-row">
-        <input type="text" id="input-hint" class="game-input" placeholder="Ton indice (1 mot)…" autocomplete="off" spellcheck="false" />
+        <input type="search" id="input-hint" class="game-input" placeholder="Ton indice (1 mot)…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
         <button class="btn-submit" id="btn-hint" title="Envoyer">→</button>
         <button class="btn-mic" id="btn-mic-hint" title="Parler" style="display:none">🎙️</button>
       </div>

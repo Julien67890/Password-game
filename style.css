@@ -369,12 +369,21 @@ body.keyboard-open .game-main { gap: .4rem; padding-top: .4rem; }
 .zone-instruction { font-size: .82rem; color: var(--muted); text-align: center; }
 
 .input-row { display: flex; gap: .4rem; }
+/* Les champs sont en type="search" (voir index.html) uniquement pour
+   échapper à la barre d'autofill de Chrome Android. Il faut donc
+   neutraliser tout le style natif des champs de recherche pour qu'ils
+   restent identiques à avant : pas de coins arrondis imposés, pas de
+   croix d'effacement, pas de loupe. */
 .game-input {
   flex: 1; background: var(--bg3); border: 2px solid var(--border);
   border-radius: var(--radius-sm); padding: .7rem .9rem;
   font-family: var(--font-body); font-size: .95rem; color: var(--text);
   outline: none; transition: var(--t);
+  -webkit-appearance: none; appearance: none;
 }
+.game-input::-webkit-search-cancel-button,
+.game-input::-webkit-search-decoration,
+.game-input::-webkit-search-results-button { -webkit-appearance: none; display: none; }
 .game-input:focus { border-color: var(--accent); }
 .game-input::placeholder { color: var(--muted); }
 
