@@ -1105,11 +1105,51 @@ function speak(text) {
 // 7. INITIALISATION
 // ══════════════════════════════════════════════════════════════════
 
+// ── Hauteur réellement visible (clavier mobile) ──────────────────
+// Sur mobile, 100dvh ne tient PAS compte du clavier : quand il
+// s'ouvre, la page garde sa hauteur et le navigateur se contente de
+// faire défiler vers le champ de saisie — le mot secret, l'indice en
+// cours et les boutons passaient hors écran. visualViewport donne la
+// hauteur réellement visible ; on la publie dans --app-h et on
+// compacte l'affichage tant que le clavier est ouvert.
+function syncViewportHeight() {
+  const vv = window.visualViewport;
+  const h = vv ? vv.height : window.innerHeight;
+  document.documentElement.style.setProperty('--app-h', h + 'px');
+  // Seuil 150px : évite de confondre l'ouverture du clavier avec la
+  // simple apparition/disparition de la barre d'URL.
+  const keyboardOpen = vv ? (window.innerHeight - vv.height > 150) : false;
+  document.body.classList.toggle('keyboard-open', keyboardOpen);
+}
+
+function initViewportHandling() {
+  syncViewportHeight();
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncViewportHeight);
+    window.visualViewport.addEventListener('scroll', syncViewportHeight);
+  }
+  window.addEventListener('resize', syncViewportHeight);
+  window.addEventListener('orientationchange', () => setTimeout(syncViewportHeight, 300));
+
+  // Au focus, on s'assure que le champ reste visible même si le
+  // navigateur a mal calculé son scroll.
+  [inputGuessEl, inputHintEl].forEach(el => {
+    if (!el) return;
+    el.addEventListener('focus', () => {
+      setTimeout(() => {
+        syncViewportHeight();
+        el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }, 300);
+    });
+  });
+}
+
 function init() {
   loadPersistent();
   buildThemeGrid();
   bindEvents();
   initVoice();
+  initViewportHandling();
 
   // Activer le mode vocal par défaut si supporté
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1617,6 +1657,15 @@ function wordFound() {
 
   // Marquer dans les résultats
   const wordName = STATE.currentWordName;
+
+  // Trace visible de la réussite. Sans ça, une mauvaise réponse
+  // laissait une ligne dans l'historique ("Non… Réfléchis encore !")
+  // mais la BONNE réponse ne laissait rien du tout : le toast
+  // disparaissait et on passait au mot suivant sans félicitations.
+  addHistory('TOI', wordName.toUpperCase(), 'GAGNE', `🎉 Bravo ! +${points} pt${points>1?'s':''}`);
+  if (iaClueTextEl) {
+    iaClueTextEl.innerHTML = `🎉 <strong>Bravo !</strong> C'était <span class="ia-clue-word">${wordName.toUpperCase()}</span>`;
+  }
   STATE.mancheResults.push({ word: wordName, found: true, clues: STATE.wordClueCount });
 
   // Retirer de la queue principale (si encore dedans)

@@ -36,8 +36,16 @@ body {
 }
 
 /* ── Screens ── */
-.screen { display: none; min-height: 100dvh; flex-direction: column; }
+/* --app-h est mis à jour en JS (script.js, syncViewportHeight) avec la
+   hauteur RÉELLEMENT visible : contrairement à 100dvh, elle tient
+   compte du clavier mobile. 100dvh reste le repli si JS n'a pas
+   encore tourné. */
+.screen { display: none; min-height: var(--app-h, 100dvh); flex-direction: column; }
 .screen.active { display: flex; }
+
+/* L'écran de jeu, lui, est borné à la hauteur visible : la zone
+   centrale défile si besoin au lieu de pousser la saisie hors écran. */
+#screen-game.screen { height: var(--app-h, 100dvh); min-height: 0; overflow: hidden; }
 
 /* ══════════════════════════════════════ HOME ══ */
 .home-bg {
@@ -242,15 +250,16 @@ body {
 
 /* Game main */
 .game-main {
-  flex: 1; max-width: 540px; width: 100%;
-  margin: 0 auto; padding: .9rem 1rem 1rem;
-  display: flex; flex-direction: column; gap: .8rem;
+  flex: 1; min-height: 0; overflow-y: auto;
+  max-width: 540px; width: 100%;
+  margin: 0 auto; padding: .7rem 1rem .8rem;
+  display: flex; flex-direction: column; gap: .5rem;
 }
 
 /* Secret card */
 .secret-card {
   background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 1rem 1.2rem;
+  border-radius: var(--radius); padding: .5rem .9rem;
   text-align: center; position: relative; overflow: hidden;
 }
 .secret-card::before {
@@ -258,20 +267,22 @@ body {
   background: radial-gradient(circle at 50% 0%, rgba(247,201,72,.08), transparent 70%);
   pointer-events: none;
 }
-.secret-meta { font-size: .65rem; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin-bottom: .4rem; }
+.secret-meta { font-size: .6rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: .1rem; }
 .secret-word {
   font-family: var(--font-title);
-  font-size: clamp(2rem, 7vw, 3.2rem); letter-spacing: .06em;
-  color: var(--accent); transition: filter .4s;
+  font-size: clamp(1.6rem, 5.5vw, 2.4rem); letter-spacing: .06em;
+  color: var(--accent); transition: filter .4s; line-height: 1.1;
 }
 .secret-word.blurred { filter: blur(12px); user-select: none; }
-.secret-hint { font-size: .75rem; color: var(--muted); margin-top: .3rem; }
+.secret-hint { font-size: .7rem; color: var(--muted); margin-top: .1rem; }
 
 /* Queue bar (mots passés en attente) */
 .queue-bar {
   display: flex; gap: .4rem; flex-wrap: wrap;
-  min-height: 24px;
 }
+/* Vide (aucun mot passé), elle ne doit pas réserver d'espace : c'est
+   elle qui creusait le gros trou entre le mot secret et les indices. */
+.queue-bar:empty { display: none; }
 .queue-chip {
   background: rgba(232,83,122,.1);
   border: 1px solid rgba(232,83,122,.3);
@@ -285,6 +296,22 @@ body {
 
 /* History */
 .history-wrap { max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: .35rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+/* ── Clavier mobile ouvert : on compacte tout pour que l'indice en
+   cours, la saisie et les boutons restent visibles à l'écran. ── */
+body.keyboard-open .word-progress { display: none; }
+body.keyboard-open .secret-card { padding: .35rem .7rem .45rem; }
+/* line-height généreux : la police titre (Bebas Neue) déborde de sa
+   boîte quand l'interligne est trop serré, et la carte étant en
+   overflow:hidden, le bas des lettres se faisait couper. */
+body.keyboard-open .secret-word { font-size: 1.4rem; line-height: 1.35; }
+body.keyboard-open .secret-hint { display: none; }
+/* Le toast est ancré à 5rem du bas : clavier ouvert, il recouvrait le
+   champ de saisie. On le repasse en haut de l'écran. */
+body.keyboard-open #toast { bottom: auto; top: .6rem; }
+body.keyboard-open .history-wrap { max-height: 72px; }
+body.keyboard-open .ia-bubble { padding: .5rem .8rem; min-height: 0; }
+body.keyboard-open .game-main { gap: .4rem; padding-top: .4rem; }
 .history-wrap::-webkit-scrollbar { width: 3px; }
 .history-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
