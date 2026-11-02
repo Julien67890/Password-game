@@ -295,7 +295,13 @@ body {
 .queue-chip:hover { background: rgba(232,83,122,.2); }
 
 /* History */
-.history-wrap { max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: .35rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+/* L'historique absorbe toute la hauteur restante (flex:1) au lieu de
+   plafonner à 180px : sinon, sur un grand écran, tout le contenu se
+   tassait en haut et il restait un vide de plus de 400px SOUS les
+   boutons. Maintenant la zone de saisie se cale en bas de l'écran et
+   la liste d'indices occupe l'espace entre les deux (elle défile
+   quand les indices s'accumulent). */
+.history-wrap { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: .35rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 
 /* ── Clavier mobile ouvert : on compacte tout pour que l'indice en
    cours, la saisie et les boutons restent visibles à l'écran. ── */
@@ -309,9 +315,18 @@ body.keyboard-open .secret-hint { display: none; }
 /* Le toast est ancré à 5rem du bas : clavier ouvert, il recouvrait le
    champ de saisie. On le repasse en haut de l'écran. */
 body.keyboard-open #toast { bottom: auto; top: .6rem; }
-body.keyboard-open .history-wrap { max-height: 72px; }
+/* Clavier ouvert, l'historique est déjà borné par flex:1 dans un
+   conteneur à hauteur fixe : il se réduit tout seul, sans plafond. */
 body.keyboard-open .ia-bubble { padding: .5rem .8rem; min-height: 0; }
 body.keyboard-open .game-main { gap: .4rem; padding-top: .4rem; }
+/* Les indices se calent EN BAS de la zone, juste au-dessus de la bulle
+   de l'IA, et remontent au fur et à mesure qu'ils s'accumulent — comme
+   une conversation. Sans ça, l'espace libre se retrouvait sous le
+   dernier indice, ce qui faisait un grand trou au milieu de l'écran.
+   margin-top:auto plutôt que justify-content:flex-end : ce dernier
+   rend les premiers éléments inaccessibles quand la liste déborde. */
+.history { margin-top: auto; display: flex; flex-direction: column; gap: .35rem; }
+
 .history-wrap::-webkit-scrollbar { width: 3px; }
 .history-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
