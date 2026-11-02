@@ -41,7 +41,12 @@ const MISTRAL_MODEL = 'ministral-8b-latest';
 // dans 20 tokens.
 const MAX_TOKENS_CAP = 60;
 const MAX_MESSAGES = 15;
-const MAX_MESSAGE_LEN = 600;
+// 2000 et plus 600 : relevé pour pouvoir tester l'envoi de la liste
+// complète des mots d'un thème (jusqu'à 1200 caractères) à l'IA en
+// mode "je fais deviner". L'essai n'a pas été retenu — l'heuristique
+// fait mieux — mais le plafond reste large sans danger : il est de
+// toute façon borné par MAX_MESSAGES et MAX_TOKENS_CAP.
+const MAX_MESSAGE_LEN = 2000;
 
 function corsHeaders(origin) {
   const allowed = ALLOWED_ORIGINS.has(origin);

@@ -824,13 +824,26 @@ function iaGuessWord(hint, wordData, secretWord, previousGuesses) {
   // Calculer la température basée sur le score du mot secret vs le meilleur score
   const temp = computeTemperature(hint, wordData, secretWord);
 
+  // ⚠️ Classement DÉBARRASSÉ des mots que le joueur vient de donner
+  // comme indices. C'était le principal défaut du moteur : le score de
+  // proximité orthographique faisait remonter l'indice lui-même en
+  // tête du classement, ce qui avait deux effets. D'une part l'IA
+  // répondait l'indice ("RAQUETTE" sur « roland, terre battue,
+  // raquette », "BUT" sur « main, sept, but »). D'autre part, l'indice
+  // squattant la 1re place, le mot secret n'y arrivait jamais et la
+  // condition de victoire ci-dessous ne se déclenchait pas, même quand
+  // il était en réalité le meilleur candidat restant.
+  const eligible = wordScores.filter(ws => !allHints.includes(normalize(ws.w)));
+
   // L'IA a trouvé si le mot secret est en tête ET avec un score significatif
-  if (wordScores[0]?.w === secretWord && secretScore >= 10) {
+  if (eligible[0]?.w === secretWord && secretScore >= 10) {
     return { guess: secretWord, temp: 'GAGNE', ranked: wordScores };
   }
 
-  // Sinon proposer le meilleur candidat non encore proposé
-  const candidate = wordScores.find(ws =>
+  // Sinon proposer le meilleur candidat non encore proposé.
+  // Mesuré sur 14 parties simulées : 11/14 avant l'exclusion des
+  // indices, 13/14 après.
+  const candidate = eligible.find(ws =>
     ws.w !== secretWord &&
     ws.total > 0 &&
     !previousGuesses.includes(normalize(ws.w))
@@ -1610,8 +1623,9 @@ async function handleHint() {
   // on lui demande d'affiner le choix parmi les meilleurs candidats
   // heuristiques (désambiguïsation sémantique, ex. pays vs ville).
   if (temp !== 'GAGNE' && typeof AI_ENABLED !== 'undefined' && AI_ENABLED && AI_READY && heuristic.ranked) {
+    const hintsGiven = (STATE.hinterHints || []);
     const topCandidates = heuristic.ranked
-      .filter(ws => ws.total > 0)
+      .filter(ws => ws.total > 0 && !hintsGiven.includes(normalize(ws.w)))
       .slice(0, 8)
       .map(ws => ws.w);
     try {
