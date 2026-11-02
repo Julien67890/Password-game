@@ -31,29 +31,53 @@ let AI_READY      = false;
 let AI_ENABLED    = false;
 let AI_LAST_ERROR = '';
 
-// ── Deux system prompts SÉPARÉS ──────────────────────────────────
-// (inchangé depuis la v5 : un seul prompt mélangeant les deux modes
-// causait des confusions de format — conservé tel quel, Mistral en
-// profite aussi.)
+// ── Mode "JE DEVINE" : l'IA génère la LISTE des indices ──────────
+//
+// ⚠️ Changement important par rapport aux versions précédentes.
+// Avant, le jeu faisait un appel PAR INDICE, et ajoutait au fil de
+// l'eau des lignes "Indices déjà donnés : … / NE RÉPÈTE PAS" puis
+// "Le joueur s'est trompé sur : … / Oriente ton indice différemment".
+// Problème : les exemples few-shot ne montraient jamais ces lignes,
+// donc dès le 2e indice le modèle n'avait plus de motif à imiter et
+// partait complètement ailleurs (BASEBALL → "champignon", testé en
+// direct). Et en ne demandant qu'un mot à la fois, le modèle ne
+// voyait jamais la progression d'ensemble qu'il était censé
+// construire.
+//
+// Maintenant : UN SEUL appel au début de chaque mot, qui demande les
+// 3 indices d'un coup, du plus général au plus précis. Le modèle voit
+// la suite complète et reste cohérent (BASEBALL → "sport, bâton,
+// États-Unis"). Bonus : 1 appel par mot au lieu de 10, bien plus
+// confortable pour le quota gratuit.
+const CLUE_CONTEXT = `Tu es l'IA du jeu "Mot de Passe" en français. Pour un mot secret, tu produis EXACTEMENT 3 indices d'association d'idées, du plus général au plus précis, qui permettent de deviner le mot. Le 1er indice donne la catégorie (sport, pays, ville, compositeur, animal...). Tu ne dis jamais le mot secret ni un mot de la même famille. Réponds uniquement par les 3 indices séparés par des virgules, en minuscules, sans numéro ni phrase.`;
 
-// Mode "JE DEVINE" (l'IA donne des indices) — le joueur doit deviner.
-const CLUE_CONTEXT = `Tu es l'IA du jeu "Mot de Passe" en français. Tu donnes des indices par association d'idées pour faire deviner un mot secret à un joueur, sans jamais le dire. Réponds toujours par UN SEUL mot ou une expression très courte (1 à 3 mots), sans numéro, sans ponctuation, sans phrase.`;
-
-// Exemples déjà résolus, injectés comme historique de conversation
-// avant la vraie question (voir getLlamaClue ci-dessous). Avec un
-// modèle capable comme Mistral Small, ça sert surtout à cadrer le
-// format de réponse (court, sans numéro) plutôt qu'à "sauver" une
-// génération autrement incohérente comme c'était le cas avec le 1B.
+// Exemples déjà résolus, injectés comme historique de conversation.
+// Ils reprennent volontairement le format défini à la main dans
+// script.js (catégorie d'abord : "sport, main, but" pour HANDBALL,
+// "ville, maroc, blanc" pour CASABLANCA) pour que les indices générés
+// soient homogènes avec les associations curées.
 const CLUE_FEWSHOT = [
-  { role: 'user', content: 'Mot secret : PARIS\nThème : Géographie\nIndice :' },
-  { role: 'assistant', content: 'capitale' },
-  { role: 'user', content: 'Mot secret : GUITARE\nThème : Arts & Littérature\nIndice :' },
-  { role: 'assistant', content: 'instrument' },
-  { role: 'user', content: 'Mot secret : NAPOLÉON\nThème : Histoire\nIndice :' },
-  { role: 'assistant', content: 'empereur' },
-  { role: 'user', content: 'Mot secret : HANDBALL\nThème : Sports & Loisirs\nIndice :' },
-  { role: 'assistant', content: 'collectif' },
+  { role: 'user', content: 'Mot secret : HANDBALL\nThème : Sports & Loisirs\nIndices :' },
+  { role: 'assistant', content: 'sport, main, but' },
+  { role: 'user', content: 'Mot secret : CASABLANCA\nThème : Géographie\nIndices :' },
+  { role: 'assistant', content: 'ville, maroc, blanc' },
+  { role: 'user', content: 'Mot secret : MOZART\nThème : Arts & Littérature\nIndices :' },
+  { role: 'assistant', content: 'compositeur, autrichien, requiem' },
 ];
+
+// Nombre d'indices fournis par l'IA au début de chaque mot. Au-delà,
+// on enchaîne sur les associations curées de script.js (qui sont de
+// toute façon de qualité humaine).
+const AI_CLUES_PER_WORD = 3;
+
+// Listes déjà générées, par mot : évite de régénérer quand un mot
+// passé revient plus tard dans la manche, et garantit que les indices
+// restent les mêmes d'un passage à l'autre.
+const AI_CLUE_LISTS = {};
+// Générations en cours, par mot : si le joueur clique vite sur
+// "Indice suivant", on attend la même requête au lieu d'en lancer
+// deux en parallèle.
+const AI_CLUE_PENDING = {};
 
 // Mode "JE FAIS DEVINER" (le joueur donne des indices, l'IA devine).
 const GUESS_CONTEXT = `Tu es l'IA du jeu "Mot de Passe" en français, en mode "je fais deviner" : le joueur te donne des indices, tu dois deviner le mot secret.
@@ -134,10 +158,10 @@ async function initLlamaAI() {
     const response = await callMistral(
       [
         { role: 'system', content: CLUE_CONTEXT },
-        { role: 'user', content: 'Mot secret : TEST\nThème : Test\nIndice :' },
+        { role: 'user', content: 'Mot secret : TEST\nThème : Test\nIndices :' },
       ],
       0.1,
-      5
+      10
     );
 
     if (!response.choices || !response.choices[0]) {
@@ -161,67 +185,123 @@ async function initLlamaAI() {
   }
 }
 
+// ── Nettoyage de la liste renvoyée par l'IA ──────────────────────
+// Le modèle répond "sport, bâton, États-Unis", parfois avec une
+// parenthèse explicative ("eau (à cause de Sainte-Hélène)") ou un
+// retour à la ligne. On découpe, on nettoie, on valide chaque indice.
+function parseClueList(raw, word) {
+  const items = raw
+    .replace(/\([^)]*\)/g, ' ')          // commentaires entre parenthèses
+    .replace(/\n/g, ',')
+    .split(',')
+    .map(s => s
+      .replace(/^#?\s*\d+\s*[.):-]\s*/, '')
+      .replace(/^(Indices?|Voici|Réponse)[\s:]+/i, '')
+      .replace(/["'#]/g, '')
+      .replace(/[.!?;:]+$/, '')
+      .trim()
+      .toLowerCase())
+    .filter(Boolean);
+
+  const seen = new Set();
+  const clues = [];
+
+  for (const clue of items) {
+    if (clue.length > 25 || clue.length < 2 || /\d/.test(clue)) continue;
+    if (seen.has(clue)) continue;
+
+    // Anti-leak : le mot secret ne doit jamais transparaître dans un
+    // indice. isClueInvalid() (script.js) attrape en plus les racines
+    // communes et les mots trop proches (Levenshtein).
+    const nClue = normalize(clue);
+    const nWord = normalize(word);
+    const leaks = nClue.includes(nWord) || nWord.includes(nClue)
+      || (typeof isClueInvalid === 'function' && isClueInvalid(clue, word));
+    if (leaks) {
+      console.warn(`⚠️ ANTI-LEAK sur "${clue}" (mot : ${word}) → ignoré`);
+      continue;
+    }
+
+    seen.add(clue);
+    clues.push(clue);
+  }
+
+  return clues;
+}
+
+// ── Génération de la liste d'indices d'un mot (1 seul appel) ─────
+async function generateClueList(word, theme) {
+  if (AI_CLUE_LISTS[word]) return AI_CLUE_LISTS[word];
+  if (AI_CLUE_PENDING[word]) return AI_CLUE_PENDING[word];
+
+  AI_CLUE_PENDING[word] = (async () => {
+    try {
+      const response = await callMistral(
+        [
+          { role: 'system', content: CLUE_CONTEXT },
+          ...CLUE_FEWSHOT,
+          { role: 'user', content: `Mot secret : ${word}\nThème : ${theme}\nIndices :` }
+        ],
+        0.4,
+        40
+      );
+
+      const raw = response.choices[0].message.content.trim();
+      const clues = parseClueList(raw, word).slice(0, AI_CLUES_PER_WORD);
+      AI_CLUE_LISTS[word] = clues;
+      console.log(`✅ IA indices pour ${word} :`, clues.join(', ') || '(aucun valide)');
+      return clues;
+    } catch (error) {
+      console.error('❌ Erreur generateClueList:', error);
+      AI_CLUE_LISTS[word] = [];   // on ne réessaie pas en boucle
+      return [];
+    } finally {
+      delete AI_CLUE_PENDING[word];
+    }
+  })();
+
+  return AI_CLUE_PENDING[word];
+}
+
+// ── Repli sur les associations curées de script.js ───────────────
+// On saute celles déjà données (l'IA a pu proposer "sport" alors que
+// c'est aussi la 1re association curée) pour ne jamais répéter.
+function pickCuratedClue(wordData, clueNumber, previousClues) {
+  if (!wordData || !wordData.assocs) return null;
+  const already = new Set((previousClues || []).map(c => normalize(c)));
+  for (const assoc of wordData.assocs) {
+    if (!already.has(normalize(assoc))) return assoc;
+  }
+  return wordData.assocs[clueNumber - 1] || null;
+}
+
 // ── DONNER UN INDICE (mode "je devine") ──────────────────────────
-// S'adapte aux mauvaises réponses déjà données par le joueur.
+// Les AI_CLUES_PER_WORD premiers indices viennent de la liste générée
+// en un seul appel au début du mot ; ensuite on enchaîne sur les
+// associations écrites à la main. Signature inchangée : script.js
+// appelle cette fonction exactement comme avant.
 async function getLlamaClue(word, clueNumber, theme, previousClues = [], wrongGuesses = []) {
   const wordData = (typeof getWordData === 'function') ? getWordData(STATE.resolvedTheme, word) : null;
 
-  if (!AI_READY || !AI_ENABLED) {
-    // Fallback : associations prédéfinies
-    if (wordData && wordData.assocs && wordData.assocs[clueNumber - 1]) {
-      return wordData.assocs[clueNumber - 1];
-    }
-    return null;
+  if (!AI_READY || !AI_ENABLED || clueNumber > AI_CLUES_PER_WORD) {
+    return pickCuratedClue(wordData, clueNumber, previousClues);
   }
 
   try {
-    const prevContext = previousClues.length > 0
-      ? `\nIndices déjà donnés : ${previousClues.join(', ')}\nNE RÉPÈTE PAS ces indices.`
-      : '';
+    const clues = await generateClueList(word, theme);
+    const clue = clues[clueNumber - 1];
 
-    const wrongContext = wrongGuesses.length > 0
-      ? `\nLe joueur s'est trompé sur : ${wrongGuesses.join(', ')}\nOriente ton indice différemment de ces erreurs.`
-      : '';
-
-    const response = await callMistral(
-      [
-        { role: 'system', content: CLUE_CONTEXT },
-        ...CLUE_FEWSHOT,
-        { role: 'user', content: `Mot secret : ${word}\nThème : ${theme}${prevContext}${wrongContext}\nIndice :` }
-      ],
-      0.4,
-      8
-    );
-
-    let clue = response.choices[0].message.content.trim();
-    clue = clue.replace(/^#?\s*\d+\s*[.):-]\s*/, '');
-    clue = clue.replace(/^(Indice|L'indice|Voici|Réponse|Mot|Association)[\s:]+/i, '');
-    clue = clue.replace(/[.!?;]$/g, '');
-    clue = clue.split('\n')[0];
-    clue = clue.replace(/^["']|["']$/g, '');
-    clue = clue.replace(/#/g, '').trim();
-    clue = clue.toLowerCase().trim();
-
-    // Anti-leak : le mot secret ne doit pas apparaître dans l'indice.
-    const normalizedClue = normalize(clue);
-    const normalizedWord = normalize(word);
-    const leaks = normalizedClue.includes(normalizedWord) || normalizedWord.includes(normalizedClue)
-      || (typeof isClueInvalid === 'function' && isClueInvalid(clue, word));
-    if (!clue || leaks) {
-      console.warn(`⚠️ ANTI-LEAK ou indice vide: "${clue}" → fallback`);
-      return (wordData && wordData.assocs[clueNumber - 1]) || null;
-    }
-
-    if (clue.length > 25 || clue.length < 2 || /\d/.test(clue)) {
-      console.warn(`⚠️ Indice hors gabarit: "${clue}" → fallback`);
-      return (wordData && wordData.assocs[clueNumber - 1]) || null;
+    if (!clue) {
+      // Liste trop courte (indices rejetés par l'anti-leak, ou appel
+      // en erreur) : on complète avec les associations curées.
+      return pickCuratedClue(wordData, clueNumber, previousClues);
     }
 
     console.log(`✅ IA indice #${clueNumber}: "${clue}"`);
     return clue;
   } catch (error) {
     console.error('❌ Erreur getLlamaClue:', error);
-    return (wordData && wordData.assocs[clueNumber - 1]) || null;
+    return pickCuratedClue(wordData, clueNumber, previousClues);
   }
 }
 

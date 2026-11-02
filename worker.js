@@ -36,7 +36,10 @@ const MISTRAL_MODEL = 'ministral-8b-latest';
 // Gabarit des indices/réponses du jeu : très court (voir
 // script_llama.js). On plafonne large pour laisser de la marge sans
 // permettre des requêtes énormes.
-const MAX_TOKENS_CAP = 20;
+// 60 et plus 20 : le jeu demande désormais les 3 indices d'un mot en
+// une seule réponse ("sport, bâton, États-Unis"), ce qui ne tient pas
+// dans 20 tokens.
+const MAX_TOKENS_CAP = 60;
 const MAX_MESSAGES = 15;
 const MAX_MESSAGE_LEN = 600;
 

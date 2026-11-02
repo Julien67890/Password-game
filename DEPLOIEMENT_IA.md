@@ -52,4 +52,4 @@ Ouvre le jeu, coche le toggle "🧠 IA" — ça doit passer sur "✓ Actif" en m
 
 Le jeu est un site statique public (GitHub Pages) — tout fichier `.js` du repo est visible par n'importe qui. Une clé API mise directement dedans serait aspirée en quelques heures par des bots qui scannent GitHub à la recherche de clés exposées, et utilisée à ta place (épuisement de ton quota gratuit, voire suspension du compte Mistral pour usage anormal). Le Worker Cloudflare tourne côté serveur : la clé reste dans ses "secrets", jamais visible dans le code envoyé au navigateur.
 
-Le Worker limite aussi, côté serveur : le modèle utilisable (fixé à `mistral-small-latest`, pas modifiable depuis le jeu), la taille des réponses (`max_tokens` plafonné à 20) et le nombre de messages par requête — pour éviter qu'un usage détourné transforme ce proxy en accès IA gratuit générique.
+Le Worker limite aussi, côté serveur : le modèle utilisable (fixé à `ministral-8b-latest`, pas modifiable depuis le jeu), la taille des réponses (`max_tokens` plafonné à 60) et le nombre de messages par requête — pour éviter qu'un usage détourné transforme ce proxy en accès IA gratuit générique.
